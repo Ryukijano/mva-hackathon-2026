@@ -9,15 +9,15 @@ __pycache__/
 *.ckpt
 .ipynb_checkpoints/
 
-# Run / cache dirs (large or machine-generated)
-data/
-refs/
-cache/
-runs/
-checkpoints/
-logs/
-results/
-wandb/
+# Run / cache dirs (large or machine-generated) - root only
+/data/
+/refs/
+/.cache/
+/runs/
+/checkpoints/
+/logs/
+/results/
+/wandb/
 
 # Genomics data
 *.vcf.gz
