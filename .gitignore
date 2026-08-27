@@ -8,6 +8,7 @@ __pycache__/
 *.pth
 *.ckpt
 .ipynb_checkpoints/
+*.egg-info/
 
 # Run / cache dirs (large or machine-generated) - root only
 /data/
