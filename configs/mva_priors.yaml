@@ -1,0 +1,81 @@
+mva_review:
+  source: "Malumbres M, 2024, Nat. Rev. Genet. 25:864-878"
+  genes:
+    - symbol: BUB1B
+      protein: BUBR1
+      omim: "MVA1 #257300"
+      tumour_susceptibility: true
+      tumours:
+        - ERMS
+        - Wilms tumour
+        - leukaemia
+        - myelodysplastic syndrome
+        - neuroblastoma
+        - colorectal
+        - gastric
+    - symbol: CEP57
+      protein: CEP57
+      omim: "MVA2 #614114"
+      tumour_susceptibility: false
+    - symbol: BUB1
+      protein: BUB1
+      tumour_susceptibility: true
+      tumours:
+        - colorectal
+    - symbol: TRIP13
+      protein: TRIP13
+      omim: "MVA3 #617598"
+      tumour_susceptibility: true
+      tumours:
+        - Wilms tumour
+    - symbol: CENATAC
+      protein: CENATAC
+      omim: "MVA4 #620153"
+      tumour_susceptibility: false
+    - symbol: MAD1L1
+      protein: MAD1
+      omim: "MVA7 #620189"
+      tumour_susceptibility: true
+      tumours:
+        - ERMS
+        - Wilms tumour
+        - cervical carcinoma
+        - colorectal adenocarcinoma
+    - symbol: MAD2L1BP
+      protein: p31COMET
+      tumour_susceptibility: true
+      tumours:
+        - juvenile granulosa cell tumour
+    - symbol: CEP192
+      protein: CEP192
+      tumour_susceptibility: false
+
+rescue_mechanisms:
+  source: "s41467-026-70521-0, Nat. Commun. 17:3829 (2026)"
+  core_phenotypes:
+    - microcephaly
+    - chromosomal instability
+    - growth restriction
+    - progenitor apoptosis
+  axes:
+    - name: ROS_scavengers
+      effect: Rescue aneuploid neuroblast numbers, progeny numbers, brain size
+      examples:
+        - Sod2
+        - GTPx-1
+    - name: mitochondrial_chaperones
+      effect: Rescue aneuploid neuroblast numbers, progeny numbers, brain size
+      examples:
+        - Hsp60
+        - Hsp60c
+    - name: autophagy_mTOR
+      effect: Rescue aneuploid neuroblast numbers but NOT progeny or brain size
+      examples:
+        - Atg1
+        - Rapamycin
+        - Rheb depletion
+        - Tor mutants
+    - name: apoptosis_blockade
+      effect: Rescue progeny numbers and brain size; not neuroblast numbers
+      examples:
+        - p35

@@ -12,7 +12,8 @@ set -euo pipefail
 
 module load miniforge/24.7.1
 source "$(conda info --base)/etc/profile.d/conda.sh"
-conda activate mva-hackathon
+ENV_PATH="/users/kcwp264/.conda/envs/mva-hackathon"
+conda activate "${ENV_PATH}"
 
 source /scratch/kcwp264/.aire_scratch_env.sh
 

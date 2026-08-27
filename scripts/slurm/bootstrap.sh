@@ -33,6 +33,10 @@ fi
 "${ENV_PATH}/bin/vep" --help | head -n 1 || true
 "${ENV_PATH}/bin/spliceai" -h | head -n 1 || true
 
+# Activate so that setup_references.sh has tabix, vep, etc. in PATH
+source "$(conda info --base)/etc/profile.d/conda.sh"
+conda activate "${ENV_PATH}"
+
 # Stage reference files on $SCRATCH (large, few files)
 bash /mnt/scratch/kcwp264/mva-hackathon-2026/scripts/setup_references.sh
 

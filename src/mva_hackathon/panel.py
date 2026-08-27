@@ -39,9 +39,12 @@ def categorize_gene(gene: str, panel: dict | None = None) -> str | None:
 
 
 def is_cancer_associated(gene: str, panel: dict | None = None) -> bool:
-    """Return True if the gene is in the tumour-predisposed list."""
+    """Return True if the gene is in any tumour-predisposed list."""
     panel = panel or load_panel()
-    return gene in panel.get("cancer_associated_genes", [])
+    return (
+        gene in panel.get("tumour_predisposed_genes", [])
+        or gene in panel.get("extended_tumour_candidates", [])
+    )
 
 
 def iter_consequences(panel: dict | None = None) -> Iterable[str]:

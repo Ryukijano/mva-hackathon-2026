@@ -27,18 +27,24 @@ mva_panel:
       - AURKA
       - PLK1
 
-# Categories used for phenotype/tumour priors
-cancer_associated_genes:
+# Core MVA genes with tumour predisposition (Malumbres Table 1)
+tumour_predisposed_genes:
   - BUB1B
   - BUB1
   - MAD1L1
   - TRIP13
   - MAD2L1BP
+
+# Mitotic neighbours that are plausible cancer/aneuploidy modifiers
+# but are not yet established MVA disease genes
+extended_tumour_candidates:
   - MAD2L1
   - BUB3
   - TTK
   - AURKA
   - PLK1
+  - CDC20
+  - KNL1
 
 # Consequence terms considered functionally relevant for rare-disease variant ranking
 relevant_consequences:
