@@ -1,0 +1,20 @@
+proband_id: PROBAND01
+assembly: GRCh38
+max_submission_rows: 10
+
+filter:
+  gnomad_max_af: 0.001
+  spliceai_min_delta: 0.2
+  spliceai_high_delta: 0.5
+  popeve_severe: -5.056
+  alphamissense_pathogenic: 0.564  # AlphaMissense likely pathogenic cutoff (0.564)
+  cadd_min: 20
+
+scoring:
+  missense_pop_weight: 0.7
+  missense_am_weight: 0.3
+  ptv_score: 0.99
+
+writer:
+  primary_epcr: 0.95
+  secondary_epcr_max: 0.15

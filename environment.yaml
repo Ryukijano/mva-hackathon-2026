@@ -1,0 +1,41 @@
+name: mva-hackathon
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11
+  - pip
+  - numpy >=1.24
+  - pandas >=2.0
+  - scipy
+  - scikit-learn
+  - pysam >=0.22
+  - cyvcf2
+  - biopython
+  - python-docx
+  - pytest
+  - ruff
+  - mypy
+  - perl
+  - tabix
+  - htslib
+  - samtools >=1.20
+  - bcftools >=1.20
+  - ensembl-vep
+  - zlib
+  - libgcc-ng
+  - libstdcxx-ng
+  - gxx_linux-64
+  - make
+  - curl
+  - wget
+  - git
+  - pyyaml
+  - pip:
+    - --extra-index-url https://download.pytorch.org/whl/cu124
+    - omegaconf
+    - huggingface_hub
+    - trackio
+    - requests
+    - openpyxl
+    - spliceai

@@ -1,0 +1,14 @@
+project: /mnt/scratch/kcwp264/mva-hackathon-2026
+data: ${project}/data
+refs: ${project}/refs
+cache: ${project}/.cache
+logs: ${project}/logs
+results: ${project}/results
+
+vep:
+  dir_cache: ${cache}/vep
+  dir_plugins: ${cache}/vep/Plugins
+  fasta: ${refs}/Homo_sapiens.GRCh38.dna.primary_assembly.fa
+
+alpha_missense: ${refs}/AlphaMissense_hg38.tsv.gz
+popeve: ${refs}/grch38_popEVE_ukbb_20250715.vcf.gz

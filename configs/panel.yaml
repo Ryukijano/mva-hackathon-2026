@@ -1,0 +1,56 @@
+mva_panel:
+  sac_core:
+    description: Core spindle assembly checkpoint (tumour-predisposed)
+    genes:
+      - BUB1B
+      - BUB1
+      - MAD1L1
+      - TRIP13
+      - MAD2L1BP
+  centrosome:
+    description: Centrosome / microtubule anchoring (lower tumour risk)
+    genes:
+      - CEP57
+      - CEP192
+  minor_spliceosome:
+    description: Minor spliceosome / chromosome congression
+    genes:
+      - CENATAC
+  extended:
+    description: SAC-associated kinases, MCC subunits, kinetochore and APC/C nodes
+    genes:
+      - CDC20
+      - TTK
+      - MAD2L1
+      - BUB3
+      - KNL1
+      - AURKA
+      - PLK1
+
+# Categories used for phenotype/tumour priors
+cancer_associated_genes:
+  - BUB1B
+  - BUB1
+  - MAD1L1
+  - TRIP13
+  - MAD2L1BP
+  - MAD2L1
+  - BUB3
+  - TTK
+  - AURKA
+  - PLK1
+
+# Consequence terms considered functionally relevant for rare-disease variant ranking
+relevant_consequences:
+  - missense_variant
+  - splice_acceptor_variant
+  - splice_donor_variant
+  - splice_region_variant
+  - frameshift_variant
+  - stop_gained
+  - stop_lost
+  - start_lost
+  - inframe_deletion
+  - inframe_insertion
+  - protein_altering_variant
+  - coding_sequence_variant
