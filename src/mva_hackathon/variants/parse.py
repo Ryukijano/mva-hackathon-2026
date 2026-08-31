@@ -70,7 +70,8 @@ def parse_vep_vcf(vcf_path: str | Path) -> Iterator[dict[str, Any]]:
             # Type-cast numeric scores
             record["popEVE"] = _as_float(record.get("popEVE"))
             record["am_pathogenicity"] = _as_float(record.get("am_pathogenicity"))
-            record["gnomadg_AF"] = _as_float(record.get("gnomadg_AF"))
+            record["gnomADg_AF"] = _as_float(record.get("gnomADg_AF"))
             record["gnomADe_AF"] = _as_float(record.get("gnomADe_AF"))
+            record["AF"] = _as_float(record.get("AF"))
 
             yield record

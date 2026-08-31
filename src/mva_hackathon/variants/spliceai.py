@@ -11,7 +11,7 @@ def run_spliceai(
     output_vcf: str | Path,
     fasta: str | Path,
     annotation: str = "grch38",
-    distance: int = 10000,
+    distance: int = 500,
     mask: int = 0,
 ) -> Path:
     """Run the `spliceai` command on a filtered candidate VCF.

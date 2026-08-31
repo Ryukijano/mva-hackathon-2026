@@ -70,7 +70,6 @@ def build_rows(
             for j in range(i + 1, min(i + 4, len(gene_vars))):
                 a, b = gene_vars[i], gene_vars[j]
                 ps = pair_score(a["pathogenicity"], b["pathogenicity"])
-                ps += priority_bonus(gene, pheno, panel)
                 rows.append(
                     {
                         "chrom_1": a["CHROM"],
@@ -87,6 +86,9 @@ def build_rows(
                 )
 
     rows.sort(key=lambda r: r["pathogenicity"], reverse=True)
+    writer_cfg = config.get("writer", {})
+    primary_floor = writer_cfg.get("primary_epcr", 0.5)
+    secondary_max = writer_cfg.get("secondary_epcr_max", 0.15)
     out = []
     for rank, row in enumerate(rows[: config.get("max_submission_rows", 10)], start=1):
         primary = rank <= 3
@@ -100,7 +102,7 @@ def build_rows(
                 "pos_2": row["pos_2"],
                 "ref_2": row["ref_2"],
                 "alt_2": row["alt_2"],
-                "epcr": f"{epcr_from_pair(row['pathogenicity'], primary):.6f}",
+                "epcr": f"{epcr_from_pair(row['pathogenicity'], primary, primary_floor, secondary_max):.6f}",
                 "finding_type": "primary" if primary else "secondary",
                 "notes": f"{row['gene']} | pair score {row['pathogenicity']:.3f}",
             }
@@ -161,10 +163,10 @@ def run_track1(
 
     # 4. SpliceAI on filtered candidate VCF (optional, if FASTA present)
     if Path(fasta).exists():
-        candidate_vcf = project / ".cache" / f"{vcf.stem}.candidates.vcf.gz"
+        candidate_vcf = project / ".cache" / f"{vcf.stem}.candidates.vcf"
         # Write candidates to a minimal VCF for SpliceAI
         _write_candidate_vcf(candidates, candidate_vcf)
-        spliceai_out = project / ".cache" / f"{vcf.stem}.spliceai.vcf.gz"
+        spliceai_out = project / ".cache" / f"{vcf.stem}.spliceai.vcf"
         run_spliceai(candidate_vcf, spliceai_out, fasta)
         splice_scores = parse_spliceai_vcf(spliceai_out)
         for v in candidates:
@@ -184,12 +186,12 @@ def run_track1(
 
 def _write_candidate_vcf(candidates: list[dict], path: Path) -> None:
     """Write a minimal VCF from the candidate list for SpliceAI."""
-    from cyvcf2 import Writer
-
-    # cyvcf2 Writer requires a template VCF; write a dummy header text file
     path.parent.mkdir(parents=True, exist_ok=True)
+    contigs = sorted({str(v["CHROM"]).lstrip("chr") for v in candidates})
     with open(path, "w") as fh:
         fh.write("##fileformat=VCFv4.2\n")
+        for c in contigs:
+            fh.write(f"##contig=<ID={c}>\n")
         fh.write("#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\n")
         for v in candidates:
             fh.write(

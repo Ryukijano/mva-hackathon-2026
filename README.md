@@ -1,76 +1,99 @@
+---
+license: cc-by-4.0
+pretty_name: MVA Hackathon 2026 Track 1/2 pipelines
+tags:
+  - genomics
+  - rare-disease
+  - hackathon
+  - variant-interpretation
+  - drug-repurposing
+library_name: mva_hackathon
+---
+
 # Rare Disease, Real Kid: MVA Hackathon 2026
 
-Track 1 (causal variant / compound-het hunt) and Track 2 (computational drug repurposing) pipeline for the Mosaic Variegated Aneuploidy (MVA) hackathon.
+Code for [SageBio/rare-disease-real-kid-mva-hackathon-2026](https://huggingface.co/spaces/SageBio/rare-disease-real-kid-mva-hackathon-2026).
+
+- **HF user:** [Ryukijano](https://huggingface.co/Ryukijano)
+- **GitHub (submit-form URL, private during the hackathon):** https://github.com/Ryukijano/mva-hackathon-2026
+- **Track 1:** causal compound-het call in *BUB1B* — methods in `submissions/Ryukijano_track1_report.md`
+- **Track 2:** mechanism-guided approved-drug repurposing (ChEMBL target-first screen, not TxGNN)
+
+This Hub repo contains **code, configs, tests, ranked findings, and the Track 2 dossier**. It does **not** contain the gated genome, FASTQs, VEP caches, or the clinical phenotype source file.
+
+**AI assistance disclosure (28 Aug 2026 update):** Anthropic API / Cursor agents (Claude, Grok), commercial terms, no training on customer content.
+
+## Track 1 finding
+
+`submissions/Ryukijano_bub1b-compoundhet.csv`
+
+| Allele | GRCh38 | HGVS (NM_001211.6) | Evidence |
+|---|---|---|---|
+| 1 | `chr15:40209701 T>G` | `c.2210T>G` `p.Leu737Ter` | ClinVar [VCV000533901](https://www.ncbi.nlm.nih.gov/clinvar/variation/533901/) Pathogenic for MVA1 |
+| 2 | `chr15:40220612 T>G` | `c.3006T>G` `p.Asn1002Lys` | Novel kinase-like-domain missense; AlphaMissense 0.9229 likely_pathogenic; absent from gnomAD |
+
+EPCR `0.95`, `finding_type=primary`. Architecture is the classic viable MVA1 pattern (truncating + hypomorphic missense). Phasing is inferred, not parental.
 
 ## Project layout
 
 ```
-/mnt/scratch/kcwp264/mva-hackathon-2026/
-├── configs/                 # Gene panel and AIRE paths
-├── data/                    # Challenge data (gated HF data)
-├── refs/                    # Reference annotations and caches
-├── src/mva_hackathon/       # Python modules
-│   ├── data/                # HF download + phenotype parsing
-│   ├── variants/            # VCF filter, scoring, pairing, CSV writer
-│   ├── eval/                # Local CAGI6/MVA scorer clone
-│   └── drug/                # Track 2 repurposing (TxGNN/PrimeKG)
-├── scripts/                 # CLI entrypoints
-├── scripts/slurm/           # AIRE batch scripts
-└── tests/
+configs/                 # Gene panel, scoring thresholds, AIRE paths
+src/mva_hackathon/
+  data/                  # Gated HF download helper + phenotype parser
+  variants/              # VEP parse, rare/panel filter, score, pair, CSV writer
+  eval/                  # Local clone of the published Track 1 scorer
+scripts/                 # CLI + AIRE Slurm wrappers
+track2/                  # ChEMBL screen, ranked candidates, report, pitch storyboard
+submissions/             # Track 1 CSV (findings only; no genome)
+tests/
 ```
 
-## Strategy summary
+## Pipeline (Track 1)
 
-### Track 1: causal variant / compound-het
+1. Download only the WGS VCF + TBI + phenotype docx from `SageBio/mva-hackathon-2026-data` (gated).
+2. Annotate with Ensembl VEP **116** (GRCh38, offline) + AlphaMissense + popEVE plugins.
+3. Filter to the 15-gene MVA SAC/centrosome panel, relevant SO terms, gnomAD AF ≤ 0.001 or absent.
+4. SpliceAI on the tiny candidate VCF (`-D 500`).
+5. Score: PTV ≈ 0.99; missense = 0.7·popEVE-sigmoid + 0.3·AlphaMissense (AM fallback if popEVE missing); splice = max SpliceAI Δ.
+6. Pair alleles in the same gene; pair score = product; write ≤10 CSV rows with EPCR in (0, 1].
+7. Local scorer clone (`pytest tests/test_scorer.py`) before burning Track 1 quota (max 6).
 
-1. Download only `WGS_EX2312012_HGWCNDSX7.vcf.gz` + `.tbi` and the clinical docx from `SageBio/mva-hackathon-2026-data` (gated; needs HF token + rules acceptance).
-2. Annotate with Ensembl VEP (GRCh38, offline cache) + plugins:
-   - `AlphaMissense` (precomputed TSV)
-   - `EVE`/`popEVE` (precomputed VCF)
-3. Run SpliceAI locally on the filtered candidate set (MVA panel only) with a GRCh38 FASTA.
-4. Filter to rare variants (gnomAD AF < 0.001 or absent) in the MVA mitotic/centrosomal/SAC gene panel.
-5. Score and pair:
-   - missense: popEVE (severe < -5.056) + AlphaMissense pathogenicity
-   - splice: SpliceAI delta (max of DS_*)
-   - PTV: near-1 pathogenicity
-   - compound-het rows = top two damaging variants in the same gene
-6. Convert to EPCR in (0,1] and write the official CSV template.
-7. Validate with a local scorer clone before each of the 6 quota submissions.
+## Pipeline (Track 2)
 
-### Track 2: drug repurposing
+Target-first ChEMBL screen (`track2/drug_screen.py`) on the BUB1B-hypomorph axis (SIRT2/NAD+, mTOR/autophagy, Nrf2/ROS, JAK/IL-6, plus anti-targets TTK/AURKB/STING). Ranked proposal in `track2/track2_report.md`.
 
-1. Use the Track 1 causal gene and HPO phenotype pool to condition a knowledge-graph model.
-2. Restrict to biologically plausible rescue axes from the 2026 *Nat. Commun.* proteostasis paper (ROS scavengers, mitochondrial/heat-shock chaperones, autophagy/mTOR, apoptosis blockade).
-3. Query TxGNN/PrimeKG for approved drugs and produce mechanistic GraphMask-style explanations.
+Because the disease is **hypomorphic residual BUBR1**, candidates stabilize remaining protein or blunt downstream proteotoxic / mito / IFN load. TTK, Aurora B, and STING **agonists** are excluded (wrong direction).
 
-## AIRE setup
+## Setup (AIRE / local)
 
 ```bash
+# AIRE
 source /scratch/kcwp264/.aire_scratch_env.sh
 module load miniforge/24.7.1
 conda env create -f environment.yaml
-conda activate mva-hackathon
+conda activate mva-hackathon   # or: conda activate /mnt/scratch/kcwp264/.conda_envs/mva-hackathon
 pip install -e .
 ```
 
-Reference data (VEP cache, GRCh38 FASTA, AlphaMissense, popEVE, SpliceAI model) is staged under `refs/` on `$SCRATCH`.
-
-## Track 1 quick run (after HF access)
+Challenge data is gated. After accepting the DTA:
 
 ```bash
 export HF_TOKEN=...
 python scripts/download_data.py
 bash scripts/setup_references.sh
-python scripts/run_track1.py --vcf data/WGS_EX2312012_HGWCNDSX7.vcf.gz --pheno data/Challenge_Clinical_Phenotype_1.docx -o results/track1_primary.csv
-```
-
-## Track 1 local scoring test
-
-```bash
+python scripts/run_track1.py \
+  --vcf data/WGS_EX2312012_HGWCNDSX7.vcf.gz \
+  --pheno data/Challenge_Clinical_Phenotype_1.docx \
+  -o submissions/Ryukijano_bub1b-compoundhet.csv
 python -m pytest tests/test_scorer.py
 ```
 
-## Notes / status
+## Data handling
 
-- The 9 MVA review/foundational PDFs were not found in the local scratch/home tree; open-access versions will be pulled to `refs/papers/` for gene-prior extraction.
-- The official `evaluation.py` / gold standard is private; the local scorer in `src/mva_hackathon/eval/scorer.py` is implemented from the published scoring contract (compound-het, GRCh38, `PROBAND01`, rank points, F-max over EPCR).
+- Genome / BAM / VCF / genotype-scale tables stay off this repo and must be deleted within 30 days of hackathon close.
+- Ranked variant list, gene rankings, code, and reports may remain (CC BY 4.0).
+- Do not paste genome-scale files into third-party LLM APIs unless the provider is a processor (no training on inputs). See [discussion #2](https://huggingface.co/spaces/SageBio/rare-disease-real-kid-mva-hackathon-2026/discussions/2).
+
+## Licence
+
+Code and reports: [CC BY 4.0](LICENSE). Underlying patient data: gated; not redistributable.

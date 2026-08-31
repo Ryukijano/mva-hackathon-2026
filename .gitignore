@@ -33,3 +33,8 @@ __pycache__/
 
 # OS
 .DS_Store
+
+# Local agent / chat dumps (may contain secrets or clinical text)
+.cursor/
+MVA Track 1 Debugging*.md
+*.docx

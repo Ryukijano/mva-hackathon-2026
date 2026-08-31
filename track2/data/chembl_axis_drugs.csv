@@ -1,0 +1,86 @@
+gene,uniprot,target_chembl_id,target_name,molecule_chembl_id,drug_name,mechanism_of_action
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL3545097,SAPANISERTIB,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL1801204,AZD-8055,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL3586573,CC-115,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL3544963,DS-3078A,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL3545248,DS-7423,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL1236962,OMIPALISIB,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL5095025,PANULISIB,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL2141712,PALOMID-529,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL1258517,PKI-179,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL3545323,PWT-33579,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL3545006,PWT-33587,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL2331680,RG-7603,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL2326966,SF-1126,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL3393066,VS-5584,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL1879463,DACTOLISIB,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL3545096,BGT-226,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL3586404,ONATASERTIB,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL3120215,OSI-027,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL1234354,PF-04691502,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL592445,GEDATOLISIB,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL1922094,APITOLISIB,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL3545366,VOXTALISIB,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL4297181,SAMOTOLISIB,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL2103839,RIDAFOROLIMUS,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL1334033,PERHEXILINE MALEATE,Serine/threonine-protein kinase mTOR inhibitor
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL2336325,VISTUSERTIB,Serine/threonine-protein kinase mTOR inhibitor
+NFE2L2,Q16236,CHEMBL1075094,Nuclear factor erythroid 2-related factor 2,CHEMBL4303525,OMAVELOXOLONE,Nuclear factor erythroid 2-related factor 2 activator
+TMEM173,Q86WV6,CHEMBL4523377,Stimulator of interferon genes protein,CHEMBL4297688,ADU-S100,Stimulator of interferon genes protein agonist
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL1795071,RUXOLITINIB PHOSPHATE,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL4116008,CERDULATINIB,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL3545249,GLPG-0555,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL3655081,ABROCITINIB,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL2106468,TRICETAMIDE,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL3301607,FILGOTINIB,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL3301606,SOLCITINIB,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL3622820,ITACITINIB,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL3545225,INCB-047986,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL1078178,MOMELOTINIB,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL2105759,BARICITINIB,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL4297477,BREPOCITINIB,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL4577523,GOLIDOCITINIB,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL4298167,FILGOTINIB MALEATE,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL5315119,UPADACITINIB HEMIHYDRATE,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL4594382,DEURUXOLITINIB PHOSPHATE,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL6068336,MOMELOTINIB DIHYDROCHLORIDE MONOHYDRATE,Tyrosine-protein kinase JAK1 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL1795071,RUXOLITINIB PHOSPHATE,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL3545241,AC-430,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL2035185,CT-1578,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL5095023,LS-104,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL1944698,ZOTIRACICLIB,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL3545328,XL-019,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL495727,AT-9283,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL1231124,AZD-1480,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL3545215,BMS-911543,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL2107823,GANDOTINIB,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL4303389,NS-018,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL603469,LESTAURTINIB,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL1078178,MOMELOTINIB,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL2105759,BARICITINIB,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL1287853,FEDRATINIB,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL2035187,PACRITINIB,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL4297216,FEDRATINIB HYDROCHLORIDE,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL5095049,PACRITINIB CITRATE,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL5095049,PACRITINIB CITRATE,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL3301607,FILGOTINIB,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL4298167,FILGOTINIB MALEATE,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL5315119,UPADACITINIB HEMIHYDRATE,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL4594382,DEURUXOLITINIB PHOSPHATE,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL6068336,MOMELOTINIB DIHYDROCHLORIDE MONOHYDRATE,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL6068336,MOMELOTINIB DIHYDROCHLORIDE MONOHYDRATE,Tyrosine-protein kinase JAK2 inhibitor
+IL6R,P08887,CHEMBL2364155,Interleukin-6 receptor subunit alpha,CHEMBL1237022,TOCILIZUMAB,Interleukin-6 receptor alpha subunit inhibitor
+IL6R,P08887,CHEMBL2364155,Interleukin-6 receptor subunit alpha,CHEMBL2108730,SARILUMAB,Interleukin-6 receptor alpha subunit antagonist
+IL6R,P08887,CHEMBL2364155,Interleukin-6 receptor subunit alpha,CHEMBL3833343,VOBARILIZUMAB,Interleukin-6 receptor alpha subunit inhibitor
+IL6R,P08887,CHEMBL2364155,Interleukin-6 receptor subunit alpha,CHEMBL4650406,LEVILIMAB,Interleukin-6 receptor alpha subunit inhibitor
+TTK,P33981,CHEMBL3983,Dual specificity protein kinase TTK,CHEMBL4303241,BAY-1161909,Dual specificity protein kinase TTK inhibitor
+TTK,P33981,CHEMBL3983,Dual specificity protein kinase TTK,CHEMBL4456085,BAY-1217389,Dual specificity protein kinase TTK inhibitor
+AURKB,Q96GD4,CHEMBL2185,Aurora kinase B,CHEMBL5095033,IBCASERTIB,Serine/threonine-protein kinase Aurora-B inhibitor
+AURKB,Q96GD4,CHEMBL2185,Aurora kinase B,CHEMBL1090479,GSK-1070916,Serine/threonine-protein kinase Aurora-B inhibitor
+AURKB,Q96GD4,CHEMBL2185,Aurora kinase B,CHEMBL1908397,KW-2449,Serine/threonine-protein kinase Aurora-B inhibitor
+AURKB,Q96GD4,CHEMBL2185,Aurora kinase B,CHEMBL4289017,PF-03814735,Serine/threonine-protein kinase Aurora-B inhibitor
+AURKB,Q96GD4,CHEMBL2185,Aurora kinase B,CHEMBL3544932,TAK-901,Serine/threonine-protein kinase Aurora-B inhibitor
+AURKB,Q96GD4,CHEMBL2185,Aurora kinase B,CHEMBL495727,AT-9283,Serine/threonine-protein kinase Aurora-B inhibitor
+AURKB,Q96GD4,CHEMBL2185,Aurora kinase B,CHEMBL3545395,BI-811283,Serine/threonine-protein kinase Aurora-B inhibitor
+AURKB,Q96GD4,CHEMBL2185,Aurora kinase B,CHEMBL482968,ENMD-2076,Serine/threonine-protein kinase Aurora-B inhibitor
+AURKB,Q96GD4,CHEMBL2185,Aurora kinase B,CHEMBL415049,BARASERTIB,Serine/threonine-protein kinase Aurora-B inhibitor

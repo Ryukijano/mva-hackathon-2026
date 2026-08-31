@@ -6,17 +6,34 @@ from collections.abc import Iterable
 from mva_hackathon.panel import all_panel_genes, iter_consequences, load_panel
 
 
-def is_rare(
-    gnomad_af: float | str | None,
-    max_af: float = 0.001,
-) -> bool:
-    """Return True if gnomAD AF is missing or below max_af."""
-    if gnomad_af is None or gnomad_af == "" or gnomad_af == ".":
+_AF_KEYS = ("gnomADg_AF", "gnomADe_AF", "AF")
+
+
+def _af_is_rare(value: float | str | None, max_af: float = 0.001) -> bool:
+    """Return True if an allele-frequency value is missing or below max_af."""
+    if value is None or value == "" or value == ".":
         return True
     try:
-        return float(gnomad_af) <= max_af
+        return float(value) <= max_af
     except (ValueError, TypeError):
         return True
+
+
+def is_rare(
+    af_source: float | str | None | dict,
+    max_af: float = 0.001,
+) -> bool:
+    """Return True if all available gnomAD/AF fields are below max_af.
+
+    ``af_source`` can be a single float/string value for backward compatibility,
+    or a VEP record dict with gnomADg_AF, gnomADe_AF and AF keys.
+    """
+    if isinstance(af_source, dict):
+        for key in _AF_KEYS:
+            if not _af_is_rare(af_source.get(key), max_af):
+                return False
+        return True
+    return _af_is_rare(af_source, max_af)
 
 
 def has_relevant_consequence(consequence: str, panel: dict | None = None) -> bool:
@@ -40,7 +57,7 @@ def passes_basic_filter(
     """Return True if a VEP-parsed record passes panel/rare/consequence filters."""
     if not is_panel_gene(record.get("SYMBOL", record.get("gene")), panel):
         return False
-    if not is_rare(record.get("gnomad_af", record.get("af")), max_gnomad_af):
+    if not is_rare(record, max_gnomad_af):
         return False
     if not has_relevant_consequence(record.get("Consequence", record.get("consequence")), panel):
         return False

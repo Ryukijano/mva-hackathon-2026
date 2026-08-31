@@ -42,11 +42,18 @@ def variant_pathogenicity(
     if terms & ptv_terms:
         return ptv_score
 
-    # Missense: combine popEVE and AlphaMissense
+    # Missense: combine popEVE and AlphaMissense; fall back to AlphaMissense
+    # when popEVE is missing, but still weight it as the population-evidence term.
     if "missense_variant" in terms or "protein_altering_variant" in terms:
-        scores = []
+        pop_prob = None
         if popeve is not None:
-            scores.append(missense_pop_weight * popEVE_to_prob(popeve))
+            pop_prob = popEVE_to_prob(popeve)
+        elif am_pathogenicity is not None:
+            pop_prob = float(am_pathogenicity)
+
+        scores = []
+        if pop_prob is not None:
+            scores.append(missense_pop_weight * pop_prob)
         if am_pathogenicity is not None:
             scores.append(missense_am_weight * float(am_pathogenicity))
         if scores:
@@ -78,11 +85,19 @@ def pair_score(score1: float, score2: float) -> float:
     return max(0.0001, min(1.0, score1 * score2))
 
 
-def epcr_from_pair(pair_score: float, primary: bool = True) -> float:
+def epcr_from_pair(
+    pair_score: float,
+    primary: bool = True,
+    primary_floor: float = 0.5,
+    secondary_max: float = 0.15,
+) -> float:
     """Convert a pair score to the final EPCR column value.
 
     Keep primaries high and secondaries in the 0.05-0.15 range as advised.
+    ``primary_floor`` is the minimum EPCR for a primary finding; it lets the
+    pipeline enforce the high-confidence threshold while still allowing stronger
+    pairs to exceed it.
     """
     if primary:
-        return max(0.5, min(1.0, pair_score))
-    return max(0.05, min(0.15, pair_score))
+        return max(primary_floor, min(1.0, pair_score))
+    return max(0.05, min(secondary_max, pair_score))
