@@ -43,6 +43,7 @@ src/mva_hackathon/
   variants/              # VEP parse, rare/panel filter, score, pair, CSV writer
   eval/                  # Local clone of the published Track 1 scorer
 scripts/                 # CLI + AIRE Slurm wrappers
+experiments/             # ESM-1v, PrimeKG skip-gram, ClinVar B/LB (see protocol.md)
 track2/                  # ChEMBL screen, ranked candidates, report, pitch storyboard
 submissions/             # Track 1 CSV (findings only; no genome)
 tests/

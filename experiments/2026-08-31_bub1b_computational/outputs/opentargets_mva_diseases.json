@@ -1,0 +1,38 @@
+[
+  {
+    "id": "MONDO_0009759",
+    "name": "mosaic variegated aneuploidy syndrome 1",
+    "entity": "disease",
+    "score": 1383.8479
+  },
+  {
+    "id": "MONDO_0013582",
+    "name": "mosaic variegated aneuploidy syndrome 2",
+    "entity": "disease",
+    "score": 1358.9008
+  },
+  {
+    "id": "MONDO_0000141",
+    "name": "mosaic variegated aneuploidy syndrome",
+    "entity": "disease",
+    "score": 1292.4722
+  },
+  {
+    "id": "MONDO_0054736",
+    "name": "mosaic variegated aneuploidy syndrome 3",
+    "entity": "disease",
+    "score": 938.1293
+  },
+  {
+    "id": "MONDO_0859346",
+    "name": "mosaic variegated aneuploidy syndrome 7 with inflammation and tumor predisposition",
+    "entity": "disease",
+    "score": 845.3313
+  },
+  {
+    "id": "MONDO_0859329",
+    "name": "mosaic variegated aneuploidy syndrome 4",
+    "entity": "disease",
+    "score": 844.80084
+  }
+]

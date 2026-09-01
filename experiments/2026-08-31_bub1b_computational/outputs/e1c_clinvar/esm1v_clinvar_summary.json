@@ -1,0 +1,12 @@
+{
+  "n_scored": 35,
+  "n_blb_rows": 35,
+  "n_blb_unique": 34,
+  "blb_median_llr": -0.160649,
+  "blb_mean_llr": -0.03321888235294118,
+  "n1002k_llr": -0.11015620231628417,
+  "h1_weaker_than_blb_median": true,
+  "device": "cpu",
+  "median_method": "average of two central unique-allele LLRs (n=34 even)",
+  "n1002k_rank_among_blb_1_most_damaging": 18
+}

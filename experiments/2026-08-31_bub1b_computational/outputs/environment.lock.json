@@ -1,0 +1,7 @@
+{
+  "torch": "2.13.0+cu126",
+  "cuda": "12.6",
+  "transformers": "5.14.1",
+  "device": "NVIDIA L40S",
+  "job": "esm1v_windowed"
+}

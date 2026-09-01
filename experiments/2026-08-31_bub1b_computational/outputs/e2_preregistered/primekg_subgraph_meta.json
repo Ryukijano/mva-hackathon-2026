@@ -1,0 +1,17 @@
+{
+  "n_nodes": 2348,
+  "n_edges": 4205,
+  "queries": {
+    "BUB1B": {
+      "id": 1648,
+      "name": "BUB1B",
+      "type": "gene/protein"
+    },
+    "MVA": {
+      "id": 28004,
+      "name": "mosaic variegated aneuploidy syndrome",
+      "type": "disease"
+    }
+  },
+  "n_drugs": 37
+}

@@ -1,0 +1,36 @@
+variation_id,name,type,clinical_significance,bucket,review_status,origin_simple,chrom,pos_vcf,ref,alt,wt,mut,uniprot_pos,label
+6758,NM_001211.6(BUB1B):c.119C>T (p.Thr40Met),single nucleotide variant,Benign/Likely benign,B/LB,"criteria provided, multiple submitters, no conflicts",germline/somatic,15,40165136,C,T,T,M,40,T40M
+6766,NM_001211.6(BUB1B):c.1649G>A (p.Arg550Gln),single nucleotide variant,Benign/Likely benign,B/LB,"criteria provided, multiple submitters, no conflicts",germline,15,40202609,G,A,R,Q,550,R550Q
+133764,NM_001211.6(BUB1B):c.10G>A (p.Val4Met),single nucleotide variant,Likely benign,B/LB,"criteria provided, multiple submitters, no conflicts",germline,15,40161230,G,A,V,M,4,V4M
+133769,NM_001211.6(BUB1B):c.1853T>C (p.Val618Ala),single nucleotide variant,Benign,B/LB,"criteria provided, multiple submitters, no conflicts",germline,15,40206302,T,C,V,A,618,V618A
+133772,NM_001211.6(BUB1B):c.3011A>G (p.Asn1004Ser),single nucleotide variant,Benign/Likely benign,B/LB,"criteria provided, multiple submitters, no conflicts",germline,15,40220617,A,G,N,S,1004,N1004S
+133780,NM_001211.6(BUB1B):c.1046G>A (p.Arg349Gln),single nucleotide variant,Benign,B/LB,"criteria provided, multiple submitters, no conflicts",germline,15,40185630,G,A,R,Q,349,R349Q
+133782,NM_001211.6(BUB1B):c.1170G>C (p.Glu390Asp),single nucleotide variant,Benign,B/LB,"criteria provided, multiple submitters, no conflicts",germline,15,40196656,G,C,E,D,390,E390D
+403745,NM_001211.6(BUB1B):c.772C>T (p.Leu258Phe),single nucleotide variant,Likely benign,B/LB,"criteria provided, multiple submitters, no conflicts",germline,15,40185185,C,T,L,F,258,L258F
+1767591,NM_001211.6(BUB1B):c.961C>T (p.His321Tyr),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40185374,C,T,H,Y,321,H321Y
+1761755,NM_001211.6(BUB1B):c.803A>G (p.Asn268Ser),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40185216,A,G,N,S,268,N268S
+1771537,NM_001211.6(BUB1B):c.1390A>G (p.Thr464Ala),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40199716,A,G,T,A,464,T464A
+1791535,NM_001211.6(BUB1B):c.2454T>G (p.Asp818Glu),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40212567,T,G,D,E,818,D818E
+2445267,NM_001211.6(BUB1B):c.3119A>G (p.Lys1040Arg),single nucleotide variant,Benign,B/LB,"criteria provided, single submitter",germline,15,40220725,A,G,K,R,1040,K1040R
+2450821,NM_001211.6(BUB1B):c.2931C>A (p.Phe977Leu),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40218536,C,A,F,L,977,F977L
+2497652,NM_001211.6(BUB1B):c.851C>T (p.Thr284Ile),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40185264,C,T,T,I,284,T284I
+2562096,NM_001211.6(BUB1B):c.2350G>A (p.Ala784Thr),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40210175,G,A,A,T,784,A784T
+2565437,NM_001211.6(BUB1B):c.1657G>A (p.Ala553Thr),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40202617,G,A,A,T,553,A553T
+3135599,NM_001211.6(BUB1B):c.1442A>G (p.Gln481Arg),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40200284,A,G,Q,R,481,Q481R
+3221392,NM_001211.6(BUB1B):c.2464T>C (p.Phe822Leu),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40212577,T,C,F,L,822,F822L
+3221422,NM_001211.6(BUB1B):c.3125C>T (p.Thr1042Ile),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40220731,C,T,T,I,1042,T1042I
+3221428,NM_001211.6(BUB1B):c.445G>A (p.Val149Ile),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40176537,G,A,V,I,149,V149I
+3221450,NM_001211.6(BUB1B):c.898A>G (p.Met300Val),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40185311,A,G,M,V,300,M300V
+3262207,NM_001211.6(BUB1B):c.653A>G (p.Glu218Gly),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40183785,A,G,E,G,218,E218G
+3262227,NM_001211.6(BUB1B):c.3037G>C (p.Gly1013Arg),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40220643,G,C,G,R,1013,G1013R
+3262260,NM_001211.6(BUB1B):c.851C>G (p.Thr284Arg),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40185264,C,G,T,R,284,T284R
+3262275,NM_001211.6(BUB1B):c.2077G>A (p.Ala693Thr),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40208704,G,A,A,T,693,A693T
+3483124,NM_001211.6(BUB1B):c.901C>T (p.Pro301Ser),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40185314,C,T,P,S,301,P301S
+3483175,NM_001211.6(BUB1B):c.316G>A (p.Val106Ile),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40170613,G,A,V,I,106,V106I
+3826084,NM_001211.6(BUB1B):c.1499A>G (p.Gln500Arg),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40200341,A,G,Q,R,500,Q500R
+3826109,NM_001211.6(BUB1B):c.2575A>G (p.Thr859Ala),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40213371,A,G,T,A,859,T859A
+3826131,NM_001211.6(BUB1B):c.1412C>A (p.Thr471Lys),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40200254,C,A,T,K,471,T471K
+4599690,NM_001211.6(BUB1B):c.1477A>G (p.Thr493Ala),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40200319,A,G,T,A,493,T493A
+4599934,NM_001211.6(BUB1B):c.1576G>A (p.Val526Ile),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40202413,G,A,V,I,526,V526I
+4867996,NM_001211.6(BUB1B):c.993A>G (p.Ile331Met),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40185577,A,G,I,M,331,I331M
+4868014,NM_001211.6(BUB1B):c.2929T>C (p.Phe977Leu),single nucleotide variant,Likely benign,B/LB,"criteria provided, single submitter",germline,15,40218534,T,C,F,L,977,F977L

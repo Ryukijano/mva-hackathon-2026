@@ -1,0 +1,16 @@
+{
+  "n_canonical_missense_wt_checked": 1497,
+  "n_blb": 35,
+  "n_blb_unique_alleles": 34,
+  "skipped_wt_mismatch_or_oob": 0,
+  "buckets": {
+    "B/LB": 35,
+    "VUS": 1426,
+    "conflicting": 28,
+    "other": 7,
+    "P/LP": 1
+  },
+  "transcript": "NM_001211.6",
+  "uniprot": "O60566",
+  "source": "https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/variant_summary.txt.gz"
+}
