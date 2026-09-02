@@ -1,0 +1,33 @@
+gene,uniprot,target_chembl_id,target_name,molecule_chembl_id,drug_name,max_phase,mechanism_of_action
+MTOR,P42345,CHEMBL2842,Serine/threonine-protein kinase mTOR,CHEMBL1334033,PERHEXILINE MALEATE,4.0,Serine/threonine-protein kinase mTOR inhibitor
+FKBP1A,P62942,CHEMBL1902,Peptidyl-prolyl cis-trans isomerase FKBP1A,CHEMBL1201182,TEMSIROLIMUS,4.0,FK506-binding protein 1A inhibitor
+FKBP1A,P62942,CHEMBL1902,Peptidyl-prolyl cis-trans isomerase FKBP1A,CHEMBL413,SIROLIMUS,4.0,FK506-binding protein 1A inhibitor
+FKBP1A,P62942,CHEMBL1902,Peptidyl-prolyl cis-trans isomerase FKBP1A,CHEMBL1908360,EVEROLIMUS,4.0,FK506-binding protein 1A inhibitor
+FKBP1A,P62942,CHEMBL1902,Peptidyl-prolyl cis-trans isomerase FKBP1A,CHEMBL1200686,PIMECROLIMUS,4.0,FK506-binding protein 1A inhibitor
+FKBP1A,P62942,CHEMBL1902,Peptidyl-prolyl cis-trans isomerase FKBP1A,CHEMBL3989887,TACROLIMUS,4.0,FK506-binding protein 1A inhibitor
+NFE2L2,Q16236,CHEMBL1075094,Nuclear factor erythroid 2-related factor 2,CHEMBL4303525,OMAVELOXOLONE,4.0,Nuclear factor erythroid 2-related factor 2 activator
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL1795071,RUXOLITINIB PHOSPHATE,4.0,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL3655081,ABROCITINIB,4.0,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL3301607,FILGOTINIB,4.0,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL1078178,MOMELOTINIB,4.0,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL2105759,BARICITINIB,4.0,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL4298167,FILGOTINIB MALEATE,4.0,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL5315119,UPADACITINIB HEMIHYDRATE,4.0,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL4594382,DEURUXOLITINIB PHOSPHATE,4.0,Tyrosine-protein kinase JAK1 inhibitor
+JAK1,P23458,CHEMBL2835,Tyrosine-protein kinase JAK1,CHEMBL6068336,MOMELOTINIB DIHYDROCHLORIDE MONOHYDRATE,4.0,Tyrosine-protein kinase JAK1 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL1795071,RUXOLITINIB PHOSPHATE,4.0,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL1078178,MOMELOTINIB,4.0,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL2105759,BARICITINIB,4.0,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL1287853,FEDRATINIB,4.0,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL2035187,PACRITINIB,4.0,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL4297216,FEDRATINIB HYDROCHLORIDE,4.0,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL5095049,PACRITINIB CITRATE,4.0,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL5095049,PACRITINIB CITRATE,4.0,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL3301607,FILGOTINIB,4.0,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL4298167,FILGOTINIB MALEATE,4.0,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL5315119,UPADACITINIB HEMIHYDRATE,4.0,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL4594382,DEURUXOLITINIB PHOSPHATE,4.0,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL6068336,MOMELOTINIB DIHYDROCHLORIDE MONOHYDRATE,4.0,Tyrosine-protein kinase JAK2 inhibitor
+JAK2,O60674,CHEMBL2971,Tyrosine-protein kinase JAK2,CHEMBL6068336,MOMELOTINIB DIHYDROCHLORIDE MONOHYDRATE,4.0,Tyrosine-protein kinase JAK2 inhibitor
+IL6R,P08887,CHEMBL2364155,Interleukin-6 receptor subunit alpha,CHEMBL1237022,TOCILIZUMAB,4.0,Interleukin-6 receptor alpha subunit inhibitor
+IL6R,P08887,CHEMBL2364155,Interleukin-6 receptor subunit alpha,CHEMBL2108730,SARILUMAB,4.0,Interleukin-6 receptor alpha subunit antagonist

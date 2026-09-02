@@ -1,12 +1,19 @@
 """Unit tests for the local MVA Track 1 scorer (mirrors official evaluation.py)."""
 import csv
 import json
+import math
 import tempfile
 from pathlib import Path
 
 import pytest
 
 from mva_hackathon.eval.scorer import evaluate, load_gold, load_submission
+from mva_hackathon.variants.score import (
+    epcr_from_pair,
+    pair_score,
+    popEVE_to_prob,
+    variant_pathogenicity,
+)
 
 
 def _make_csv(rows, path: Path):
@@ -223,3 +230,49 @@ def test_load_submission_rejects_bad_epcr():
         )
         with pytest.raises(ValueError):
             load_submission(csv_path)
+
+
+def test_popEVE_sigmoid_shape():
+    """More-negative popEVE scores must map to higher pathogenicity."""
+    assert 0.49 < popEVE_to_prob(-5.056) < 0.51
+    assert popEVE_to_prob(-8.0) > 0.90
+    assert popEVE_to_prob(0.0) < 0.05
+    assert popEVE_to_prob(-3.657) < popEVE_to_prob(-5.056)
+
+
+def test_variant_pathogenicity_uses_popEVE_and_AM():
+    """Missense pathogenicity combines popEVE and AlphaMissense."""
+    # Strong popEVE, strong AM
+    assert variant_pathogenicity(
+        "missense_variant",
+        popeve=-8.0,
+        am_pathogenicity=0.95,
+        spliceai_delta=None,
+        cadd=None,
+    ) > 0.9
+
+    # Missing popEVE falls back to AM and double-weights it correctly
+    am_only = variant_pathogenicity(
+        "missense_variant",
+        popeve=None,
+        am_pathogenicity=0.92,
+        spliceai_delta=None,
+        cadd=None,
+    )
+    assert math.isclose(am_only, 0.92, rel_tol=1e-6)
+
+    # Mild popEVE (-3.657) should not dominate over strong AM
+    mixed = variant_pathogenicity(
+        "missense_variant",
+        popeve=-3.657,
+        am_pathogenicity=0.9229,
+        spliceai_delta=None,
+        cadd=None,
+    )
+    assert 0.4 < mixed < 0.6
+
+
+def test_pair_score_and_epcr():
+    assert 0.0001 < pair_score(0.99, 0.92) <= 1.0
+    assert epcr_from_pair(0.41, primary=True, primary_floor=0.95) == 0.95
+    assert epcr_from_pair(0.41, primary=False, secondary_max=0.15) == 0.15

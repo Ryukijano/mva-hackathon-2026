@@ -7,7 +7,7 @@ cGAS-STING/JAK-STAT), resolve the ChEMBL target and list all molecules with
 an annotated mechanism of action, with their max clinical phase.
 
 Usage:
-    python track2/drug_screen.py [--out track2/data/chembl_axis_drugs.csv]
+    python track2/drug_screen.py [--out track2/data/chembl_axis_drugs.csv] [--approved-only]
 """
 from __future__ import annotations
 
@@ -27,6 +27,7 @@ TARGETS = {
     "BUB1B": "O60566",   # BUBR1 (SAC) - direct causal gene
     "SIRT2": "Q8IXJ6",   # deacetylates/stabilises BUBR1 (K668)
     "MTOR": "P42345",    # mTORC1 - autophagy/SASP axis
+    "FKBP1A": "P62942",  # FKBP12 - rapalog-binding immunophilin (rapamycin/everolimus/sirolimus)
     "ATG7": "O95352",    # autophagy machinery
     "ATG5": "Q9H1Y0",    # autophagy machinery
     "SOD2": "P04179",    # mitochondrial ROS scavenging
@@ -63,7 +64,7 @@ def mechanisms_for_target(target_chembl_id: str) -> list[dict]:
     return get_json(url).get("mechanisms", [])
 
 
-def molecule_names(molecule_ids: list[str]) -> dict[str, str]:
+def molecule_records(molecule_ids: list[str]) -> dict[str, dict]:
     if not molecule_ids:
         return {}
     url = (
@@ -71,12 +72,29 @@ def molecule_names(molecule_ids: list[str]) -> dict[str, str]:
         "&limit=100"
     )
     data = get_json(url)
-    return {m["molecule_chembl_id"]: m.get("pref_name", "") for m in data.get("molecules", [])}
+    def _phase(v):
+        try:
+            return float(v)
+        except (TypeError, ValueError):
+            return 0.0
+
+    return {
+        m["molecule_chembl_id"]: {
+            "drug_name": m.get("pref_name", ""),
+            "max_phase": _phase(m.get("max_phase")),
+        }
+        for m in data.get("molecules", [])
+    }
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="track2/data/chembl_axis_drugs.csv")
+    ap.add_argument(
+        "--approved-only",
+        action="store_true",
+        help="Only keep mechanisms where the molecule has max_phase=4 (approved).",
+    )
     args = ap.parse_args()
 
     out_path = Path(args.out)
@@ -90,9 +108,12 @@ def main() -> int:
             continue
         mechs = mechanisms_for_target(target_id)
         ids = sorted({m["molecule_chembl_id"] for m in mechs if m.get("molecule_chembl_id")})
-        names = molecule_names(ids)
+        records = molecule_records(ids)
         for m in mechs:
             mid = m.get("molecule_chembl_id", "")
+            rec = records.get(mid, {"drug_name": "", "max_phase": 0})
+            if args.approved_only and rec["max_phase"] != 4:
+                continue
             rows.append(
                 {
                     "gene": symbol,
@@ -100,7 +121,8 @@ def main() -> int:
                     "target_chembl_id": target_id,
                     "target_name": target_name,
                     "molecule_chembl_id": mid,
-                    "drug_name": names.get(mid, ""),
+                    "drug_name": rec["drug_name"],
+                    "max_phase": rec["max_phase"],
                     "mechanism_of_action": m.get("mechanism_of_action", ""),
                 }
             )
@@ -111,7 +133,7 @@ def main() -> int:
             fh,
             fieldnames=[
                 "gene", "uniprot", "target_chembl_id", "target_name",
-                "molecule_chembl_id", "drug_name", "mechanism_of_action",
+                "molecule_chembl_id", "drug_name", "max_phase", "mechanism_of_action",
             ],
         )
         writer.writeheader()

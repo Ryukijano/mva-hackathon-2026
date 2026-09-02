@@ -9,7 +9,7 @@ from pathlib import Path
 import yaml
 
 from mva_hackathon.data.pheno import parse_docx
-from mva_hackathon.panel import all_panel_genes, is_cancer_associated, load_panel
+from mva_hackathon.panel import all_panel_genes, load_panel
 from mva_hackathon.utils.paths import load_paths
 from mva_hackathon.variants.filter import keep_candidate
 from mva_hackathon.variants.pair import group_variants_by_gene
@@ -42,14 +42,8 @@ def score_variant(record: dict, config: dict) -> float:
         ptv_score=config["scoring"]["ptv_score"],
         missense_pop_weight=config["scoring"]["missense_pop_weight"],
         missense_am_weight=config["scoring"]["missense_am_weight"],
+        popeve_severe=config["filter"].get("popeve_severe", -5.056),
     )
-
-
-def priority_bonus(gene: str, pheno: dict, panel: dict) -> float:
-    """Boost SAC-core genes when the phenotype mentions cancer."""
-    if pheno.get("cancer_mentioned") and is_cancer_associated(gene, panel):
-        return 0.15
-    return 0.0
 
 
 def build_rows(
@@ -58,32 +52,36 @@ def build_rows(
     panel: dict,
     config: dict,
 ) -> list[dict]:
-    """Generate ranked CSV rows from scored, filtered variants."""
+    """Generate ranked CSV rows from scored, filtered variants.
+
+    Evaluates all combinations within each gene so a strong compound-het pair
+    is never missed by a heuristic window.
+    """
+    import itertools
+
     by_gene = group_variants_by_gene(variants)
     rows = []
     for gene, gene_vars in by_gene.items():
         if len(gene_vars) < 2:
             continue
-        # Try the top few combinations to avoid missing a strong het pair
-        gene_vars = sorted(gene_vars, key=lambda v: v["pathogenicity"], reverse=True)
-        for i in range(min(3, len(gene_vars))):
-            for j in range(i + 1, min(i + 4, len(gene_vars))):
-                a, b = gene_vars[i], gene_vars[j]
-                ps = pair_score(a["pathogenicity"], b["pathogenicity"])
-                rows.append(
-                    {
-                        "chrom_1": a["CHROM"],
-                        "pos_1": a["POS"],
-                        "ref_1": a["REF"],
-                        "alt_1": a["ALT"],
-                        "chrom_2": b["CHROM"],
-                        "pos_2": b["POS"],
-                        "ref_2": b["REF"],
-                        "alt_2": b["ALT"],
-                        "pathogenicity": ps,
-                        "gene": gene,
-                    }
-                )
+        # Evaluate every pair; product scoring naturally favours a strong
+        # truncating allele plus a strong missense/PTV.
+        for a, b in itertools.combinations(gene_vars, 2):
+            ps = pair_score(a["pathogenicity"], b["pathogenicity"])
+            rows.append(
+                {
+                    "chrom_1": a["CHROM"],
+                    "pos_1": a["POS"],
+                    "ref_1": a["REF"],
+                    "alt_1": a["ALT"],
+                    "chrom_2": b["CHROM"],
+                    "pos_2": b["POS"],
+                    "ref_2": b["REF"],
+                    "alt_2": b["ALT"],
+                    "pathogenicity": ps,
+                    "gene": gene,
+                }
+            )
 
     rows.sort(key=lambda r: r["pathogenicity"], reverse=True)
     writer_cfg = config.get("writer", {})

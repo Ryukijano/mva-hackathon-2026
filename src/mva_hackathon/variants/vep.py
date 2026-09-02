@@ -74,6 +74,15 @@ FIELDS = [
     "am_pathogenicity",
     "am_class",
     "popEVE",
+    "popEVE_SCORE",
+    "popEVE_EVE",
+    "popEVE_ESM1v",
+    "popEVE_pop_adjusted_EVE",
+    "popEVE_pop_adjusted_ESM1v",
+    "popEVE_gap_frequency",
+    "popEVE_gene",
+    "popEVE_protein",
+    "popEVE_mutant",
 ]
 
 

@@ -18,11 +18,11 @@ PROBAND01’s causal genotype is a **compound-heterozygous pair in *BUB1B*** (MV
 | Allele | GRCh38 | HGVS (NM_001211.6) | Class |
 |---|---|---|---|
 | 1 | `chr15:40209701 T>G` | `c.2210T>G` `p.Leu737Ter` | ClinVar **Pathogenic/Likely pathogenic** for mosaic variegated aneuploidy syndrome 1 ([VCV000533901](https://www.ncbi.nlm.nih.gov/clinvar/variation/533901/)) |
-| 2 | `chr15:40220612 T>G` | `c.3006T>G` `p.Asn1002Lys` | Novel missense in the kinase-like C-lobe; AlphaMissense **0.9229** (likely_pathogenic); absent from gnomAD |
+| 2 | `chr15:40220612 T>G` | `c.3006T>G` `p.Asn1002Lys` | Novel C-lobe **pseudokinase** missense; AlphaMissense **0.9229** (likely_pathogenic); ESM-1v predicts a mild substitution; absent from gnomAD |
 
-Submitted EPCR `0.95`, `finding_type=primary`. Only this pair is submitted (one row). Architecture matches the canonical viable MVA1 pattern: truncating allele + hypomorphic missense (Hanks et al., 2004).
+Submitted EPCR `0.95`, `finding_type=primary`. Only this pair is submitted (one row). Architecture matches the canonical viable MVA1 pattern: truncating/null allele + hypomorphic missense (Hanks et al., 2004). A viable MVA1 proband must retain some residual BUBR1 protein, since complete BUB1B loss is embryonic lethal.
 
-**What this is not:** `p.Glu756*` (a different historical alias); AlphaMissense 0.9229 is **not** popEVE; residual ~5–10% BUBR1 is the *BubR1^H/H* mouse literature value, **not** a measurement in this child; parental phasing is unproven (both alleles heterozygous in the proband VCF).
+**What this is not:** `p.Glu756*` (a different historical alias); AlphaMissense 0.9229 is **not** a popEVE log-odds score; popEVE is missing for this novel c.3006T>G; ESM-1v does **not** make N1002K equivalent to L1012P; the p.Leu737Ter UGA stop is suppressible in principle but untested in this child; residual ~5–10% BUBR1 is the *BubR1^H/H* mouse literature value, **not** a measurement in this child; parental phasing is unproven (both alleles heterozygous in the proband VCF).
 
 ---
 
@@ -58,7 +58,7 @@ Per-variant pathogenicity in `(0, 1]` (`src/mva_hackathon/variants/score.py`):
 - **Pair score:** product of the two allele scores (both alleles must be damaging)
 - **EPCR:** `max(primary_floor, pair_score)` with `primary_epcr: 0.95` in `configs/config.yaml`
 
-For this pair: p.Leu737Ter → 0.99; p.Asn1002Lys is AlphaMissense-dominated (popEVE only moderate, `−3.657`). Pair product ≈ 0.91, then floored to **0.95** as the primary call. A local clone of the published rank-points / F-max contract lives in `src/mva_hackathon/eval/scorer.py` (`pytest tests/test_scorer.py`).
+For this pair: p.Leu737Ter → 0.99; p.Asn1002Lys is AlphaMissense-dominated (popEVE is not available for this novel variant, so the population-evidence term falls back to AlphaMissense). Pair product ≈ 0.91, then floored to **0.95** as the primary call. A local clone of the published rank-points / F-max contract lives in `src/mva_hackathon/eval/scorer.py` (`pytest tests/test_scorer.py`).
 
 Chromosomes in the VCF/VEP output are `15` (no `chr` prefix); the writer adds `chr` for the official CSV.
 
@@ -67,18 +67,19 @@ Chromosomes in the VCF/VEP output are `15` (no `chr` prefix); the writer adds `c
 ## 5. Why this pair is the causal genotype
 
 1. **Gene:** biallelic *BUB1B* is the founding MVA1 locus (Hanks et al., 2004). The phenotype (MVA + childhood embryonal tumour) points at SAC-core genes, not the centrosomal MVA subset.
-2. **Allele 1** is a known MVA1 pathogenic stop-gain at the exact GRCh38 coordinate in ClinVar (VCV000533901; two submitters, Pathogenic / Likely pathogenic). It truncates before the kinase-like domain and C-terminal KEN/ABBA motifs used in MCC.
-3. **Allele 2** is absent from gnomAD, sits in the C-lobe of the human BUBR1 **pseudokinase**, and is scored likely_pathogenic by AlphaMissense. Neighbouring MVA missenses (human L1012P / mouse L1002P, R814H) reduce protein and SAC activity (Suijkerbuijk et al., 2010; Sieben et al., 2020). N1002K is nearby, not identical; we do not claim it is L1012P.
-4. **Architecture:** nonsense + kinase-like-domain missense is the textbook viable MVA1 genotype (Hanks 2004; Sieben 2020: “typically a nonsense mutation in combination with a missense mutation in the kinase domain”). Two PTVs would more often be embryonic lethal; two mild missenses would not explain the tumour-predisposed, microcephalic presentation as cleanly.
+2. **Allele 1** is a known MVA1 pathogenic stop-gain at the exact GRCh38 coordinate in ClinVar (VCV000533901; two submitters, Pathogenic / Likely pathogenic). It truncates before the C-terminal pseudokinase domain; the N-terminal KEN boxes and ABBA motifs are retained, but the premature-stop transcript/protein is expected to be degraded by NMD and/or instability.
+3. **Allele 2** is absent from gnomAD, sits in the **C-lobe of the BUBR1 pseudokinase domain**, and is scored likely_pathogenic by AlphaMissense (0.9229, well above the 0.564 threshold). ESM-1v predicts it to be the **third-mildest** of 19 amino-acid substitutions at residue 1002 and milder than the ClinVar benign/likely-benign median, so the *in silico* predictors conflict; AlphaMissense, which incorporates AlphaFold-derived structural context, is the stronger pathogenic signal here. Residue 1002 is 10 amino acids from the classic MVA1 missense **L1012P** (*Suijkerbuijk et al., 2010*), which was shown to destabilise BUBR1 protein and increase proteasomal degradation rather than ablate intrinsic SAC kinase activity. N1002K is therefore biologically predicted to act as a destabilising hypomorphic allele, not as a null. 
+4. **Architecture:** nonsense/null + pseudokinase C-lobe missense is the textbook viable MVA1 genotype (Hanks 2004; Sieben 2020: typically a nonsense mutation in combination with a missense mutation in the kinase/pseudokinase domain). Two PTVs would more often be embryonic lethal; two mild missenses would not explain the tumour-predisposed, microcephalic presentation as cleanly.
 5. **No competing compound-het** in the 15-gene panel after AF-key-corrected filtering.
 
 ---
 
 ## 6. Limitations (stated for judges)
 
-- **Phasing:** both variants are heterozygous (VAF ≈ 0.5). In *trans* is the genetic inference from disease architecture, not a parental BAM proof.
+- **Phasing:** both variants are heterozygous (VAF ≈ 0.5). *In trans* is inferred from the biallelic MVA1 architecture and the absence of a second gene with two rare functional alleles; no parental BAM was available.
 - **Residual protein:** ~5–10% is the *BubR1^H/H* mouse hypomorph, not an immunoblot from this child.
-- **popEVE vs AlphaMissense:** the missense is not a popEVE-severe allele; the call leans on ClinVar + AlphaMissense + gene-level uniqueness.
+- **ACMG status of p.Asn1002Lys:** formal automated classification is a **Variant of Uncertain Significance (VUS) leaning Likely Pathogenic** (PM2_Supporting [absent from gnomAD] + PP3 [AlphaMissense pathogenic, downweighted by ESM-1v discordance]). The call is strengthened by the biallelic MVA1 architecture and the absence of any competing candidate gene.
+- **popEVE vs AlphaMissense:** popEVE is not available for this novel missense; the call leans on ClinVar + AlphaMissense + gene-level uniqueness.
 - **No FASTQ remap** in this submission. A second shot could re-align if the supplied VCF were suspected incomplete; nothing in the current call requires that.
 - **Cancer `priority_bonus` in `run_track1.py` is dead code** and was **not** added to EPCR (that would have allowed EPCR > 1).
 - Coordinates and alleles were checked against ClinVar for allele 1; allele 2 has no ClinVar record.
@@ -103,7 +104,7 @@ Environment: `environment.yaml` (Python 3.11, Ensembl VEP **116**). AIRE paths: 
 ## 8. References
 
 1. Hanks S, et al. *Nat Genet* 2004;36:1159–61. PMID 15475955.
-2. Suijkerbuijk SJE, et al. *Cancer Res* 2010;70:7981–91.
+2. Suijkerbuijk SJE, et al. *Cancer Res* 2010;70:7981–91. (pseudokinase missense L1012P causes BUBR1 destabilisation, not catalytic loss.)
 3. Sieben CJ, et al. *J Clin Invest* 2020;130:411–25. doi:10.1172/JCI126863.
 4. Malumbres M, Villarroya-Beltri C. *Nat Rev Genet* 2024. doi:10.1038/s41576-024-00762-6.
 5. ClinVar VCV000533901.9. NM_001211.6(*BUB1B*):c.2210T>G (p.Leu737Ter). https://www.ncbi.nlm.nih.gov/clinvar/variation/533901/

@@ -13,7 +13,7 @@ def popEVE_to_prob(popeve: float, severe_threshold: float = -5.056) -> float:
 
     More negative = more severe. At severe_threshold the sigmoid is at 0.5.
     """
-    return float(1.0 / (1.0 + math.exp(popeve + severe_threshold)))
+    return float(1.0 / (1.0 + math.exp(popeve - severe_threshold)))
 
 
 def variant_pathogenicity(
@@ -25,6 +25,7 @@ def variant_pathogenicity(
     ptv_score: float = 0.99,
     missense_pop_weight: float = 0.7,
     missense_am_weight: float = 0.3,
+    popeve_severe: float = -5.056,
 ) -> float:
     """Return a single pathogenicity score in (0,1] for a variant."""
     consequence = consequence or ""
@@ -47,7 +48,7 @@ def variant_pathogenicity(
     if "missense_variant" in terms or "protein_altering_variant" in terms:
         pop_prob = None
         if popeve is not None:
-            pop_prob = popEVE_to_prob(popeve)
+            pop_prob = popEVE_to_prob(popeve, popeve_severe)
         elif am_pathogenicity is not None:
             pop_prob = float(am_pathogenicity)
 

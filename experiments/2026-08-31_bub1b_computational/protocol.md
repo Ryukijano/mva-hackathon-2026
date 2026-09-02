@@ -57,4 +57,6 @@ Baseline E2: ChEMBL mechanism table (`track2/data/chembl_axis_drugs.csv`). Embed
 
 **A3 (2026-08-31, exploratory, not a new H2 claim).** E2b: same skip-gram (50 epochs, dim 64, seeds 0/1/2) with anti-target genes dropped from the seed set. Outputs in `outputs/e2b_no_antitarget/`. Does not reopen H2.
 
+**A4 (2026-08-31, after E1 job 7619146).** Windowed ESM-1v ensemble on L40S (bf16; transformers 5.14.1). Named LLRs: N1002K **−0.110**, L1012P **−1.801**, R814H **−1.444**, K668Q **−0.309**. CPU replicate (job 7619147, fp32) N1002K **−0.105**. H1 “within 0.5 nats of L1012P” is **falsified** (gap 1.69 nats). N1002K remains LLR < 0 but is 17th/19 substitutions at that site; the *site* is constrained (min AA W = −3.70).
+
 **A5 (2026-09-01, E1c).** ClinVar B/LB missense control (unused H1 falsifier). Source: NCBI `variant_summary.txt.gz`, GRCh38, NM_001211.6, O60566 WT match. n=34 unique alleles. Scored with the same ESM-1v ensemble on CPU (job 7648413; GPU queue StartTime 22:20). Conventional even-n median LLR = **−0.161**. N1002K (−0.110) is weaker than that median (rank 18/34) → second falsifier **met**. H1 remains falsified. Outputs in `outputs/e1c_clinvar/`.

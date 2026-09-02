@@ -7,7 +7,8 @@ filter:
   spliceai_min_delta: 0.2
   spliceai_high_delta: 0.5
   popeve_severe: -5.056
-  alphamissense_pathogenic: 0.564  # AlphaMissense likely pathogenic cutoff (0.564)
+  alphamissense_benign: 0.34       # AlphaMissense likely benign cutoff
+  alphamissense_likely_pathogenic: 0.564  # AlphaMissense likely pathogenic cutoff
   cadd_min: 20
 
 scoring:

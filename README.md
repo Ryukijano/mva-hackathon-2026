@@ -30,9 +30,9 @@ This Hub repo contains **code, configs, tests, ranked findings, and the Track 2 
 | Allele | GRCh38 | HGVS (NM_001211.6) | Evidence |
 |---|---|---|---|
 | 1 | `chr15:40209701 T>G` | `c.2210T>G` `p.Leu737Ter` | ClinVar [VCV000533901](https://www.ncbi.nlm.nih.gov/clinvar/variation/533901/) Pathogenic for MVA1 |
-| 2 | `chr15:40220612 T>G` | `c.3006T>G` `p.Asn1002Lys` | Novel kinase-like-domain missense; AlphaMissense 0.9229 likely_pathogenic; absent from gnomAD |
+| 2 | `chr15:40220612 T>G` | `c.3006T>G` `p.Asn1002Lys` | Novel C-lobe **pseudokinase** missense; AlphaMissense 0.9229 likely_pathogenic; ESM-1v predicts a mild, chemically conservative substitution; absent from gnomAD; predicted to destabilise protein (L1012P-like) rather than ablate catalytic activity |
 
-EPCR `0.95`, `finding_type=primary`. Architecture is the classic viable MVA1 pattern (truncating + hypomorphic missense). Phasing is inferred, not parental.
+EPCR `0.95`, `finding_type=primary`. Architecture is the classic viable MVA1 pattern (truncating + hypomorphic missense). *In trans* is inferred from the biallelic MVA1 architecture, not from a parental BAM.
 
 ## Project layout
 
@@ -43,7 +43,7 @@ src/mva_hackathon/
   variants/              # VEP parse, rare/panel filter, score, pair, CSV writer
   eval/                  # Local clone of the published Track 1 scorer
 scripts/                 # CLI + AIRE Slurm wrappers
-experiments/             # ESM-1v, PrimeKG skip-gram, ClinVar B/LB (see protocol.md)
+experiments/             # ESM-1v, PrimeKG skip-gram, ClinVar B/LB — start at experiments/2026-08-31_bub1b_computational/SUMMARY.md
 track2/                  # ChEMBL screen, ranked candidates, report, pitch storyboard
 submissions/             # Track 1 CSV (findings only; no genome)
 tests/
@@ -55,15 +55,23 @@ tests/
 2. Annotate with Ensembl VEP **116** (GRCh38, offline) + AlphaMissense + popEVE plugins.
 3. Filter to the 15-gene MVA SAC/centrosome panel, relevant SO terms, gnomAD AF ≤ 0.001 or absent.
 4. SpliceAI on the tiny candidate VCF (`-D 500`).
-5. Score: PTV ≈ 0.99; missense = 0.7·popEVE-sigmoid + 0.3·AlphaMissense (AM fallback if popEVE missing); splice = max SpliceAI Δ.
-6. Pair alleles in the same gene; pair score = product; write ≤10 CSV rows with EPCR in (0, 1].
+5. Score: PTV ≈ 0.99; missense = 0.7·popEVE-sigmoid + 0.3·AlphaMissense (AM fallback if popEVE missing, e.g. novel N1002K); splice = max SpliceAI Δ. The VEP popEVE field is now `popEVE_SCORE` with `popEVE`/`popEVE_pop_adjusted_EVE` fallbacks; the sigmoid has been corrected so more-negative scores map to higher pathogenicity.
+6. Pair all combinations of alleles in the same gene; pair score = product; write ≤10 CSV rows with EPCR in (0, 1].
 7. Local scorer clone (`pytest tests/test_scorer.py`) before burning Track 1 quota (max 6).
 
 ## Pipeline (Track 2)
 
-Target-first ChEMBL screen (`track2/drug_screen.py`) on the BUB1B-hypomorph axis (SIRT2/NAD+, mTOR/autophagy, Nrf2/ROS, JAK/IL-6, plus anti-targets TTK/AURKB/STING). Ranked proposal in `track2/track2_report.md`.
+Target-first ChEMBL screen (`track2/drug_screen.py`) on the BUB1B-hypomorph axis (SIRT2/NAD+, FKBP1A/mTOR, Nrf2/ROS, JAK/IL-6, plus anti-targets TTK/AURKB/STING). Use `track2/drug_screen.py --approved-only` to retrieve only approved drugs (ChEMBL `max_phase=4`). Ranked proposal in `track2/track2_report.md`; pitch storyboard in `track2/pitch_storyboard.md`.
 
-Because the disease is **hypomorphic residual BUBR1**, candidates stabilize remaining protein or blunt downstream proteotoxic / mito / IFN load. TTK, Aurora B, and STING **agonists** are excluded (wrong direction).
+Because the disease is **hypomorphic residual BUBR1**, the strategy is dual-pronged: **(1) restore full-length protein from the stop-gain allele**, **(2) stabilise residual BUBR1**, then blunt downstream proteotoxic / lysosomal / mito / IFN load without rescuing aneuploid cells. TTK, Aurora B, and STING **agonists** are excluded (wrong direction). The revised lead stack is:
+
+1. **Tier 1a:** Ataluren (PTC124) / ELX-02 — UGA stop-codon readthrough of `p.Leu737Ter`.
+2. **Tier 1b:** NMN / nicotinamide riboside — SIRT2/BUBR1 K668 protein stabilisation.
+3. **Tier 2a:** Glycerol phenylbutyrate (Ravicti; sodium-free 4-PBA prodrug) — proteostasis chaperone.
+4. **Tier 2b:** Arimoclomol — HSF1/HSP and lysosomal function (cancer caveat).
+5. **Tier 2c:** Trehalose / spermidine — mTORC1-independent TFEB/autophagy-lysosome induction.
+6. **Tier 2d:** Rapamycin/everolimus (supportive only); NAC/MitoQ/omaveloxolone (hypothesis-only, with explicit cancer/metastasis warnings).
+7. **Tier 3:** Baricitinib / ruxolitinib / tocilizumab — biomarker-gated JAK/IL-6 blockade with oncology surveillance.
 
 ## Setup (AIRE / local)
 
