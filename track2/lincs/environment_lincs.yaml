@@ -1,0 +1,35 @@
+name: mva-hackathon-lincs
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11
+  - pip
+  - r-base >=4.3
+  - bioconductor-limma
+  - bioconductor-edger
+  - bioconductor-geoquery
+  - r-ggplot2
+  - r-dplyr
+  - r-readr
+  - r-stringr
+  - r-data.table
+  - pandas
+  - numpy
+  - scipy
+  - scikit-learn
+  - requests
+  - pyyaml
+  - tqdm
+  - matplotlib
+  - seaborn
+  - openpyxl
+  - gxx_linux-64
+  - make
+  - cmake
+  - libgcc-ng
+  - libstdcxx-ng
+  - pip:
+    - pydeseq2
+    - cmapPy
+    - lincs==2.0.1  # wheel for cp311; LINC-like MCDA tool but requested for completeness
