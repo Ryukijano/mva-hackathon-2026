@@ -128,7 +128,7 @@ def query_l2s2(
             "genesUp": up_genes,
             "genesDown": down_genes,
             "filterFda": fda_only,
-            "filterKo": True,
+            "filterKo": False,
             "first": first,
             "topN": 10000,
             "pvalueLe": 0.05,

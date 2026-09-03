@@ -37,31 +37,28 @@ The scientific rationale (readthrough of the UGA stop allele, SIRT2/BUBR1 K668 s
 
 ---
 
-## LINCS L1000CDS2 transcriptomic-reversal screen and false-rescue firewall
+## LINCS L2S2 + L1000CDS2 transcriptomic-reversal screen and false-rescue firewall
 
-We reverse-queried 9 independent GEO disease signatures through the L1000CDS2 CMap interface (3 human MVA cell-type contrasts from GSE22206, 2 early mouse BUBR1 hypomorph contrasts from GSE134781, and 4 late mouse BUBR1 hypomorph contrasts from GSE134780). For each signature, genes were ranked by differential expression and the top 100, 150 and 250 up- and down-regulated genes were submitted. L1000CDS2 returns drugs whose CMap signature most strongly inversely correlates with the disease signature (higher score = stronger reversal).
+We reverse-queried 9 independent GEO disease signatures through both engines (3 human MVA contrasts from GSE22206, 2 early mouse *BubR1* hypomorph contrasts from GSE134781, 4 late mouse *BubR1* hypomorph contrasts from GSE134780), using top 100/150/250 up- and down-regulated genes. **L2S2** (`pairedEnrich` on the public background) was the primary engine and returns consensus drugs with an odds ratio and p-value; **L1000CDS2** was the secondary reverse-correlation engine. A false-rescue firewall combined both: only approved medications passing anti-target, cytotoxic/broad-cancer-kinase, and multi-signature filters were retained. For L2S2, only appearances with `pvalue < 0.05` were counted as reproducible signatures.
 
 | firewall_status | n (unique drugs) | interpretation |
 |---|---|---|
-| ACCEPT | 2 | multi-signature approved hits passing mechanism and false-rescue filters |
-| WEAK | 1 | approved hit reproduced in only one signature |
-| REJECT | 231 | failed one or more filters: not approved / not in Track 2 axis / anti-target / cytotoxic / false-rescue / single-signature |
+| ACCEPT | 3 | reproducible approved hits across L2S2 and/or L1000CDS2 |
+| WEAK | 1 | approved, but only one significant signature |
+| REJECT | 672 | failed regulatory, anti-target, cytotoxic, or multi-signature filters |
 
-| drug | n_signatures | mean_score | max_score | firewall_status | notes |
-|---|---|---|---|---|---|
-| perhexiline maleate | 5 | 0.078 | 0.1595 | ACCEPT | mTOR/CPT1 inhibitor; approved anti-anginal; not in original candidate list |
-| sirolimus (rapamycin) | 3 | 0.045 | 0.0519 | ACCEPT | mTORC1 rapalog; core Track 2 candidate |
-| dasatinib (Sprycel) | 1 | 0.150 | 0.1623 | WEAK | BCR-ABL/SRC TKI; senolytic adjunct candidate; only one signature |
+| drug | n_engines | n_total_signatures | L2S2 (significant / total) | min L2S2 p | L1000CDS2 (n / mean score) | firewall_status | notes |
+|---|---|---|---|---|---|---|
+| sirolimus (rapamycin) | 2 | 5 | 2 / 5 | 6.86e-11 | 3 / 0.045 | ACCEPT | mTORC1/FKBP rapalog; strongest cross-signal |
+| dasatinib (Sprycel) | 2 | 2 | 1 / 4 | 0.0022 | 1 / 0.150 | ACCEPT | BCR-ABL/SRC TKI; senolytic adjunct only |
+| perhexiline maleate | 1 | 5 | — | — | 5 / 0.078 | ACCEPT | mTOR/CPT1 inhibitor; new in-silico hit, hepatotoxicity/CYP2D6 caution |
+| everolimus | 1 | 1 | 1 / 5 | 1.14e-5 | — | WEAK | mTORC1/FKBP rapalog; only one significant L2S2 signature |
 
-The L1000CDS2 hit landscape is dominated by approved oncology kinase inhibitors (EGFR, HER2, MEK, SRC, PI3K/AKT/mTOR). The firewall rejects almost all of these because they are either broad cancer-kinase inhibitors with no specific MVA rationale, cytotoxic, or only reproduced in a single signature.
+Sirolimus is the only original Track 2 candidate with a reproducible multi-signature signal in **both** engines, supporting the mTORC1/autophagy axis. Dasatinib is supported but is a broad tyrosine-kinase inhibitor and remains an oncology-supervised senolytic adjunct. Everolimus, a rapalog in the same class, appears in five L2S2 consensus lists but reaches `p < 0.05` in only one signature, so it is labelled WEAK. Perhexiline is a new cross-signature L1000CDS2 hit but is not in the current proposed stack; it needs orthogonal validation.
 
-Sirolimus is the only original Track 2 candidate with a reproducible multi-signature L1000CDS2 reversal signal, supporting the mTORC1/autophagy axis.
+The L2S2 hit landscape is dominated by approved oncology kinase inhibitors and cytotoxic agents; the firewall rejects almost all of these because they are either broad cancer-kinase inhibitors, cytotoxic, or not reproduced in significant signatures.
 
-Dasatinib appears in one signature with a high score but is a broad tyrosine-kinase inhibitor; its use remains as an oncology-supervised senolytic adjunct, not a primary MVA rescue drug.
-
-Perhexiline is a new cross-signature in-silico hit (mTOR and CPT1 inhibition); it is an approved anti-anginal but has hepatotoxicity/CYP2D6 concerns and is not in the current stack. It is a candidate worth orthogonal validation before any nomination.
-
-**Important caveat:** L1000CDS2 does not contain Ataluren, NMN, NR, trehalose, spermidine, MitoQ, quercetin, arimoclomol, glycerol phenylbutyrate, omaveloxolone, baricitinib, ruxolitinib, or tocilizumab in the top-50 results for these signatures. A lack of a top-50 hit is not evidence against a mechanism, but the positive L1000CDS2 signal is strongest for mTORC1/autophagy modulation.
+**Caveat:** L2S2/L1000CDS2 did not return reproducible significant hits for Ataluren, NMN, NR, trehalose, spermidine, MitoQ, quercetin, arimoclomol, glycerol phenylbutyrate, omaveloxolone, baricitinib, ruxolitinib, or tocilizumab in the queried signatures. The absence of a top consensus hit is not evidence against these mechanisms, but the strongest positive in-silico signal is for mTORC1/FKBP rapalogs.
 
 ---
 

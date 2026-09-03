@@ -38,9 +38,12 @@ def test_candidate_csv_has_lincs_columns():
     assert path.exists()
     df = pd.read_csv(path)
     for col in [
-        "lincs_n_signatures",
-        "lincs_mean_score",
-        "lincs_max_score",
+        "l2s2_n_signatures",
+        "l2s2_min_pvalue",
+        "l1k_n_signatures",
+        "l1k_mean_score",
+        "n_engines",
+        "n_total_signatures",
         "lincs_firewall_status",
         "lincs_firewall_reason",
         "lincs_mechanism_flag",
@@ -60,6 +63,6 @@ def test_report_has_lincs_section():
     path = REPO / "track2" / "track2_report.md"
     assert path.exists()
     text = path.read_text()
-    assert "LINCS L1000CDS2" in text
+    assert "LINCS L2S2 + L1000CDS2" in text
     assert "false-rescue firewall" in text.lower()
-    assert "perhexiline" in text.lower() or "sirolimus" in text.lower()
+    assert "perhexiline" in text.lower() and "sirolimus" in text.lower()
