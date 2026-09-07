@@ -15,6 +15,8 @@ Nine GEO contrast/gene-list definitions (GSE22206 human MVA; GSE134781 / GSE1347
 
 **REJECTED:** everolimus (mTORC1/FKBP rapalog; general FDR enrichment `adj_p = 7.46e-04` and mimic signatures, but **no FDR-significant reverse** and no L1000CDS2 support); perhexiline (L1000CDS2-only, no reverse signal, rejected by pediatric safety due to hepatotoxicity and lack of pediatric indication).
 
+**Post-hoc mechanism check (sirolimus):** independent of the transcriptomic signal, rapamycin is itself aneugenic — it induces chromosome malsegregation and CREST-positive micronuclei in human lymphocytes/lymphoblasts and rodent cells via the p70S6K pathway (Bonatti et al. 1998, *Chromosoma* 107:498–506, doi:10.1007/s004120050335), and an unpublished rapamycin-diet note in *BubR1^H/H* mice was not positive (Baker 2013, *Cell Rep*). The WEAK/MIXED sirolimus signal should therefore be read as a context-specific observation with a mechanism-based anti-target concern in MVA1, not a rescue lead; any further consideration requires micronucleus/missegregation assays in patient cells.
+
 **Known retrieval limitation:** The current L2S2 data was retrieved with the server's default sort (mimic ascending), which may miss strong rescue candidates. The query script has been corrected to use `sortby=adj_pvalue_down` for future re-queries, but the server was unavailable (504) during this analysis.
 
 Absence of a hit is not evidence against Ataluren, Ravicti, arimoclomol, NMN, or JAK/IL-6 drugs. No LINCS result establishes BUBR1 rescue, SAC correction, or patient benefit.

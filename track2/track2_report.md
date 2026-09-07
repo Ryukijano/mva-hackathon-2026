@@ -78,6 +78,7 @@ For each contrast, differential expression was performed using `limma` / `edgeR`
 4. **Dasatinib has a stronger single-signature reverse p-value but is an adjunct hypothesis.** Its best FDR-corrected reverse p-value (`adj_pvalue_down = 1.51e-05`) is lower than sirolimus's, but it is a broad tyrosine-kinase inhibitor and the senolytic hypothesis is a Tier 2 adjunct. It is retained only as an oncology-supervised conditional candidate.
 5. **Everolimus does not show a reverse L2S2 signal.** It has a general FDR-significant enrichment (`adj_pvalue = 7.46e-04`) and a mimic signature in GSE22206, but no FDR-significant reverse (`adj_pvalue_down > 0.05`) and no L1000CDS2 support. It is therefore not promoted by the firewall.
 6. **Rejection of in-silico artifacts:** Perhexiline maleate appeared in L1000CDS2 signatures but had zero L2S2 rescue signal. Although flagged in ChEMBL under mTOR, perhexiline is an anti-anginal CPT1 inhibitor with severe concentration-dependent hepatotoxicity, narrow therapeutic index, and an explicit Medsafe warning: *"Not recommended for use in children."* The pediatric safety firewall appropriately rejected perhexiline.
+7. **Mechanism-based caveat on the sirolimus signal.** Rapamycin is itself aneugenic — it induces chromosome malsegregation and CREST-positive micronuclei in human and rodent cells (Bonatti et al. 1998, *Chromosoma* 107:498–506, doi:10.1007/s004120050335), and an unpublished rapamycin-diet note in *BubR1^H/H* mice was not positive (Baker 2013, *Cell Rep*). The WEAK/MIXED sirolimus signal is therefore best read as a context-specific transcriptomic observation with a potential anti-target profile in MVA1 — not a rescue lead. Any further consideration requires micronucleus/missegregation assays in patient cells.
 7. **Biological scope of transcriptomic screens:** L2S2/L1000CDS2 evaluate steady-state mRNA perturbation in transformed cell lines. They cannot detect translational readthrough of nonsense codons (Ataluren) or post-translational protein stabilization (SIRT2 deacetylation of BUBR1 K668). The absence of a LINCS signature for Ataluren, NMN/NR, arimoclomol, or Ravicti reflects the platform's biological boundaries, not evidence against their disease-modifying mechanism.
 ---
 
@@ -133,7 +134,7 @@ North et al. (2014) showed that **SIRT2 deacetylates BUBR1 at K668**, blocking i
 
 The problem with **sodium 4-phenylbutyrate (Buphenyl)** is the massive sodium load: 1 g of sodium phenylbutyrate delivers ~124 mg of elemental sodium, and chaperone doses (9–13 g/m²/day) can cause hypertension, fluid retention, hypokalemia, and poor palatability.
 
-**Ravicti (glycerol phenylbutyrate)** is a sodium-free, triglyceride-conjugated oral liquid prodrug of 4-PBA, FDA/EMA-approved for urea-cycle disorders (including infants and young children). It provides identical phenylbutyric-acid exposure without the sodium burden and has better palatability.
+**Ravicti (glycerol phenylbutyrate)** is a sodium-free, triglyceride-conjugated oral liquid prodrug of 4-PBA, FDA/EMA-approved for urea-cycle disorders (including infants and young children). It delivers phenylbutyric acid without the sodium burden and has better palatability (formal bioequivalence to sodium 4-PBA is a label claim we have not independently verified).
 
 **Caveats:**
 - No direct BUBR1/MVA rescue data.
@@ -166,6 +167,8 @@ Spermidine is a natural polyamine that promotes autophagy and TFEB activation th
 ## 6. Tier 2c — Rapamycin / everolimus (supportive only)
 
 González-Blanco et al. (2026) depleted **TOR** in *Drosophila* neural stem cells with aneuploidy caused by SAC impairment. **Larval rapamycin and TOR RNAi rescued neuroblast numbers, but not brain size.** Brain-size rescue came from **Sod2 and GTPx-1 overexpression**, not rapamycin. An unpublished note in *BubR1^H/H* mice on rapamycin-containing diet was not positive (*Baker 2013, Cell Rep*).
+
+**Mechanism-based anti-target concern:** independently of any transcriptomic signal, rapamycin itself induces chromosome malsegregation and CREST-positive micronuclei in human lymphocytes/lymphoblasts and rodent cells via the p70S6K pathway (*Bonatti et al., 1998, Chromosoma* 107:498–506). In a disease defined by chromosome mis-segregation, this makes rapalogs a mechanistic worry, not just a weak signal: sirolimus is therefore treated as a context-specific transcriptomic observation with a potential anti-target profile, gated by micronucleus/missegregation assays in patient cells before any further consideration.
 
 Everolimus is FDA/EMA-approved for TSC-SEGA in children ≥1 year (and TSC-associated seizures from age 2 years); sirolimus is FDA/EMA-approved for transplant immunosuppression and lymphangioleiomyomatosis. Rapalogs are therefore **immunosuppressive and growth-delaying**, so they are positioned as **specialist-supervised, non-monotherapy options**, not primary MVA1 therapy.
 
@@ -310,3 +313,5 @@ The revised Track 2 proposal remains **mechanistically two-pronged**: direct res
 28. Sayin VI, et al. *Sci Transl Med* 2014;6:221ra15. doi:10.1126/scitranslmed.3007653 (NAC increases melanoma metastasis).
 29. Taguchi K, et al. *Cancer Res* 2011;71:3783–3791 (Nrf2 oncogenic functions and chemoresistance).
 30. DeNicola GM, et al. *Nature* 2011;475:104–107 (oncogene-induced Nrf2 promotes tumorigenesis).
+31. Bonatti S, et al. *Chromosoma* 1998;107:498–506. doi:10.1007/s004120050335 (rapamycin induces chromosome malsegregation and CREST-positive micronuclei in yeast and mammalian cells).
+32. Zhu Y, et al. *Aging Cell* 2015;14:644–658. doi:10.1111/acel.12344 (dasatinib + quercetin senolytic origin; Ercc1 progeroid model, not BubR1).

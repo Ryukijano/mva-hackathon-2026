@@ -114,6 +114,8 @@ Firewall on unique drugs: **ACCEPT 0 / WEAK 2 / REJECT 674**.
 
 Everolimus was rejected (general FDR only, no reverse signal). Perhexiline maleate was an L1000CDS2-only false-positive and was **rejected** by the pediatric-safety firewall.
 
+**Post-hoc mechanism check (sirolimus):** independent of the transcriptomic signal, rapamycin is itself aneugenic — it induces chromosome malsegregation and CREST-positive micronuclei in human lymphocytes/lymphoblasts and rodent cells via p70S6K (Bonatti et al. 1998, *Chromosoma* 107:498–506, doi:10.1007/s004120050335), and an unpublished rapamycin-diet note in *BubR1^H/H* mice was not positive (Baker 2013, *Cell Rep*). The WEAK sirolimus signal is a context-specific transcriptomic observation with a mechanism-based anti-target concern in MVA1 — not a rescue lead; any further consideration requires micronucleus/missegregation assays in patient cells.
+
 **Known retrieval limitation:** The current L2S2 data was retrieved with the server's default mimic-sorted sort order. The query script has been corrected to use `sortby=adj_pvalue_down` for future re-queries, but the server was unavailable (504) during this analysis.
 
 **Absence of a LINCS hit is not evidence against** Ataluren, Ravicti, arimoclomol, NMN, JAK inhibitors, or Nrf2 drugs. No LINCS result establishes BUBR1 rescue, SAC correction, or patient benefit.
@@ -144,7 +146,7 @@ Method: `track2/lincs/README.md`. Tables: `track2/lincs/results/lincs_firewall_d
 | Compound-het *BUB1B* is the Track 1 genotype | **Unchanged.** Panel uniqueness + ClinVar PTV + architecture. |
 | N1002K is AlphaMissense likely-pathogenic | **Unchanged**, and now **opposed** by ESM-1v / ClinVar B/LB LLRs. Report both. |
 | N1002K is “like L1012P” | **Do not say this.** |
-| Rapalogs / NAD+ / proteostasis / JAK as the stack | Mechanism-first ranking **stands**. PrimeKG does **not** recover rapalogs; LINCS **does** recover sirolimus after a false-rescue firewall. |
+| Rapalogs / NAD+ / proteostasis / JAK as the stack | Mechanism-first ranking **stands**. PrimeKG does **not** recover rapalogs; LINCS yields only a **context-specific WEAK/MIXED** sirolimus signal after the false-rescue firewall — and rapamycin is itself aneugenic (see §5), so this is not a rescue lead. |
 | Graph/AI discovered the therapy | **Do not say this.** |
 | NMN is the +58% lifespan result; NAC rescued fly brain size | **Do not say this.** |
 | TxGNN/PrimeKG GNN was trained | **Never built.** README no longer claims it. |
