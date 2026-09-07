@@ -25,7 +25,7 @@ After Ensembl VEP **116** (GRCh38), a 15-gene mitotic panel, gnomAD AF ≤ 0.001
 | Allele | GRCh38 | NM_001211.6 | Role |
 |---|---|---|---|
 | 1 | `chr15:40209701 T>G` | `c.2210T>G` `p.Leu737Ter` | ClinVar Pathogenic/LP for MVA1 ([VCV000533901](https://www.ncbi.nlm.nih.gov/clinvar/variation/533901/)) |
-| 2 | `chr15:40220612 T>G` | `c.3006T>G` `p.Asn1002Lys` | Novel C-lobe **pseudokinase** missense; AlphaMissense **0.9229**; ESM-1v mild; absent from gnomAD |
+| 2 | `chr15:40220612 T>G` | `c.3006T>G` `p.Asn1002Lys` | C-lobe **pseudokinase** missense; AlphaMissense **0.9229**; ESM-1v mild (3rd-mildest of 19); protein change in ClinVar as VUS (VCV4600147, via `c.3006T>A`); our `T>G` allele absent from ClinVar and gnomAD genomes (1 allele in gnomAD v4 exomes, AF 6.8e-07) |
 
 Submitted EPCR **0.95**, `finding_type=primary`. Architecture is truncating + hypomorphic missense ([Hanks et al., 2004](https://doi.org/10.1038/ng1449)). Human BUBR1’s C-terminus is a **pseudokinase**, not a working kinase. Phasing is inferred (both heterozygous in the VCF), not parental. Residual ~5–10% BUBR1 is the *BubR1^H/H* mouse literature, **not** measured in this child.
 
@@ -34,7 +34,7 @@ Submitted EPCR **0.95**, `finding_type=primary`. Architecture is truncating + hy
 - AF filter read a non-existent `gnomad_af` key and kept common KNL1/CEP192 haplotypes (AF 30–80%).
 - SpliceAI `-D 10000` exceeds the CLI max of 4999 (job `7537559`). Working distance is 500.
 - A cancer-gene EPCR bonus could push EPCR past 1.0; it is dead code and is **not** applied.
-- The 0.9229 on N1002K is **AlphaMissense**, not popEVE. popEVE is missing for this novel codon change.
+- The 0.9229 on N1002K is **AlphaMissense**, not popEVE. popEVE is missing for this codon change.
 
 Files: `submissions/Ryukijano_bub1b-compoundhet.csv`, `submissions/Ryukijano_track1_report.md`. Track 1 has **not** been uploaded to the Space (six-shot quota).
 

@@ -31,7 +31,7 @@ This Hub repo contains **code, configs, tests, ranked findings, and the Track 2 
 | Allele | GRCh38 | HGVS (NM_001211.6) | Evidence |
 |---|---|---|---|
 | 1 | `chr15:40209701 T>G` | `c.2210T>G` `p.Leu737Ter` | ClinVar [VCV000533901](https://www.ncbi.nlm.nih.gov/clinvar/variation/533901/) Pathogenic for MVA1 |
-| 2 | `chr15:40220612 T>G` | `c.3006T>G` `p.Asn1002Lys` | Novel C-lobe **pseudokinase** missense; AlphaMissense 0.9229 likely_pathogenic; ESM-1v predicts a mild, chemically conservative substitution; absent from gnomAD; located near the L1012P literature position — nearby MVA1 pseudokinase missenses destabilise BUBR1 (Suijkerbuijk 2010) — but not shown to destabilise itself and not functionally equivalent to L1012P |
+| 2 | `chr15:40220612 T>G` | `c.3006T>G` `p.Asn1002Lys` | C-lobe **pseudokinase** missense; AlphaMissense 0.9229 likely_pathogenic; ESM-1v predicts a mild, chemically conservative substitution (3rd-mildest of 19 at this residue); protein change in ClinVar as VUS (VCV4600147, via `c.3006T>A`); our `c.3006T>G` allele absent from ClinVar and gnomAD genomes (single allele in gnomAD v4 exomes, AF ≈ 6.8e-07); located near the L1012P literature position — nearby MVA1 pseudokinase missenses destabilise BUBR1 (Suijkerbuijk 2010) — but not shown to destabilise itself and not functionally equivalent to L1012P |
 
 EPCR `0.95`, `finding_type=primary`. Architecture is the classic viable MVA1 pattern (truncating + hypomorphic missense). *In trans* is inferred from the biallelic MVA1 architecture, not from a parental BAM.
 
