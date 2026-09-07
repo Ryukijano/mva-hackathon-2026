@@ -21,6 +21,9 @@ dependencies:
   - htslib
   - samtools
   - bcftools
+  - bwa-mem2
+  - mosdepth
+  - whatshap
   - ensembl-vep =116.0
   - zlib
   - libgcc-ng
