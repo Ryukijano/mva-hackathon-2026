@@ -1,0 +1,8 @@
+drug,approved,odds_ratio,pvalue,adj_pvalue,pvalue_up,adj_pvalue_up,pvalue_down,adj_pvalue_down,count_significant,count_insignificant,count_up_significant
+methazolamide,True,0,1,1,1,1,1,1,1,355,0
+betrixaban,True,0,1,1,1,1,1,1,1,321,1
+lofexidine,True,0,1,1,1,1,1,1,1,335,0
+gefitinib,True,0,1,1,1,1,1,1,1,2021,0
+pyrazinamide,True,0,1,1,1,1,1,1,1,409,0
+maraviroc,True,0,1,1,1,1,1,1,1,579,1
+vorinostat,True,0,1,1,1,1,1,1,1,6487,1

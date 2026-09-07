@@ -1,0 +1,3 @@
+drug,approved,odds_ratio,pvalue,adj_pvalue,pvalue_up,adj_pvalue_up,pvalue_down,adj_pvalue_down,count_significant,count_insignificant,count_up_significant
+telbivudine,True,0,1,1,1,1,1,1,1,251,0
+armodafinil,True,0,1,1,1,1,1,1,1,239,1

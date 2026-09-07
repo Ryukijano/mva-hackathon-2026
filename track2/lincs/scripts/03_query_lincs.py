@@ -33,7 +33,8 @@ query PairEnrichmentQueryConsensus(
   $filterKo: Boolean = false,
   $first: Int = 100,
   $topN: Int = 10000,
-  $pvalueLe: Float = 0.05
+  $pvalueLe: Float = 0.05,
+  $sortby: String = ""
 ) {
   background(id: $backgroundId) {
     pairedEnrich(
@@ -41,7 +42,7 @@ query PairEnrichmentQueryConsensus(
       offset: 0
       first: $first
       filterFda: $filterFda
-      sortby: ""
+      sortby: $sortby
       filterKo: $filterKo
       topN: $topN
       pvalueLe: $pvalueLe
@@ -117,9 +118,18 @@ def query_l2s2(
     down_genes: list[str],
     fda_only: bool = True,
     first: int = 100,
+    sortby: str = "adj_pvalue_down",
     retries: int = 3,
     sleep: float = 1.0,
 ) -> dict:
+    """Query L2S2 paired enrichment.
+
+    sortby defaults to "adj_pvalue_down" so that the returned consensus
+    rows are ranked by reverse (rescue) significance, not mimic significance.
+    The L2S2 server's default sort is pvalue_up (mimic), which biases
+    retrieval toward drugs that mimic the disease signature and may miss
+    strong rescue candidates that are weak mimics.
+    """
     payload = {
         "operationName": "PairEnrichmentQueryConsensus",
         "query": L2S2_QUERY,
@@ -132,6 +142,7 @@ def query_l2s2(
             "first": first,
             "topN": 10000,
             "pvalueLe": 0.05,
+            "sortby": sortby,
         },
     }
     for attempt in range(retries):
@@ -240,6 +251,9 @@ def main() -> int:
     ap.add_argument("--out", default="track2/lincs/results/l2s2", help="Output directory.")
     ap.add_argument("--fda-only", action="store_true", default=True, help="L2S2 FDA-approved filter.")
     ap.add_argument("--first", type=int, default=100, help="Number of L2S2 consensus hits to return.")
+    ap.add_argument("--sortby", default="adj_pvalue_down",
+                    help="L2S2 consensus sort field (default: adj_pvalue_down for rescue ranking; "
+                         "use 'pvalue_up' or '' for legacy mimic-sorted retrieval).")
     ap.add_argument("--background-id", help="L2S2 background UUID (auto-detected if omitted).")
     ap.add_argument("--l1000cds2", action="store_true", help="Also query L1000CDS2.")
     ap.add_argument("--sleep", type=float, default=0.5, help="Seconds to sleep between queries.")
@@ -262,10 +276,11 @@ def main() -> int:
         down_genes,
         fda_only=args.fda_only,
         first=args.first,
+        sortby=args.sortby,
     )
     raw_path = out_dir / f"{args.name}_l2s2_raw.json"
     raw_path.write_text(json.dumps(l2s2_result, indent=2))
-    print(f"wrote L2S2 raw response to {raw_path}")
+    print(f"wrote L2S2 raw response to {raw_path} (sortby={args.sortby})")
 
     consensus_rows = parse_l2s2_consensus(l2s2_result)
     csv_path = out_dir / f"{args.name}_l2s2_consensus.csv"

@@ -1,0 +1,59 @@
+{
+  "data": {
+    "background": {
+      "pairedEnrich": {
+        "consensusCount": 3,
+        "consensus": [
+          {
+            "drug": "albendazole",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 443,
+            "countUpSignificant": 1,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          },
+          {
+            "drug": "lorazepam",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 983,
+            "countUpSignificant": 1,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          },
+          {
+            "drug": "RITA",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 909,
+            "countUpSignificant": 1,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          }
+        ]
+      }
+    }
+  }
+}

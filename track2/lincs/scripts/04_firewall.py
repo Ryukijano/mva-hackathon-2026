@@ -11,6 +11,7 @@ produces a combined L2S2-first ranking.
 from __future__ import annotations
 
 import argparse
+import csv
 import math
 import re
 import sys
@@ -19,12 +20,28 @@ from pathlib import Path
 import pandas as pd
 
 
+# L1000CDS2 scores range from -1 (mimic) to +1 (reverse).
+# Only positive-scoring signatures indicate reversal direction.
+L1000CDS2_SCORE_THRESHOLD = 0.0
+
+# The current saved L2S2 data was retrieved with the server's default sort
+# (pvalue_up / mimic ascending). Re-queries should use adj_pvalue_down.
+L2S2_RETRIEVAL_SORT = "pvalue_up (mimic-sorted, default)"
+
+
 # -------------------- safety / mechanism keyword sets --------------------
 
+# Specific anti-target keywords (mechanisms that worsen SAC hypomorphism or trigger micronuclei inflammation)
 ANTI_TARGET_KEYWORDS = {
-    "ttk", "mps1", "aurora", "aurkb", "aurora b", "sting", "ad-s100",
-    "adu-s100", "plk1", "polo-like kinase 1", "cdk1", "cyclin dependent kinase 1",
-    "bub1", "bubr1", "bub1b",
+    "ttk inhibitor", "mps1 inhibitor", "aurora kinase", "aurora b inhibitor",
+    "aurkb inhibitor", "sting agonist", "adu-s100", "ad-s100", "bay-1161909",
+    "bay-1217389", "cfi-402257", "barasertib", "gsk-1070916", "plk1 inhibitor",
+    "polo-like kinase inhibitor", "cdk1 inhibitor",
+}
+
+# Drugs explicitly contraindicated, unsafe, or lacking any pediatric rationale/dosing
+PEDIATRIC_SAFETY_FAIL = {
+    "perhexiline", "thalidomide", "lenalidomide"
 }
 
 CYTOTOXIC_CANCER_KEYWORDS = {
@@ -143,6 +160,30 @@ def load_approved_names(chembl_path: Path) -> set[str]:
     return names
 
 
+def load_signature_composition(results_dir: Path) -> dict[str, dict]:
+    """Load signature_composition.csv from the results directory.
+
+    Returns a dict keyed by '{signature}_{size}' with FDR/nominal gene counts
+    and a has_nominal_genes flag.
+    """
+    comp_path = results_dir.parent / "signature_composition.csv"
+    if not comp_path.exists():
+        return {}
+    out: dict[str, dict] = {}
+    with comp_path.open() as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            key = f"{row['signature']}_{row['size']}"
+            out[key] = {
+                "up_fdr": int(row["up_fdr"]),
+                "up_nominal": int(row["up_nominal"]),
+                "down_fdr": int(row["down_fdr"]),
+                "down_nominal": int(row["down_nominal"]),
+                "has_nominal_genes": row["has_nominal_genes"].lower() == "true",
+            }
+    return out
+
+
 def build_drug_lookup(candidates_path: Path, chembl_axis_path: Path | None) -> dict[str, dict]:
     lookup: dict[str, dict] = {}
 
@@ -214,8 +255,12 @@ def label_mechanism(mechanism: str, target_axis: str, drug: str, meta: dict | No
     text = " ".join([mechanism, target_axis, drug]).lower()
     tags = []
 
-    if any(k in text for k in ANTI_TARGET_KEYWORDS):
+    # Check if specifically marked as anti-target
+    if meta and meta.get("regulatory_status") == "ANTI_TARGET":
         tags.append("anti_target")
+    elif any(k in text for k in ANTI_TARGET_KEYWORDS):
+        tags.append("anti_target")
+
     if any(k in text for k in CYTOTOXIC_CANCER_KEYWORDS):
         tags.append("cytotoxic_cancer")
 
@@ -249,16 +294,25 @@ def safe_neglog10(p: float) -> float:
     return -math.log10(p)
 
 
-def aggregate_l1000cds2(df: pd.DataFrame) -> dict[str, dict]:
+def aggregate_l1000cds2(df: pd.DataFrame, score_threshold: float = L1000CDS2_SCORE_THRESHOLD) -> dict[str, dict]:
+    """Aggregate L1000CDS2 results.
+
+    Only signatures with score > score_threshold (i.e., positive/reversal
+    direction) count toward l1k_n_signature and n_engines. L1000CDS2 scores
+    range from -1 (mimic) to +1 (reverse); without a threshold, every returned
+    row counts regardless of direction, inflating the engine count.
+    """
     out: dict[str, dict] = {}
     for drug_clean, g in df.groupby("drug_clean"):
         up_overlaps = g["up_dn_overlap"].dropna().astype(str).tolist()
         dn_overlaps = g["dn_up_overlap"].dropna().astype(str).tolist()
         all_overlap = ",".join(up_overlaps + dn_overlaps)
+        # Filter to positive-scoring (reversal) signatures
+        g_pos = g[g["score"].notna() & (g["score"] > score_threshold)]
         out[drug_clean] = {
             "l1k_n_total": len(g),
-            "l1k_n_signature": g["signature"].nunique(),
-            "l1k_signatures": sorted(g["signature"].unique().tolist()),
+            "l1k_n_signature": g_pos["signature"].nunique(),
+            "l1k_signatures": sorted(g_pos["signature"].unique().tolist()),
             "l1k_mean_score": g["score"].mean(),
             "l1k_max_score": g["score"].max(),
             "l1k_min_score": g["score"].min(),
@@ -269,27 +323,67 @@ def aggregate_l1000cds2(df: pd.DataFrame) -> dict[str, dict]:
     return out
 
 
-def aggregate_l2s2(df: pd.DataFrame, pvalue_thr: float = 0.05) -> dict[str, dict]:
+def aggregate_l2s2(df: pd.DataFrame, adj_pvalue_thr: float = 0.05, pvalue_thr: float = 0.05) -> dict[str, dict]:
+    """Aggregate L2S2 consensus results, gating rescue/repurposing candidates on
+    directional reverse-pair enrichment (adj_pvalue_down / pvalue_down).
+
+    L2S2 semantics (from the pairedEnrich GraphQL schema and consensus computation):
+    - genesUp / genesDown are the disease signature.
+    - pvalue_up / adj_pvalue_up test whether the drug MIMICS the disease.
+    - pvalue_down / adj_pvalue_down test whether the drug REVERSES the disease.
+    - pvalue / adj_pvalue are non-directional (drug over-represented among
+      significant pair results).
+    For repurposing we therefore require a significant reverse (rescue) signal.
+    """
     out: dict[str, dict] = {}
     for drug_clean, g in df.groupby("drug_clean"):
         g = g.copy()
-        g["neglog10_p"] = g["pvalue"].apply(safe_neglog10)
-        sig_mask = g["pvalue"] <= pvalue_thr
-        sig = g[sig_mask]
+        # Rescue direction is the biologically relevant p-value for ranking
+        g["neglog10_p"] = g["pvalue_down"].apply(safe_neglog10)
+        g["neglog10_p_up"] = g["pvalue_up"].apply(safe_neglog10)
+        g["neglog10_p_general"] = g["pvalue"].apply(safe_neglog10)
+
+        # For rescue/repurposing we need drugs whose perturbation REVERSES the disease signature
+        sig_fdr_reverse = g[g["adj_pvalue_down"] <= adj_pvalue_thr]
+        sig_nom_reverse = g[g["pvalue_down"] <= pvalue_thr]
+        sig_fdr_mimic = g[g["adj_pvalue_up"] <= adj_pvalue_thr]
+        sig_fdr_general = g[g["adj_pvalue"] <= adj_pvalue_thr]
+
+        n_rev = int(sig_fdr_reverse["signature"].nunique())
+        n_mim = int(sig_fdr_mimic["signature"].nunique())
+        n_gen = int(sig_fdr_general["signature"].nunique())
+        if n_rev > 0 and n_mim > 0:
+            direction = "MIXED"
+        elif n_rev > 0:
+            direction = "REVERSE"
+        elif n_mim > 0:
+            direction = "MIMIC"
+        else:
+            direction = "NOT_SIGNIFICANT"
+
         out[drug_clean] = {
             "l2s2_n_total": len(g),
             "l2s2_n_signature": g["signature"].nunique(),
-            "l2s2_n_sig_pval": int(sig_mask.sum()),
-            "l2s2_n_significant": sig["signature"].nunique(),
-            "l2s2_signatures": sorted(sig["signature"].unique().tolist()) if not sig.empty else [],
+            "l2s2_n_significant": n_rev,
+            "l2s2_n_significant_mimic": n_mim,
+            "l2s2_n_significant_general": n_gen,
+            "l2s2_n_sig_pval": int(sig_nom_reverse["signature"].nunique()),
+            "l2s2_signatures": sorted(sig_fdr_reverse["signature"].unique().tolist()) if not sig_fdr_reverse.empty else sorted(sig_nom_reverse["signature"].unique().tolist()),
+            "l2s2_mimic_signatures": sorted(sig_fdr_mimic["signature"].unique().tolist()),
+            "l2s2_general_signatures": sorted(sig_fdr_general["signature"].unique().tolist()),
             "l2s2_all_signatures": sorted(g["signature"].unique().tolist()),
             "l2s2_mean_neglog10p": g["neglog10_p"].mean(),
             "l2s2_max_neglog10p": g["neglog10_p"].max(),
-            "l2s2_min_pvalue": g["pvalue"].min(),
-            "l2s2_min_adj_pvalue": g["adj_pvalue"].min(),
+            "l2s2_min_pvalue": g["pvalue_down"].min(),
+            "l2s2_min_adj_pvalue": g["adj_pvalue_down"].min(),
+            "l2s2_min_pvalue_general": g["pvalue"].min(),
+            "l2s2_min_adj_pvalue_general": g["adj_pvalue"].min(),
+            "l2s2_min_pvalue_up": g["pvalue_up"].min(),
+            "l2s2_min_adj_pvalue_up": g["adj_pvalue_up"].min(),
             "l2s2_mean_odds_ratio": g["odds_ratio"].mean(),
             "l2s2_max_odds_ratio": g["odds_ratio"].max(),
             "l2s2_approved_any": bool(g["approved"].any()) if "approved" in g.columns else False,
+            "l2s2_direction": direction,
         }
     return out
 
@@ -300,20 +394,31 @@ def decide(drug: str, l2s2: dict | None, l1k: dict | None, meta: dict | None) ->
     l1k_n_sig = l1k["l1k_n_signature"] if l1k else 0
     n_engines = (1 if (l2s2 and l2s2_n_sig > 0) else 0) + (1 if (l1k and l1k_n_sig > 0) else 0)
     n_total_sig = l2s2_n_sig + l1k_n_sig
+    l2s2_direction = l2s2["l2s2_direction"] if l2s2 else "NO_LINCS_HIT"
 
     result = {
         "drug": drug,
         "l2s2_n_total": l2s2["l2s2_n_total"] if l2s2 else 0,
         "l2s2_n_signatures": l2s2_n_all,
         "l2s2_n_significant": l2s2_n_sig,
+        "l2s2_n_significant_mimic": l2s2["l2s2_n_significant_mimic"] if l2s2 else 0,
+        "l2s2_n_significant_general": l2s2["l2s2_n_significant_general"] if l2s2 else 0,
         "l2s2_signatures": ";".join(l2s2["l2s2_signatures"]) if l2s2 else "",
+        "l2s2_mimic_signatures": ";".join(l2s2["l2s2_mimic_signatures"]) if l2s2 else "",
+        "l2s2_general_signatures": ";".join(l2s2["l2s2_general_signatures"]) if l2s2 else "",
         "l2s2_n_sig_pval": l2s2["l2s2_n_sig_pval"] if l2s2 else 0,
-        "l2s2_min_pvalue": round(l2s2["l2s2_min_pvalue"], 5) if l2s2 else None,
-        "l2s2_min_adj_pvalue": round(l2s2["l2s2_min_adj_pvalue"], 5) if l2s2 else None,
+        "l2s2_min_pvalue": l2s2["l2s2_min_pvalue"] if l2s2 else None,
+        "l2s2_min_adj_pvalue": l2s2["l2s2_min_adj_pvalue"] if l2s2 else None,
+        "l2s2_min_pvalue_general": l2s2["l2s2_min_pvalue_general"] if l2s2 else None,
+        "l2s2_min_adj_pvalue_general": l2s2["l2s2_min_adj_pvalue_general"] if l2s2 else None,
+        "l2s2_min_pvalue_up": l2s2["l2s2_min_pvalue_up"] if l2s2 else None,
+        "l2s2_min_adj_pvalue_up": l2s2["l2s2_min_adj_pvalue_up"] if l2s2 else None,
         "l2s2_mean_neglog10p": round(l2s2["l2s2_mean_neglog10p"], 3) if l2s2 else None,
         "l2s2_max_neglog10p": round(l2s2["l2s2_max_neglog10p"], 3) if l2s2 else None,
         "l2s2_mean_odds_ratio": round(l2s2["l2s2_mean_odds_ratio"], 3) if l2s2 else None,
         "l2s2_max_odds_ratio": round(l2s2["l2s2_max_odds_ratio"], 3) if l2s2 else None,
+        "l2s2_direction": l2s2_direction,
+        "l2s2_retrieval_sort": L2S2_RETRIEVAL_SORT,
         "l1k_n_total": l1k["l1k_n_total"] if l1k else 0,
         "l1k_n_signatures": l1k_n_sig,
         "l1k_signatures": ";".join(l1k["l1k_signatures"]) if l1k else "",
@@ -351,6 +456,10 @@ def decide(drug: str, l2s2: dict | None, l1k: dict | None, meta: dict | None) ->
         reasons.append("not_lincs_eligible")
         status = "REJECT"
 
+    if drug in PEDIATRIC_SAFETY_FAIL:
+        reasons.append("pediatric_safety_contraindication")
+        status = "REJECT"
+
     if "anti_target" in mech_tags:
         reasons.append("anti_target_mechanism")
         status = "REJECT"
@@ -369,11 +478,29 @@ def decide(drug: str, l2s2: dict | None, l1k: dict | None, meta: dict | None) ->
             status = "REJECT"
 
     if n_total_sig == 0:
-        reasons.append("no_significant_lincs_signal")
+        reasons.append("no_significant_fdr_lincs_signal")
         status = "REJECT"
     elif n_total_sig < 2:
         reasons.append(f"only_{n_total_sig}_signature_total")
         if status == "ACCEPT":
+            status = "WEAK"
+
+    # MIXED direction penalty: a drug with both FDR-significant reverse and
+    # mimic signatures has inconsistent transcriptomic directionality and
+    # cannot be positioned as a primary rescue candidate. This is a data-driven
+    # penalty, separate from the tier-based biological downgrade below.
+    if l2s2_direction == "MIXED":
+        reasons.append("mixed_l2s2_directionality_reverse_and_mimic")
+        if status == "ACCEPT":
+            status = "WEAK"
+
+    # Tier-based biological downgrade: supportive/adjunct/caution tiers are not
+    # positioned as primary rescue/stabilisation leads, even when a LINCS signal
+    # is present. They remain WEAK/conditional candidates.
+    tier = (meta.get("tier") or "").lower() if meta else ""
+    if any(k in tier for k in ("adjunct", "supportive", "caution")):
+        if status == "ACCEPT":
+            reasons.append("tier_is_supportive_or_adjunct_not_primary_rescue")
             status = "WEAK"
 
     result["firewall_status"] = status
@@ -397,8 +524,12 @@ def main():
 
     l1000 = load_l1000cds2(results_dir)
     l2s2 = load_l2s2(results_dir)
+    composition = load_signature_composition(results_dir)
     print(f"Loaded {len(l1000)} L1000CDS2 rows across {l1000['signature'].nunique() if not l1000.empty else 0} signatures; {l1000['drug_clean'].nunique() if not l1000.empty else 0} unique drugs")
     print(f"Loaded {len(l2s2)} L2S2 rows across {l2s2['signature'].nunique() if not l2s2.empty else 0} signatures; {l2s2['drug_clean'].nunique() if not l2s2.empty else 0} unique drugs")
+    if composition:
+        n_nominal = sum(1 for v in composition.values() if v["has_nominal_genes"])
+        print(f"Loaded {len(composition)} signature compositions ({n_nominal} contain nominal genes)")
 
     lookup = build_drug_lookup(args.candidates, args.chembl_axis)
     print(f"Drug lookup has {len(lookup)} name entries")
@@ -434,6 +565,20 @@ def main():
             }
         d = decide(drug, l2, l1, meta)
         d["lincs_drug"] = drug
+        # Flag whether any of the drug's L2S2 reverse signatures contain nominal genes
+        if l2 and composition:
+            sig_keys = [f"{s}_{sz}" for s in l2.get("l2s2_signatures", []) for sz in [l2.get("l2s2_n_total", 0)]]
+            # Check all signatures this drug appears in
+            drug_sigs = l2.get("l2s2_all_signatures", [])
+            has_nominal = any(
+                composition.get(f"{s}_{sz}", {}).get("has_nominal_genes", False)
+                for s in drug_sigs
+                for sz in [100, 150, 250]
+                if f"{s}_{sz}" in composition
+            )
+            d["signature_has_nominal_genes"] = has_nominal
+        else:
+            d["signature_has_nominal_genes"] = False
         summaries.append(d)
 
     firewall_df = pd.DataFrame(summaries)
@@ -467,8 +612,15 @@ def main():
             evidence_rows.append({
                 "drug": r["drug"],
                 "l2s2_n_signatures": int(h["l2s2_n_significant"]),
+                "l2s2_n_significant_mimic": int(h["l2s2_n_significant_mimic"]),
+                "l2s2_n_significant_general": int(h["l2s2_n_significant_general"]),
                 "l2s2_n_total": int(h["l2s2_n_total"]),
                 "l2s2_min_pvalue": h["l2s2_min_pvalue"],
+                "l2s2_min_adj_pvalue": h["l2s2_min_adj_pvalue"],
+                "l2s2_min_pvalue_general": h["l2s2_min_pvalue_general"],
+                "l2s2_min_adj_pvalue_general": h["l2s2_min_adj_pvalue_general"],
+                "l2s2_min_pvalue_up": h["l2s2_min_pvalue_up"],
+                "l2s2_min_adj_pvalue_up": h["l2s2_min_adj_pvalue_up"],
                 "l2s2_mean_neglog10p": h["l2s2_mean_neglog10p"],
                 "l2s2_mean_odds_ratio": h["l2s2_mean_odds_ratio"],
                 "l1k_n_signatures": int(h["l1k_n_signatures"]),
@@ -480,13 +632,23 @@ def main():
                 "lincs_firewall_status": h["firewall_status"],
                 "lincs_firewall_reason": h["firewall_reason"],
                 "lincs_mechanism_flag": h["mechanism_flag"],
+                "l2s2_direction": h["l2s2_direction"],
+                "l2s2_retrieval_sort": h.get("l2s2_retrieval_sort", ""),
+                "signature_has_nominal_genes": bool(h.get("signature_has_nominal_genes", False)),
             })
         else:
             evidence_rows.append({
                 "drug": r["drug"],
                 "l2s2_n_signatures": 0,
+                "l2s2_n_significant_mimic": 0,
+                "l2s2_n_significant_general": 0,
                 "l2s2_n_total": 0,
                 "l2s2_min_pvalue": None,
+                "l2s2_min_adj_pvalue": None,
+                "l2s2_min_pvalue_general": None,
+                "l2s2_min_adj_pvalue_general": None,
+                "l2s2_min_pvalue_up": None,
+                "l2s2_min_adj_pvalue_up": None,
                 "l2s2_mean_neglog10p": None,
                 "l2s2_mean_odds_ratio": None,
                 "l1k_n_signatures": 0,
@@ -498,14 +660,19 @@ def main():
                 "lincs_firewall_status": "NO_LINCS_HIT",
                 "lincs_firewall_reason": "not_found_in_l2s2_or_l1000cds2",
                 "lincs_mechanism_flag": "",
+                "l2s2_direction": "NO_LINCS_HIT",
+                "l2s2_retrieval_sort": "",
+                "signature_has_nominal_genes": False,
             })
 
     evidence_df = pd.DataFrame(evidence_rows)
-    # Remove stale L1000-only columns from a previous merge to avoid _x/_y suffixes
-    stale_cols = [c for c in cand.columns if c.startswith("lincs_n_") or c.startswith("lincs_mean_") or c.startswith("lincs_max_") or c in (
-        "lincs_firewall_status", "lincs_firewall_reason", "lincs_mechanism_flag"
-    )]
-    cand = cand.drop(columns=stale_cols)
+    # Keep only base columns in cand before merging to avoid duplicate _x/_y suffixes
+    base_cols = [
+        "rank", "tier", "drug", "target_axis", "mechanism", "evidence_level",
+        "evidence_source", "pediatric_status", "risk_notes", "regulatory_status",
+        "approved_jurisdiction", "pediatric_indication", "lincs_eligible", "regulatory_evidence_url"
+    ]
+    cand = cand[[c for c in base_cols if c in cand.columns]]
     cand_merged = cand.merge(evidence_df, on="drug", how="left")
     cand_out = out_dir / "track2_candidates_with_lincs.csv"
     cand_merged.to_csv(cand_out, index=False)
@@ -526,8 +693,10 @@ def main():
     print(firewall_df["firewall_status"].value_counts().to_string())
     print("\nTop accepted/re-purposing hits:")
     print(firewall_df[firewall_df["firewall_status"].isin(["ACCEPT", "WEAK"])]
-          [["drug", "n_engines", "n_total_signatures", "l2s2_n_signatures", "l2s2_min_pvalue",
-            "l2s2_mean_neglog10p", "l1k_n_signatures", "l1k_mean_score", "firewall_status", "mechanism_flag"]]
+          [["drug", "l2s2_direction", "n_engines", "n_total_signatures", "l2s2_n_significant",
+            "l2s2_n_significant_mimic", "l2s2_n_significant_general", "l2s2_min_pvalue",
+            "l2s2_min_adj_pvalue", "l2s2_mean_neglog10p", "l1k_n_signatures", "l1k_mean_score",
+            "firewall_status", "mechanism_flag"]]
           .head(30).to_string(index=False))
 
 

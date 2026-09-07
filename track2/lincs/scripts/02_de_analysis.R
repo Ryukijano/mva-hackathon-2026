@@ -99,12 +99,28 @@ write_signature <- function(degs, name, sizes = c(100, 150, 250), out_dir = data
   up <- if (nrow(up_fdr) >= min(sizes)) up_fdr else up_nom
   dn <- if (nrow(dn_fdr) >= min(sizes)) dn_fdr else dn_nom
 
+  composition <- list()
   for (n in sizes) {
     up_n <- head(up$gene, n)
     dn_n <- head(dn$gene, n)
     # Pad with NAs if fewer than n (script will still run; downstream tools should drop NAs)
     writeLines(up_n, file.path(out_dir, paste0(name, "_up_", n, ".txt")))
     writeLines(dn_n, file.path(out_dir, paste0(name, "_down_", n, ".txt")))
+
+    # Track how many genes in this signature are FDR vs nominal
+    up_n_fdr <- sum(up_n %in% up_fdr$gene)
+    up_n_nom <- length(up_n) - up_n_fdr
+    dn_n_fdr <- sum(dn_n %in% dn_fdr$gene)
+    dn_n_nom <- length(dn_n) - dn_n_fdr
+    composition[[paste0(name, "_", n)]] <- list(
+      signature = name,
+      size = n,
+      up_fdr = up_n_fdr,
+      up_nominal = up_n_nom,
+      down_fdr = dn_n_fdr,
+      down_nominal = dn_n_nom,
+      has_nominal_genes = (up_n_nom > 0 || dn_n_nom > 0)
+    )
   }
 
   write.csv(degs, file.path(out_dir, paste0(name, "_degs.csv")), row.names = FALSE)
@@ -114,7 +130,8 @@ write_signature <- function(degs, name, sizes = c(100, 150, 250), out_dir = data
     n_down = nrow(dn_fdr),
     n_up_nominal = nrow(up_nom),
     n_down_nominal = nrow(dn_nom),
-    n_total = nrow(degs)
+    n_total = nrow(degs),
+    composition = composition
   )
 }
 
@@ -196,3 +213,17 @@ summary_df <- data.frame(
 )
 print(summary_df)
 write.csv(summary_df, file.path(res_dir, "de_summary.csv"), row.names = FALSE)
+
+# Write per-signature/size composition (FDR vs nominal gene counts)
+comp_rows <- list()
+for (r in results) {
+  for (key in names(r$composition)) {
+    comp_rows[[length(comp_rows) + 1]] <- r$composition[[key]]
+  }
+}
+if (length(comp_rows) > 0) {
+  comp_df <- do.call(rbind, lapply(comp_rows, as.data.frame, stringsAsFactors = FALSE))
+  write.csv(comp_df, file.path(res_dir, "signature_composition.csv"), row.names = FALSE)
+  cat("\n=== Signature composition (FDR vs nominal) ===\n")
+  print(comp_df)
+}

@@ -55,6 +55,7 @@ def main() -> int:
                 "--name", f"{sig}_{size}",
                 "--out", str(RESULTS),
                 "--first", "100",
+                "--sortby", "adj_pvalue_down",
                 "--l1000cds2",
             ]
             print(f"querying L2S2+L1000CDS2: {sig} {size}")

@@ -1,0 +1,11 @@
+"signature","n_up","n_down","n_total"
+"GSE22206_case_v_control",215,86,18197
+"GSE22206_LCL_case_v_control",92,21,18197
+"GSE22206_fibro_case_v_control",2982,2898,18197
+"GSE134781_hetL1002P_v_WT",1,0,15362
+"GSE134781_hetX753_v_WT",0,0,15362
+"GSE134780_HL1002P_v_WT_muscle",5,5,15362
+"GSE134780_HH_v_WT_muscle",7,3,15362
+"GSE134780_HL1002P_v_WT_fat",1600,1589,15362
+"GSE134780_HH_v_WT_fat",995,696,15362
+"GSE247267_aneuploid_v_diploid",0,0,19201

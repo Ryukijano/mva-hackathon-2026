@@ -18,6 +18,7 @@ Code for [SageBio/rare-disease-real-kid-mva-hackathon-2026](https://huggingface.
 - **GitHub (submit-form URL, private during the hackathon):** https://github.com/Ryukijano/mva-hackathon-2026
 - **Track 1:** causal compound-het call in *BUB1B* — methods in `submissions/Ryukijano_track1_report.md`
 - **Track 2:** mechanism-guided approved-drug repurposing (ChEMBL target-first screen, not TxGNN)
+- **Campaign wrap-up:** [`WHAT_WE_DID.md`](WHAT_WE_DID.md)
 
 This Hub repo contains **code, configs, tests, ranked findings, and the Track 2 dossier**. It does **not** contain the gated genome, FASTQs, VEP caches, or the clinical phenotype source file.
 
@@ -30,7 +31,7 @@ This Hub repo contains **code, configs, tests, ranked findings, and the Track 2 
 | Allele | GRCh38 | HGVS (NM_001211.6) | Evidence |
 |---|---|---|---|
 | 1 | `chr15:40209701 T>G` | `c.2210T>G` `p.Leu737Ter` | ClinVar [VCV000533901](https://www.ncbi.nlm.nih.gov/clinvar/variation/533901/) Pathogenic for MVA1 |
-| 2 | `chr15:40220612 T>G` | `c.3006T>G` `p.Asn1002Lys` | Novel C-lobe **pseudokinase** missense; AlphaMissense 0.9229 likely_pathogenic; ESM-1v predicts a mild, chemically conservative substitution; absent from gnomAD; predicted to destabilise protein (L1012P-like) rather than ablate catalytic activity |
+| 2 | `chr15:40220612 T>G` | `c.3006T>G` `p.Asn1002Lys` | Novel C-lobe **pseudokinase** missense; AlphaMissense 0.9229 likely_pathogenic; ESM-1v predicts a mild, chemically conservative substitution; absent from gnomAD; predicted to destabilise protein near the L1012P literature position, but not functionally equivalent to L1012P |
 
 EPCR `0.95`, `finding_type=primary`. Architecture is the classic viable MVA1 pattern (truncating + hypomorphic missense). *In trans* is inferred from the biallelic MVA1 architecture, not from a parental BAM.
 
@@ -65,12 +66,12 @@ Target-first ChEMBL screen (`track2/drug_screen.py`) on the BUB1B-hypomorph axis
 
 Because the disease is **hypomorphic residual BUBR1**, the strategy is dual-pronged: **(1) restore full-length protein from the stop-gain allele**, **(2) stabilise residual BUBR1**, then blunt downstream proteotoxic / lysosomal / mito / IFN load without rescuing aneuploid cells. TTK, Aurora B, and STING **agonists** are excluded (wrong direction). The revised lead stack is:
 
-1. **Tier 1a:** Ataluren (PTC124) / ELX-02 — UGA stop-codon readthrough of `p.Leu737Ter`.
-2. **Tier 1b:** NMN / nicotinamide riboside — SIRT2/BUBR1 K668 protein stabilisation.
-3. **Tier 2a:** Glycerol phenylbutyrate (Ravicti; sodium-free 4-PBA prodrug) — proteostasis chaperone.
-4. **Tier 2b:** Arimoclomol — HSF1/HSP and lysosomal function (cancer caveat).
-5. **Tier 2c:** Trehalose / spermidine — mTORC1-independent TFEB/autophagy-lysosome induction.
-6. **Tier 2d:** Rapamycin/everolimus (supportive only); NAC/MitoQ/omaveloxolone (hypothesis-only, with explicit cancer/metastasis warnings).
+1. **Tier 1a:** Ataluren (PTC124) — UGA stop-codon readthrough of `p.Leu737Ter`; conditional UK/MHRA authorisation for nonsense DMD, not FDA or EMA approved. ELX-02 is investigational/future.
+2. **Tier 1b:** NMN / nicotinamide riboside — SIRT2/BUBR1 K668 protein-stabilisation hypothesis; supplements, not approved medications.
+3. **Tier 2a:** Glycerol phenylbutyrate (Ravicti; sodium-free 4-PBA prodrug) — proteostasis chaperone extrapolated from 4-PBA in trisomy iPSC neurons; FDA/EMA approved for urea-cycle disorders.
+4. **Tier 2b:** Arimoclomol — HSF1/HSP and lysosomal function (cancer caveat); FDA-approved for Niemann-Pick C, EMA refused.
+5. **Tier 2c:** Trehalose / spermidine — mTORC1-independent TFEB/autophagy-lysosome induction hypotheses; supplements/food, not approved medications.
+6. **Tier 2d:** Rapamycin (sirolimus) — exploratory mTORC1/FKBP supportive hit from the L2S2/L1000CDS2 screen (one FDR-significant reverse signature, but a mimic in several other MVA contexts); everolimus had no significant reverse signal. NAC/MitoQ/omaveloxolone are hypothesis-only, with explicit cancer/metastasis warnings.
 7. **Tier 3:** Baricitinib / ruxolitinib / tocilizumab — biomarker-gated JAK/IL-6 blockade with oncology surveillance.
 
 ## Setup (AIRE / local)

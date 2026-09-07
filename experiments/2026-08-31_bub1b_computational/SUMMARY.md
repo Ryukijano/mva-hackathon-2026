@@ -1,12 +1,10 @@
-# What we did — MVA Hackathon 2026 (Ryukijano)
+# What we did — ESM-1v / PrimeKG / ClinVar campaign
 
 **Folder:** `experiments/2026-08-31_bub1b_computational/`  
 **Dates:** 31 Aug – 1 Sep 2026  
-**Cluster:** University of Leeds AIRE  
-**GitHub:** https://github.com/Ryukijano/mva-hackathon-2026 (`d512b12`)  
-**Hugging Face mirror:** https://huggingface.co/Ryukijano/mva-hackathon-2026  
+**Whole-repo wrap-up (Track 1 + Track 2 + LINCS):** [`../../WHAT_WE_DID.md`](../../WHAT_WE_DID.md)
 
-This note is the human-readable wrap-up of the computational campaign. Pre-registration lives in `protocol.md`. Tables and job IDs live in `outputs/RESULTS.md`. Figures are in `outputs/figures/`.
+This note is the wrap-up of the **pre-registered protein-LM and knowledge-graph campaign only**. Pre-registration lives in `protocol.md`. Tables and job IDs live in `outputs/RESULTS.md`. Figures are in `outputs/figures/`.
 
 ---
 
@@ -153,10 +151,12 @@ Environment for the L40S ESM run: torch 2.13.0+cu126, transformers 5.14.1, `cjep
 
 ---
 
-## 9. Still open
+## 9. LINCS (not in this folder)
 
-1. **Track 2 video** (3 min, YouTube/Vimeo) — required for the Track 2 form.  
-2. **Track 1 Space submit** — only if we choose to spend 1 of 6 shots.  
-3. Optional extras we did not run: ClinVar *benign-only* (exclude single-submitter LB), 2-hop PrimeKG, full-protein ESM trace.
+A later Track 2 screen (`track2/lincs/`) queried GEO MVA/*BubR1* signatures through L2S2 + L1000CDS2 and applied a false-rescue firewall. The firewall now gates on L2S2 **directional reverse FDR** (`adj_pvalue_down < 0.05`). Results: **Sirolimus ACCEPT** (2 engines, 4 total signatures, **1** FDR-significant reverse signature in GSE22206 `adj_pvalue_down = 9.14e-05`, but a mimic in 4 other significant L2S2 contexts; 3 L1000CDS2 signatures, mean score 0.045); **dasatinib WEAK** (1 FDR-significant reverse signature `adj_pvalue_down = 1.51e-05`, downgraded to conditional senolytic adjunct); **everolimus REJECTED** (general/mimic FDR but no significant reverse and no L1000CDS2 support); **perhexiline REJECTED** (pediatric safety). The L2S2 signal is context-specific and exploratory, not an independent or cross-species validation. That does **not** reopen H2: PrimeKG still failed to rank rapalogs next to MVA. See `../../WHAT_WE_DID.md` §5.
 
-That is the campaign: a defensible MVA1 compound-het call, an honest hypomorph drug stack, and two pre-registered computational tests that **failed as written** and should be reported that way.
+## 10. Still open (this experiment)
+
+Optional extras we did not run: ClinVar *benign-only* (exclude single-submitter LB), 2-hop PrimeKG, full-protein ESM trace.
+
+H1 and H2 **failed as written** and should be reported that way. The Track 1 CSV is unchanged.

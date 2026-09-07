@@ -1,0 +1,123 @@
+{
+  "data": {
+    "background": {
+      "pairedEnrich": {
+        "consensusCount": 7,
+        "consensus": [
+          {
+            "drug": "methazolamide",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 355,
+            "countUpSignificant": 0,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          },
+          {
+            "drug": "betrixaban",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 321,
+            "countUpSignificant": 1,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          },
+          {
+            "drug": "maraviroc",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 579,
+            "countUpSignificant": 1,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          },
+          {
+            "drug": "lofexidine",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 335,
+            "countUpSignificant": 0,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          },
+          {
+            "drug": "gefitinib",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 2021,
+            "countUpSignificant": 0,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          },
+          {
+            "drug": "pyrazinamide",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 409,
+            "countUpSignificant": 0,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          },
+          {
+            "drug": "vorinostat",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 6487,
+            "countUpSignificant": 1,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          }
+        ]
+      }
+    }
+  }
+}
