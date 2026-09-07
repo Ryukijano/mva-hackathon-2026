@@ -34,6 +34,14 @@ __pycache__/
 # OS
 .DS_Store
 
+# Heavy local-only assets (regenerable / third-party)
+/research_papers/
+track2/lincs/data/raw/
+track2/lincs/logs/
+track2/lincs/data/*_expr.csv
+track2/lincs/data/*_degs.csv
+track2/lincs/data/chembl_all_approved_drugs.csv
+
 # Local agent / chat dumps (may contain secrets or clinical text)
 .cursor/
 MVA Track 1 Debugging*.md
