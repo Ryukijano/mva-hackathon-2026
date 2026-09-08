@@ -5,7 +5,7 @@
 #SBATCH --time=04:00:00
 #SBATCH --partition=nodes
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=48G
+#SBATCH --mem=200G
 
 # One-time setup: add WGS tooling to the mva-hackathon env and build the
 # bwa-mem2 index for the GRCh38 primary assembly FASTA.
@@ -35,17 +35,24 @@ echo "=== conda env update (bwa-mem2, mosdepth, whatshap) ==="
 conda env update --prefix "${ENV_PREFIX}" -f "${PROJECT}/environment.yaml"
 
 conda activate "${ENV_PREFIX}"
-bwa-mem2 version
-mosdepth --version
-whatshap --version
-samtools --version | head -1
+# version strings differ between tools; never let a check kill the job
+bwa-mem2 version || true
+mosdepth --version || true
+whatshap --version || true
+samtools --version | head -1 || true
 
 echo "=== bwa-mem2 index ==="
-if [ -f "${REF}.0123" ]; then
+# .bwt.2bit.64 is the LAST file bwa-mem2 index writes - check it, not .0123,
+# so a killed/killed-mid-build job can't leave a "complete-looking" index.
+if [ -f "${REF}.bwt.2bit.64" ]; then
   echo "index already present, skipping"
 else
+  rm -f "${REF}.0123" "${REF}.amb" "${REF}.ann" "${REF}.pac" "${REF}.bwt.2bit.64"
   bwa-mem2 index "${REF}"
 fi
+for ext in 0123 amb ann pac bwt.2bit.64; do
+  [ -f "${REF}.${ext}" ] || { echo "MISSING index file: ${REF}.${ext}"; exit 1; }
+done
 ls -la "${REF}".* | head -10
 
 echo "=== sanity: contig naming ==="

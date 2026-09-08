@@ -19,7 +19,7 @@ dependencies:
   - perl
   - tabix
   - htslib
-  - samtools
+  - samtools >=1.18
   - bcftools
   - bwa-mem2
   - mosdepth
