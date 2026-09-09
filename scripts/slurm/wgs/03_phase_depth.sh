@@ -49,24 +49,26 @@ samtools flagstat -@ 10 "${BAM}" > "${OUT}/final.flagstat.txt"
 samtools coverage "${BAM}" > "${OUT}/per_chrom_coverage.txt"
 cat "${OUT}/final.flagstat.txt"
 
-echo "=== base counts at the two BUB1B alleles ==="
+echo "=== base counts at the two BUB1B alleles (bcftools mpileup, all reads) ==="
 # 15:40209701 p.Leu737Ter (T>G), 15:40220612 p.Asn1002Lys (T>G)
-samtools mpileup -f "${REF}" -r 15:40209701-40209701 -a -Q 20 "${BAM}" \
-  > "${OUT}/mpileup_L737Ter.txt" || true
-samtools mpileup -f "${REF}" -r 15:40220612-40220612 -a -Q 20 "${BAM}" \
-  > "${OUT}/mpileup_N1002K.txt" || true
-cat "${OUT}/mpileup_L737Ter.txt" "${OUT}/mpileup_N1002K.txt"
+bcftools mpileup -A -a AD -f "${REF}" -r 15:40209701-40209701 -r 15:40220612-40220612 "${BAM}" \
+  > "${OUT}/mpileup_bub1b.vcf" 2>/dev/null
+cp "${OUT}/mpileup_bub1b.vcf" "${OUT}/mpileup_bub1b.vcf.bak"
+bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\t%DP\t[ %AD]\n' "${OUT}/mpileup_bub1b.vcf" > "${OUT}/mpileup_counts.txt"
+cat "${OUT}/mpileup_counts.txt"
 
 echo "=== mosdepth 100 kb bins, MAPQ>=20 ==="
 if [ ! -f "${OUT}/wgs_100kb.regions.bed.gz" ]; then
+  rm -f "${OUT}/wgs_100kb".*
   mosdepth -t 8 -n --by 100000 --mapq 20 \
     "${OUT}/wgs_100kb" "${BAM}"
 fi
-zcat "${OUT}/wgs_100kb.mosdepth.summary.txt" | head -30
+head -30 "${OUT}/wgs_100kb.mosdepth.summary.txt"
 
-echo "=== het SNV VCF for chr15 (phasing input) ==="
-HETS="${OUT}/hets_chr15.vcf.gz"
-bcftools view -i 'GT="het" && TYPE="snp"' -r 15 -Oz -o "${HETS}" "${VCF}"
+echo "=== het SNV VCF around BUB1B (phasing input) ==="
+HETS="${OUT}/hets_bub1b.vcf.gz"
+# BUB1B is around 40.2 Mb on chr15; 100 kb window keeps whatshap fast and focused
+bcftools view -i 'GT="het" && TYPE="snp"' -r 15:40150000-40250000 -Oz -o "${HETS}" "${VCF}"
 tabix -f "${HETS}"
 bcftools view -H "${HETS}" | wc -l
 
