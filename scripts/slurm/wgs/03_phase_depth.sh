@@ -4,8 +4,8 @@
 #SBATCH --error=/mnt/scratch/kcwp264/mva-hackathon-2026/logs/wgs_phase_%j.err
 #SBATCH --time=10:00:00
 #SBATCH --partition=nodes
-#SBATCH --cpus-per-task=12
-#SBATCH --mem=96G
+#SBATCH --cpus-per-task=24
+#SBATCH --mem=150G
 
 # Merge lanes, mark duplicates, then run the three analyses that gate the
 # Track 1 submission decision:
@@ -31,10 +31,17 @@ VCF="${PROJECT}/data/WGS_EX2312012_HGWCNDSX7.vcf.gz"
 OUT="${PROJECT}/results/wgs_phasing"
 mkdir -p "${BAMDIR}" "${OUT}" "${PROJECT}/logs"
 
-echo "=== merge + markdup ==="
+echo "=== merge + fixmate + markdup ==="
 if [ ! -f "${BAM}" ]; then
+  rm -f "${BAM}.tmp"
+  # samtools markdup 1.x requires the 'ms' tag from fixmate -m, and fixmate
+  # requires name-sorted input. Use a streaming pipeline: merge -> name-sort
+  # -> fixmate -> coordinate-sort -> markdup.
   samtools merge -@ 10 -u - "${LANEDIR}"/*.sorted.bam \
-    | samtools markdup -@ 10 -r - "${BAM}.tmp"
+    | samtools sort -n -@ 8 -m 2G -u - \
+    | samtools fixmate -m -u - - \
+    | samtools sort -@ 8 -m 2G -u - \
+    | samtools markdup -r -@ 10 - "${BAM}.tmp"
   mv "${BAM}.tmp" "${BAM}"
 fi
 samtools index -@ 10 "${BAM}"

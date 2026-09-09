@@ -2,10 +2,10 @@
 #SBATCH --job-name=mva_wgs_align
 #SBATCH --output=/mnt/scratch/kcwp264/mva-hackathon-2026/logs/wgs_align_%A_%a.out
 #SBATCH --error=/mnt/scratch/kcwp264/mva-hackathon-2026/logs/wgs_align_%A_%a.err
-#SBATCH --time=16:00:00
+#SBATCH --time=10:00:00
 #SBATCH --partition=nodes
-#SBATCH --cpus-per-task=12
-#SBATCH --mem=96G
+#SBATCH --cpus-per-task=24
+#SBATCH --mem=150G
 #SBATCH --array=0-3
 
 # Per-lane alignment: bwa-mem2 mem | samtools sort, one array task per lane.
@@ -44,7 +44,7 @@ bwa-mem2 mem \
   -t "${SLURM_CPUS_PER_TASK}" \
   -R "@RG\tID:${LANE}\tSM:WGS_EX2312012\tPL:ILLUMINA\tLB:${SAMPLE}" \
   "${REF}" "${R1}" "${R2}" \
-  | samtools sort -@ 6 -m 2G -T "${OUT}.sorttmp" -o "${OUT}.tmp" -
+  | samtools sort -@ 10 -m 3G -T "${OUT}.sorttmp" -o "${OUT}.tmp" -
 
 mv "${OUT}.tmp" "${OUT}"
 samtools index -@ 8 "${OUT}"
