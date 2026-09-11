@@ -15,3 +15,7 @@ Rendered with PyMOL (OSMesa headless) + matplotlib. `.pse` files reopen in deskt
 
 Scripts: `render_bubr1.py`, `render_complexes.py`, `render_highlight.py`, `mechanism_schematic.py`.
 Structures: `structures/AF-O60566-F1-model_v6.cif`, `6TLJ.cif`, `5JJA.cif`, `3SI5.cif` + PAE JSON.
+
+Rotating GIFs (36 frames each, `render_gif_frames.py` + PIL):
+`out/bubr1_trunc_rotate.gif` (truncation map), `out/apcc_mcc_rotate.gif` (APC/C+MCC),
+`out/clobe_rotate.gif` (C-lobe N1002/L1012).
