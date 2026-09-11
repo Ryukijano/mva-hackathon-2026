@@ -69,7 +69,9 @@ UNRESOLVED is a technical limit, not a contradiction of the trans hypothesis.
 - 44 kb upstream window (40,100,000–40,160,984): 88 variants — **all common
   SNPs (rsIDs) or simple-repeat indels; no rare non-repetitive candidate**.
 - Novel variants in the whole region: only 15:40209701 (L737Ter),
-  15:40216470 (intergenic A>G), 15:40220612 (N1002K) — plus repeat-region
+  15:40216470 (BUB1B intron 20/22 A>G; absent from gnomAD v4 / dbSNP /
+  ClinVar — a rare deep-intronic variant, SpliceAI DS 0.00), 15:40220612
+  (N1002K) — plus repeat-region
   indels (CCTT, poly-T, CAA runs) with no regulatory plausibility.
 - **Consequence: if the two coding alleles were cis, the second chromosome
   would carry no BUB1B-affecting allele at all** — inconsistent with MVA,

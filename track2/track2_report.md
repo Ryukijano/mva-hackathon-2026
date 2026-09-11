@@ -18,12 +18,12 @@
 
 ## Executive summary
 
-The therapeutic hypothesis remains **two-pronged upstream**: direct rescue of the stop-gain allele and stabilisation of the residual BUBR1 pool. However, the regulatory audit described below forces an honest re-ranking.
+The therapeutic hypothesis remains **two-pronged upstream**: direct rescue of the stop-gain allele and stabilisation of the residual BUBR1 pool. However, the regulatory audit described below — and an external scientific audit (Sept 2026) — forces an honest re-ranking.
 
-1. **Direct rescue of the stop-gain allele** (`p.Leu737Ter`, `UGA`) with translational readthrough. **Ataluren** has a conditional marketing authorisation in the **UK/MHRA** for nonsense-mutation DMD; it is **not FDA-approved** and the **EMA conditional authorisation was not renewed (March 2025)**. Other non-US markets listed by the company or Alliance are not individually verified from primary regulatory sources in this repository. **ELX-02 is an investigational eukaryotic ribosome-selective glycoside** and is therefore placed in a **future-research tier**, not in the main Track 2 stack.
+1. **Direct rescue of the stop-gain allele** (`p.Leu737Ter`, `UGA`) with translational readthrough. The dominant failure mode is **nonsense-mediated decay**: the PTC sits ~10 kb upstream of the terminal exon junction, so the mutant transcript is almost certainly degraded before any readthrough agent can act. **Amlexanox** is the mechanistically matched approved option (dual PTC readthrough + NMD inhibition), albeit approved only as a topical oral paste; **ataluren** has a conditional marketing authorisation in the **UK/MHRA** for nonsense-mutation DMD but no NMD activity; it is **not FDA-approved** and the **EMA conditional authorisation was not renewed (March 2025)**. Other non-US markets listed by the company or Alliance are not individually verified from primary regulatory sources in this repository. **ELX-02 is an investigational eukaryotic ribosome-selective glycoside** and is therefore placed in a **future-research tier**, not in the main Track 2 stack.
 2. **Stabilisation of the residual BUBR1 pool** through the SIRT2/NAD+ axis is supported mechanistically, but **NMN and NR are dietary-supplement / food-use articles, not approved medications**, and are retained only as mechanistic comparators.
 
-Downstream, the **approved-medication candidates** are **glycerol phenylbutyrate (Ravicti)**, an FDA/EMA-approved sodium-free 4-PBA prodrug for urea-cycle disorders, and **arimoclomol (Miplyffa / Meplyffa)**, FDA-approved on 20 Sep 2024 **in combination with miglustat** for Niemann-Pick C in patients >=2 years (EMA refused marketing authorisation for **Meplyffa** on 23 Jul 2026; re-examination requested by 5 Aug 2026). Trehalose, spermidine, MitoQ and quercetin are supplements/food ingredients and are not leading Track 2 nominations. Rapamycin, everolimus, NAC and omaveloxolone are approved medications (omaveloxolone is approved for Friedreich ataxia in patients >=16 years, not a paediatric label per se), but are positioned as supportive or adjunctive only because of the MVA1 oncogenic-risk context. Systemic JAK/IL-6 blockade (baricitinib, ruxolitinib, tocilizumab) remains biomarker-gated and under oncology surveillance.
+Downstream, the **approved-medication candidates** are **glycerol phenylbutyrate (Ravicti)**, an FDA/EMA-approved sodium-free 4-PBA prodrug for urea-cycle disorders, and **arimoclomol (Miplyffa / Meplyffa)**, FDA-approved on 20 Sep 2024 **in combination with miglustat** for Niemann-Pick C in patients >=2 years (EMA refused marketing authorisation for **Meplyffa** on 23 Jul 2026; re-examination requested by 5 Aug 2026). **Metformin and rilmenidine** are approved mTORC1-independent autophagy/lysosomal inducers that give the autophagy tier real regulatory standing. Trehalose, spermidine, MitoQ and quercetin are supplements/food ingredients and are not leading Track 2 nominations. Rapamycin, everolimus, NAC and omaveloxolone are approved medications (omaveloxolone is approved for Friedreich ataxia in patients >=16 years, not a paediatric label per se), but are positioned as supportive or adjunctive only because of the MVA1 oncogenic-risk context. Systemic JAK/IL-6 blockade (baricitinib, ruxolitinib, tocilizumab) remains biomarker-gated and under oncology surveillance.
 
 ---
 
@@ -112,20 +112,28 @@ Because the disease is a lack of functional BUBR1, the **only disease-modifying*
 ### Lead: Ataluren (PTC124 / Translarna)
 Ataluren is an orally bioavailable small molecule that binds to the ribosome and promotes insertion of near-cognate tRNAs at premature stop codons. Importantly, it has a **preference for UGA stop codons**, inserting Trp, Arg, or Cys, while showing little or no activity at normal termination codons (*Keeling 2014; PMC5098639*).
 
-For `p.Leu737Ter` (`TGA` → UGA in mRNA), ataluren could theoretically allow ribosomes to read through codon 737 and complete the full 1050-amino-acid BUBR1 protein. However, readthrough inserts a near-cognate amino acid (commonly Trp, Arg, or Cys), not the original leucine, so the product would contain an amino-acid substitution at position 737 and may not fold, localise, or function correctly. Nonsense-mediated decay may also reduce the mutant transcript available for readthrough. These gates must be tested in patient cells before any therapeutic claim.
+For `p.Leu737Ter` (`TGA` → UGA in mRNA), ataluren could theoretically allow ribosomes to read through codon 737 and complete the full 1050-amino-acid BUBR1 protein. However, readthrough inserts a near-cognate amino acid (commonly Trp, Arg, or Cys), not the original leucine, so the product would contain an amino-acid substitution at position 737 and may not fold, localise, or function correctly.
+
+**Critical gate — the transcript is almost certainly destroyed by NMD before ataluren can act.** The PTC sits at codon 737 of 1050, ~10.4 kb upstream of the last exon–exon junction; any PTC >50–55 nt upstream of the terminal exon junction complex is a canonical NMD substrate. BUB1B nonsense alleles in MVA1 patients (e.g. 386X, 731X, 753X) show absent or severely reduced mRNA by exactly this mechanism (*Suijkerbuijk 2010; Rio Frio 2010*). Ataluren does **not** inhibit NMD, so on its own it has essentially no substrate. A realistic readthrough strategy therefore requires an NMD inhibitor or a dual-mechanism agent (see amlexanox below). These gates must be tested in patient cells before any therapeutic claim.
 
 **Regulatory status:** Ataluren is **not FDA-approved** — PTC withdrew the NDA resubmission on 12 Feb 2026 — and the **EMA conditional marketing authorisation was not renewed in March 2025**. The only primary-source conditional marketing authorisation we verified is the **United Kingdom/MHRA** (PLGB 44221/0003, renewed 24/02/2026) for nonsense-mutation DMD in ambulatory patients aged two years and older; MHRA is actively reviewing it after the EU non-renewal, so use outside the UK would require import/compassionate access or fall under an investigational/expanded-access framework. A broader list of non-US jurisdictions has been published by the company and its Alliance partners, but those markets are not individually verified from primary regulatory evidence in this repository.
+
+### Amlexanox — dual PTC-readthrough + NMD inhibition (the mechanistically matched option)
+
+Because the dominant failure mode is NMD-mediated transcript loss (not merely a difficult stop codon), the cleanest approved small molecule is **amlexanox (Aphthasol)**, which has **dual activity**: it promotes PTC readthrough *and* inhibits nonsense-mediated decay by interfering with UPF1 phosphorylation, thereby increasing the pool of PTC-containing mRNA available for readthrough (*Gonzalez-Hilarion et al., Orphanet J Rare Dis 2012; Perronet et al., Biomolecules 2023*). In several PTC models it outperformed ataluren/G418/gentamicin.
+
+**Regulatory status:** Amlexanox is **FDA-approved** — but only as a **5% topical oral paste for aphthous ulcers** (Aphthasol, approved 1996). Systemic/oral use for nonsense-suppression is **off-label and investigational**: pediatric systemic safety, CNS exposure, and BUB1B-specific efficacy are all unestablished. It is therefore a **mechanistically matched hypothesis** for the `p.Leu737Ter` allele, not a ready-to-prescribe therapy; it would need reformulation for systemic delivery and validation in patient-derived cells (NMD inhibition → transcript rescue → readthrough → full-length BUBR1 on Western blot) before any clinical proposal.
 
 ### Future tier: ELX-02
 ELX-02 is a eukaryotic ribosome-selective glycoside (ERSG) engineered for improved UGA readthrough with reduced aminoglycoside-type ototoxicity and nephrotoxicity. In G542X CFTR patient-derived organoids, ELX-02 restored full-length CFTR protein and increased CFTR mRNA approximately 5-fold (*JCF 2021; NCT04135495*). It is **investigational** and has **no regulatory approval**.
 
 Because Track 2 is limited to existing, market-approved medications, **ELX-02 is not in the main proposed stack**. It is retained as a **future-research readthrough candidate** once it achieves regulatory approval and BUB1B/MVA proof-of-concept.
 
-**Evidence level:** Ataluren has strong mechanism-of-action data; ELX-02 has organoid proof-of-concept. **Neither has been tested in MVA1/BUB1B patient cells**, so restoration must first be confirmed by Western blot for full-length BUBR1 in the proband’s fibroblasts/iPSCs.
+**Evidence level:** Ataluren has strong mechanism-of-action data; amlexanox has dual readthrough+NMD-inhibition data in multiple PTC models; ELX-02 has organoid proof-of-concept. **None has been tested in MVA1/BUB1B patient cells**, so restoration must first be confirmed by (i) RT-qPCR/RNA-seq for rescue of the NMD-degraded `c.2210T>G` transcript, then (ii) Western blot for full-length BUBR1 in the proband’s fibroblasts/iPSCs.
 
-**Paediatric status:** Ataluren has paediatric dosing experience in DMD in approved jurisdictions; ELX-02 reached Phase 2 in adults/adolescents with CF.
+**Paediatric status:** Ataluren has paediatric dosing experience in DMD in approved jurisdictions; amlexanox is approved only for patients ≥12 years as a topical paste with no systemic paediatric label; ELX-02 reached Phase 2 in adults/adolescents with CF.
 
-**Safety:** Readthrough drugs do not rescue all nonsense alleles equally; efficiency depends on the surrounding mRNA sequence. There is a theoretical risk of producing a C-terminally elongated protein or off-target readthrough of other transcripts.
+**Safety:** Readthrough drugs do not rescue all nonsense alleles equally; efficiency depends on the surrounding mRNA sequence. There is a theoretical risk of producing a C-terminally elongated protein or off-target readthrough of other transcripts. NMD inhibition (amlexanox) stabilises not only the target transcript but also endogenous NMD substrates; transcriptome-wide off-target effects require monitoring.
 
 ---
 
@@ -176,6 +184,15 @@ Aneuploid cells activate **TFEB**, the master regulator of autophagy-lysosome bi
 ### Spermidine — supplement comparator
 Spermidine is a natural polyamine that promotes autophagy and TFEB activation through mTORC1-independent pathways. Spermidine-rich wheat-germ extract has EU novel-food authorisation and is marketed as a supplement. It has limited paediatric safety, bioavailability, and CNS-penetration data. It is included as a **mechanistic comparator**, not a prime candidate.
 
+### Metformin and rilmenidine — approved mTORC1-independent autophagy inducers
+
+Two approved medications provide the same mTORC1-independent autophagy/lysosomal rationale as the supplement comparators, with real regulatory and paediatric standing:
+
+- **Metformin** — first-line approved antidiabetic (FDA/EMA; paediatric use ≥10 years for T2DM, extensive off-label paediatric experience in obesity/insulin resistance/PCOS). It enhances autophagic and lysosomal flux and mitophagy via AMPK activation and has been reported to reduce proteostatic stress in trisomic/aneuploid cell models. Inexpensive, exceptionally well characterised, and — unlike rapamycin — it does **not** block mTORC1-driven growth outright, so it is less likely to worsen microcephaly/growth failure. No direct BUB1B/MVA data.
+- **Rilmenidine** — I1-imidazoline antihypertensive approved in the UK/EU (not FDA) that induces autophagy independently of mTORC1 and mimics caloric-restriction signalling (*Bitto et al., Aging Cell 2023*). Paediatric experience is limited; included as a secondary option if an approved autophagy inducer is preferred over supplements.
+
+Both are **approved medications** eligible under the Track 2 rules, filling the gap left by the supplement-only autophagy tier.
+
 ---
 
 ## 6. Tier 2c — Rapamycin / everolimus (supportive only)
@@ -205,6 +222,8 @@ These are ranked below proteostasis/autophagy candidates and should only be cons
 ## 8. Tier 3 — Systemic inflammation: JAK1/2 and IL-6 blockade
 
 Micronuclei from chromosome mis-segregation activate cGAS-STING and drive a type-I interferon/IL-6 response that promotes survival of aneuploid cells (*Hong et al., 2022, Nature; Bakhoum et al., 2018, Nature*). In preclinical CIN models, blocking this axis is protective.
+
+**Framing note (external audit):** the therapeutic goal in MVA1 is to **reduce the rate of new aneuploidy** by restoring BUBR1-dependent mitotic fidelity — not to rescue already-aneuploid cells, whose persistence carries oncogenic risk. This distinction also bounds what the JAK/IL-6 arm can achieve: blocking cGAS-STING inflammation removes the pro-survival signal for aneuploid cells but does nothing to correct the underlying checkpoint defect. Conversely, aneuploidy itself is a cancer-cell vulnerability (e.g. KIF18A/SAC dependence; *Cohen-Sharir et al., Nature 2021*), which is why we exclude SAC/MPS1/TTK inhibitors as anti-targets rather than treating them as candidates.
 
 Paediatric precedents are strong:
 - **Baricitinib** in CANDLE/SAVI/AGS (*Montealegre-Sanchez et al., 2018, JCI; Vanderver et al., 2020, NEJM*). Baricitinib is EMA-approved for juvenile idiopathic arthritis in patients ≥2 years and FDA-approved for adult RA/alopecia/COVID; paediatric interferonopathy use is via expanded access.
@@ -260,7 +279,7 @@ The output is in `track2/data/chembl_axis_drugs.csv`; the `--approved-only` outp
 
 | Stage | Assay | Go / no-go |
 |---|---|---|
-| 1a. Readthrough | Western blot for full-length BUBR1 in patient fibroblasts / iPSCs after Ataluren (ELX-02 remains investigational/future) | ≥10% full-length BUBR1 restoration justifies Tier 1a |
+| 1a. NMD + readthrough | RT-qPCR/RNA-seq for `c.2210T>G` transcript rescue after NMD inhibition (amlexanox), then Western blot for full-length BUBR1 after readthrough agent | Transcript rescue precedes protein; ≥10% full-length BUBR1 restoration justifies Tier 1a |
 | 1b. Protein stabilisation | BUBR1 protein in patient cells after NMN / NR / SIRT2 activator | ≥20% increase supports Tier 1b |
 | 2. Proteostasis | Aggregate load (p62, ubiquitin), ER-stress markers (CHOP, BiP), apoptosis in aneuploid iPSC neurons after Ravicti or arimoclomol | ≥30% reduction supports Tier 2a |
 | 3. Autophagy | LC3-II, p62, TFEB nuclear localisation after trehalose / spermidine | Additive only if lysosomal/autophagy stress is demonstrated |
@@ -273,13 +292,15 @@ The output is in `track2/data/chembl_axis_drugs.csv`; the `--approved-only` outp
 
 Track 2 is restricted to existing, market-approved medications. The following agents are the only ones that meet this criterion and are therefore in the main proposed stack:
 
-1. **Ataluren (PTC124)** — UGA readthrough of `p.Leu737Ter`. Conditional marketing authorisation in the **UK/MHRA** (PLGB 44221/0003, renewed 24/02/2026) for nonsense-mutation DMD; **not FDA or EMA approved** (FDA NDA resubmission withdrawn 12 Feb 2026; EMA non-renewal 28 Mar 2025). Use outside the UK would require import/compassionate access or an expanded-access framework; MHRA is actively reviewing the licence. Other listed non-US jurisdictions are not individually verified from primary regulatory sources.
-2. **Glycerol phenylbutyrate (Ravicti)** — sodium-free proteostasis chaperone. **FDA/EMA approved** for urea-cycle disorders in infants and children.
-3. **Arimoclomol (Miplyffa [US] / Meplyffa [EU])** — HSF1/HSP and lysosomal function. **FDA approved on 20 Sep 2024 in combination with miglustat** for Niemann-Pick C in patients ≥2 yrs; **EMA refused marketing authorisation for Meplyffa on 23 Jul 2026** (re-examination requested by Zevra).
-4. **Everolimus / rapamycin** — mTORC1 (supportive only, with growth/immune/oncology caveats). **FDA/EMA approved** for paediatric TSC-SEGA (everolimus) and transplant (rapamycin).
-5. **NAC / omaveloxolone** — ROS/Nrf2 hypotheses with explicit cancer warnings. Both are **FDA/EMA approved** medications, but their oncogenic-risk profiles in an MVA1 child restrict them to short-term, closely monitored adjuncts.
-6. **Dasatinib** — approved tyrosine-kinase inhibitor for Ph+ CML/ALL (≥1 yr); **quercetin is a supplement** and the combination is retained only as an oncology-supervised senolytic adjunct.
-7. **Baricitinib / ruxolitinib / tocilizumab** — biomarker-gated systemic inflammation control. All are **FDA/EMA approved**; use only after demonstrating an elevated IFN/IL-6 signature and with oncology surveillance.
+1. **Amlexanox (Aphthasol)** — dual PTC-readthrough + NMD inhibition, the mechanistically matched option for the `p.Leu737Ter` UGA allele because it increases the NMD-depleted mutant transcript pool that readthrough agents require. **FDA approved** as a 5% topical oral paste for aphthous ulcers; systemic use for nonsense-suppression is off-label and would require reformulation and BUB1B-specific validation in patient cells.
+2. **Ataluren (PTC124)** — UGA readthrough of `p.Leu737Ter`. Conditional marketing authorisation in the **UK/MHRA** (PLGB 44221/0003, renewed 24/02/2026) for nonsense-mutation DMD; **not FDA or EMA approved** (FDA NDA resubmission withdrawn 12 Feb 2026; EMA non-renewal 28 Mar 2025). Use outside the UK would require import/compassionate access or an expanded-access framework; MHRA is actively reviewing the licence. Other listed non-US jurisdictions are not individually verified from primary regulatory sources. **Insufficent alone:** does not inhibit NMD, so it needs an NMD-inhibitor partner or a dual-mechanism agent to have substrate.
+3. **Glycerol phenylbutyrate (Ravicti)** — sodium-free proteostasis chaperone. **FDA/EMA approved** for urea-cycle disorders in infants and children. (Sodium 4-phenylbutyrate/Buphenyl is the older FDA-approved alternative formulation with a heavy sodium load.)
+4. **Arimoclomol (Miplyffa [US] / Meplyffa [EU])** — HSF1/HSP and lysosomal function. **FDA approved on 20 Sep 2024 in combination with miglustat** for Niemann-Pick C in patients ≥2 yrs; **EMA refused marketing authorisation for Meplyffa on 23 Jul 2026** (re-examination requested by Zevra).
+5. **Metformin / rilmenidine** — approved mTORC1-independent autophagy/lysosomal inducers; metformin has deep paediatric experience. Secondary to proteostasis agents; no direct BUB1B/MVA data.
+6. **Everolimus / rapamycin** — mTORC1 (supportive only, with growth/immune/oncology caveats). **FDA/EMA approved** for paediatric TSC-SEGA (everolimus) and transplant (rapamycin).
+7. **NAC / omaveloxolone** — ROS/Nrf2 hypotheses with explicit cancer warnings. Both are **FDA/EMA approved** medications, but their oncogenic-risk profiles in an MVA1 child restrict them to short-term, closely monitored adjuncts.
+8. **Dasatinib** — approved tyrosine-kinase inhibitor for Ph+ CML/ALL (≥1 yr); **quercetin is a supplement** and the combination is retained only as an oncology-supervised senolytic adjunct.
+9. **Baricitinib / ruxolitinib / tocilizumab** — biomarker-gated systemic inflammation control. All are **FDA/EMA approved**; use only after demonstrating an elevated IFN/IL-6 signature and with oncology surveillance. Baricitinib additionally has NHS-England commissioning precedent for monogenic interferonopathies in children ≥2 years.
 
 ## 12b. Future research and mechanistic comparators (not in main Track 2 stack)
 
@@ -291,7 +312,7 @@ Track 2 is restricted to existing, market-approved medications. The following ag
 
 ## 13. Conclusion
 
-The revised Track 2 proposal remains **mechanistically two-pronged**: direct rescue of the stop-gain allele via UGA readthrough and stabilisation of residual BUBR1. The regulatory audit has, however, forced a clear split between **eligible approved medications** and **investigational or supplement comparators**. Ataluren is now honestly described as having a conditional marketing authorisation in the **UK/MHRA** (not FDA or EMA); other listed non-US jurisdictions are not individually verified here. ELX-02 is in a future-research tier; and NMN, NR, trehalose, spermidine, MitoQ and quercetin are classified as supplements/food-GRAS and are not leading Track 2 nominations. The LINCS transcriptomic screen produced an exploratory, context-specific mTORC1/FKBP rapalog signal for sirolimus, not an independent or cross-species-validated result. Downstream, the lead organellar strategy is **proteostasis** (Ravicti, with arimoclomol as a cautious second). mTORC1 inhibitors, antioxidants and Nrf2 activators are explicitly deprioritised and flagged for oncogenic risk in an MVA1 child. Systemic immunomodulation is restricted to a demonstrated IFN/IL-6 signature and oncology surveillance.
+The revised Track 2 proposal remains **mechanistically two-pronged**: direct rescue of the stop-gain allele and stabilisation of residual BUBR1. An external scientific audit (Sept 2026) exposed the dominant failure mode in the readthrough arm: `p.Leu737Ter` is a canonical NMD substrate (PTC ~10 kb upstream of the terminal exon junction), so transcript rescue must precede readthrough. We therefore now lead Tier 1a with **amlexanox** (dual PTC-readthrough + UPF1-mediated NMD inhibition, FDA-approved as a topical paste) rather than ataluren alone, which has no NMD activity and a collapsing regulatory footprint. Ataluren is now honestly described as having a conditional marketing authorisation in the **UK/MHRA** (not FDA or EMA); other listed non-US jurisdictions are not individually verified here. ELX-02 is in a future-research tier; and NMN, NR, trehalose, spermidine, MitoQ and quercetin are classified as supplements/food-GRAS and are not leading Track 2 nominations. The previously supplement-only autophagy tier now includes two **approved** mTORC1-independent inducers (metformin, rilmenidine). The LINCS transcriptomic screen produced an exploratory, context-specific mTORC1/FKBP rapalog signal for sirolimus, not an independent or cross-species-validated result — and its 0-clean-reverse-hit outcome is reported as a finding, not a failure. Downstream, the lead organellar strategy is **proteostasis** (Ravicti, with arimoclomol as a cautious second). mTORC1 inhibitors, antioxidants and Nrf2 activators are explicitly deprioritised and flagged for oncogenic risk in an MVA1 child. Systemic immunomodulation is restricted to a demonstrated IFN/IL-6 signature and oncology surveillance.
 
 ---
 
@@ -329,3 +350,8 @@ The revised Track 2 proposal remains **mechanistically two-pronged**: direct res
 30. DeNicola GM, et al. *Nature* 2011;475:104–107 (oncogene-induced Nrf2 promotes tumorigenesis).
 31. Bonatti S, et al. *Chromosoma* 1998;107:498–506. doi:10.1007/s004120050335 (rapamycin induces chromosome malsegregation and CREST-positive micronuclei in yeast and mammalian cells).
 32. Zhu Y, et al. *Aging Cell* 2015;14:644–658. doi:10.1111/acel.12344 (dasatinib + quercetin senolytic origin; Ercc1 progeroid model, not BubR1).
+33. Gonzalez-Hilarion S, et al. *Orphanet J Rare Dis* 2012;7:58. doi:10.1186/1750-1172-7-58 (amlexanox dual PTC-readthrough + NMD inhibition via UPF1).
+34. Perronet M, et al. *Biomolecules* 2023;13:988. doi:10.3390/biom13060988 (review of nonsense-suppression agents incl. amlexanox).
+35. Bitto A, et al. *Aging Cell* 2023;22:e13774. doi:10.1111/acel.13774 (rilmenidine mTORC1-independent autophagy, caloric-restriction mimicry).
+36. Cohen-Sharir Y, et al. *Nature* 2021;592:492–497. doi:10.1038/s41586-020-03114-6 (aneuploidy as a cancer-cell vulnerability; KIF18A dependence).
+37. DailyMed / FDA (Buphenyl sodium phenylbutyrate; Aphthasol amlexanox 5% oral paste; metformin paediatric labels).

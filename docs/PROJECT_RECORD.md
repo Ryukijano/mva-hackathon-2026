@@ -122,7 +122,7 @@ The 8 gated FASTQs (~84 GB) were downloaded and realigned (bwa-mem2, name-sort +
 | Longest block | 2,822 bp (10 variants) |
 | Mean/median block length | 938 / 691 bp |
 | Distance between target variants | **10,911 bp** |
-| Intervening het SNV | `15:40216470 A>G` (exactly one) |
+| Intervening het SNV | `15:40216470 A>G` (exactly one) — BUB1B intron 20/22, absent from gnomAD v4/dbSNP/ClinVar (rare deep-intronic; SpliceAI DS 0.00) |
 | Sub-gaps around intervening SNV | 6.77 kb and 4.14 kb |
 | Max observed fragment length (TLEN) | **~1,348 bp** |
 | Phased het sites connecting targets | **0** |
@@ -139,7 +139,7 @@ The 8 gated FASTQs (~84 GB) were downloaded and realigned (bwa-mem2, name-sort +
 
 ### The calibrated conclusion (language used consistently across all docs)
 
-> The two *BUB1B* variants are **presumed compound heterozygous** based on: (i) the autosomal-recessive MVA1 phenotype; (ii) the canonical truncating + hypomorphic missense architecture (Hanks et al. 2004); (iii) the absence of a third *BUB1B* coding/splice candidate in the scanned 250 kb region (88 upstream variants all common/repeat; 3 novel variants in window are the two targets plus the intervening SNV); (iv) exclusion of obvious *CEP57*/*TRIP13* pathogenic variants. WhatsHap read-backed phasing is **UNRESOLVED** because the 10,911 bp interval exceeds the library's maximum fragment length and no read-connected chain bridges it. **Parental testing or targeted long-read sequencing is required for definitive phase confirmation.**
+> The two *BUB1B* variants are **presumed compound heterozygous** based on: (i) the autosomal-recessive MVA1 phenotype; (ii) the canonical truncating + hypomorphic missense architecture (Hanks et al. 2004); (iii) the absence of a third *BUB1B* coding/splice candidate in the scanned 250 kb region (88 upstream variants all common/repeat; 3 novel variants in window are the two targets plus the intervening SNV); (iv) exclusion of obvious *CEP57*/*TRIP13* pathogenic variants; (v) a systematic locus falsifier audit (`supplement/track1/locus_falsifier_audit.md`) ruling out all known ClinVar P/LP BUB1B alleles, deep-intronic splice variants, the ~44 kb upstream regulatory variant, CNVs, SVs/Alu-SVA breakpoints, chr15 isodisomy, and hidden homozygous alleles. WhatsHap read-backed phasing is **UNRESOLVED** because the 10,911 bp interval exceeds the library's maximum fragment length and no read-connected chain bridges it. **Parental testing or targeted long-read sequencing is required for definitive phase confirmation.**
 
 Parsimony additionally favors trans: if both coding alleles were cis, the other chromosome would carry no *BUB1B* lesion — inconsistent with MVA1 requiring biallelic impairment.
 
@@ -432,6 +432,25 @@ src/mva_hackathon/ · scripts/ · tests/ · configs/ · environment.yaml
 | Quota | Track 1: 6 shots (0 spent) · Track 2: 3 shots (0 spent) |
 
 ---
+
+## 18. Adversarial quality audit (Sept 2026)
+
+Four independent audits (genotype validation, Track 2 scientific review, competition landscape, pipeline false-negative analysis) plus direct locus-level falsifier checks were run against the submission.
+
+### Track 1 — verdict: unique best-supported pair; one doc error fixed
+
+- **Complete BUB1B het inventory (8 variants)** cross-checked against all ~100 ClinVar P/LP BUB1B alleles: the proband carries **no other known pathogenic allele** — including every deep-intronic splice variant (c.2386-2, c.2535+195, c.2285-2, c.36-1, c.967-2, c.239+2, c.751+1, c.581+1, c.2851-1, c.2009+1) and the ~44 kb upstream regulatory G>A (Ochiai 2014/Matsuura 2006).
+- **No CNV** (uniform ~46x depth, no 500-bp window deviates), **no SV** (zero symbolic alleles; soft-clip clusters sequence-heterogeneous), **no chr15 isodisomy** (85k hets, normal per-Mb density), **no hidden homozygous allele** (6 hom calls, all AF 0.32–0.999).
+- The intervening SNV `15:40216470 A>G` was reclassified: it is **BUB1B intron 20/22** (not "intergenic" as an earlier memo draft said) and is **absent from gnomAD v4/dbSNP/ClinVar** — a rare deep-intronic variant, SpliceAI DS 0.00, ≥884 bp from splice sites. Disclosed as a rare non-coding variant; not a plausible second allele. Full audit: `supplement/track1/locus_falsifier_audit.md`.
+- **Residual disclosed limitation:** a truly novel cryptic mechanism below SNV-caller/≤200-bp resolution (small intronic Alu/SVA insertion, pseudoexon) cannot be fully excluded without long-read/RNA-seq.
+
+### Track 2 — verdict: mechanism correct, lead drug was wrong; fixed
+
+- **The dominant failure mode was under-weighted:** `p.Leu737Ter` is a canonical NMD substrate (PTC ~10 kb upstream of the terminal exon junction), so **ataluren alone has essentially no transcript substrate** — it does not inhibit NMD.
+- **Added amlexanox** (Aphthasol; FDA-approved 5% topical oral paste) as the mechanistically matched Tier 1a option — it is the only approved small molecule with **dual PTC-readthrough + NMD-inhibition (UPF1)** activity, addressing the exact failure mode. Honest caveats: approved only as a topical paste; systemic nonsense-suppression use is off-label/investigational.
+- **Filled the supplement-only autophagy tier** with two approved mTORC1-independent inducers: **metformin** (deep paediatric experience) and **rilmenidine** (UK/EU-approved; Bitto 2023).
+- Added the **aneuploidy-as-vulnerability** counterpoint (Cohen-Sharir 2021; KIF18A dependence) so the anti-target exclusions are framed as mechanism-consistent, not one-sided.
+- Candidate CSV gained 3 rows (amlexanox rank 2, metformin, rilmenidine); submission copies synced.
 
 ## 17. Outstanding items
 
