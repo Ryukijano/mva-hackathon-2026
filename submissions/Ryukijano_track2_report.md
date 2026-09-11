@@ -12,6 +12,8 @@
 
 **AI assistance disclosure (28 Aug 2026 hackathon requirement):** Cursor / Devin agent sessions on commercial plans; Anthropic API / Claude Sonnet / Grok. Commercial terms, no training on customer content. The patient genome remained on scratch storage and was never pasted into third-party LLM APIs. Literature claims were verified against primary sources.
 
+**Preclinical N-of-1 research disclaimer:** This document is a preclinical, N-of-1 research proposal generated for a hackathon. It is not clinical advice, not a treatment recommendation, and not a prescription. No therapy described here has been tested in the proband. All proposed interventions require functional validation in patient-derived cells, regulatory review, and clinical oversight before any consideration. The proband's guardians must consult the patient's clinical team for any treatment decision.
+
 ---
 
 ## Executive summary
@@ -21,7 +23,7 @@ The therapeutic hypothesis remains **two-pronged upstream**: direct rescue of th
 1. **Direct rescue of the stop-gain allele** (`p.Leu737Ter`, `UGA`) with translational readthrough. **Ataluren** has a conditional marketing authorisation in the **UK/MHRA** for nonsense-mutation DMD; it is **not FDA-approved** and the **EMA conditional authorisation was not renewed (March 2025)**. Other non-US markets listed by the company or Alliance are not individually verified from primary regulatory sources in this repository. **ELX-02 is an investigational eukaryotic ribosome-selective glycoside** and is therefore placed in a **future-research tier**, not in the main Track 2 stack.
 2. **Stabilisation of the residual BUBR1 pool** through the SIRT2/NAD+ axis is supported mechanistically, but **NMN and NR are dietary-supplement / food-use articles, not approved medications**, and are retained only as mechanistic comparators.
 
-Downstream, the **approved-medication** leads are **glycerol phenylbutyrate (Ravicti)**, an FDA/EMA-approved sodium-free 4-PBA prodrug for urea-cycle disorders, and **arimoclomol (Miplyffa)**, FDA-approved in 2024 for Niemann-Pick C in patients >=2 years (EMA refused marketing authorisation in July 2026). Trehalose, spermidine, MitoQ and quercetin are supplements/food ingredients and are not leading Track 2 nominations. Rapamycin, everolimus, NAC and omaveloxolone are approved medications with paediatric labels, but are positioned as supportive or adjunctive only because of the MVA1 oncogenic-risk context. Systemic JAK/IL-6 blockade (baricitinib, ruxolitinib, tocilizumab) remains biomarker-gated and under oncology surveillance.
+Downstream, the **approved-medication candidates** are **glycerol phenylbutyrate (Ravicti)**, an FDA/EMA-approved sodium-free 4-PBA prodrug for urea-cycle disorders, and **arimoclomol (Miplyffa / Meplyffa)**, FDA-approved on 20 Sep 2024 **in combination with miglustat** for Niemann-Pick C in patients >=2 years (EMA refused marketing authorisation for **Meplyffa** on 23 Jul 2026; re-examination requested by 5 Aug 2026). Trehalose, spermidine, MitoQ and quercetin are supplements/food ingredients and are not leading Track 2 nominations. Rapamycin, everolimus, NAC and omaveloxolone are approved medications (omaveloxolone is approved for Friedreich ataxia in patients >=16 years, not a paediatric label per se), but are positioned as supportive or adjunctive only because of the MVA1 oncogenic-risk context. Systemic JAK/IL-6 blockade (baricitinib, ruxolitinib, tocilizumab) remains biomarker-gated and under oncology surveillance.
 
 ---
 
@@ -32,10 +34,19 @@ Track 2 of this hackathon is explicitly restricted to **existing, market-approve
 - An agent is eligible for the main proposed stack only when it is a currently approved medication in at least one named jurisdiction (FDA, EMA, MHRA, PMDA, national regulators, etc.).
 - **Investigational agents** (e.g., ELX-02) and **supplements / food-GRAS articles** (e.g., NMN, NR, trehalose, spermidine, MitoQ, quercetin) are retained as mechanistic comparators or future-research options, but they are not leading Track 2 nominations.
 - **Ataluren** is not FDA-approved and is no longer EMA-approved (conditional authorisation not renewed, March 2025). It therefore cannot be described as "FDA/EMA-approved". The only primary-source conditional marketing authorisation we verified is the **UK/MHRA** for nonsense-mutation DMD; other listed non-US jurisdictions are not individually confirmed here.
-- **Arimoclomol** is FDA-approved for Niemann-Pick C in children >=2 years; the EMA refused marketing authorisation in July 2026, so it is no longer listed as FDA/EMA-approved.
+- **Arimoclomol** is FDA-approved on 20 Sep 2024 **in combination with miglustat** for Niemann-Pick C in patients >=2 years (US brand Miplyffa); the EMA refused marketing authorisation for **Meplyffa** on 23 Jul 2026 (Zevra requested re-examination by 5 Aug 2026), so it is no longer listed as FDA/EMA-approved.
 - The anti-target rows (TTK/MPS1 inhibitors, Aurora B inhibitors, STING agonists) are retained but are categorised as `ANTI_TARGET` and are ineligible for any therapeutic stack.
 
 The scientific rationale (readthrough of the UGA stop allele, SIRT2/BUBR1 K668 stabilisation, proteostasis/autophagy/ROS/inflammation de-stressing) and the two-pronged strategy are preserved; only the regulatory framing and eligibility claims have been corrected.
+
+### Regulatory audit refresh (10 Sep 2026)
+
+A follow-up primary-source pass (FDA/EMA/MHRA pages plus press coverage, adversarially cross-checked) refined three points above:
+
+- **Ataluren/FDA:** beyond simply "not approved" — PTC Therapeutics resubmitted the Translarna NDA (accepted for review Oct 2024) and then **withdrew the NDA resubmission on 12 Feb 2026** following FDA feedback that the data were unlikely to meet the substantial-evidence threshold. There is no live US application. ([PTC/Rheumatology Advisor](https://www.rheumatologyadvisor.com/news/ptc-therapeutics-ends-quest-for-us-approval-of-ataluren-for-dmd/))
+- **Ataluren/MHRA:** the UK licence is not a settled, indefinitely-safe status — Translarna remains available in the UK as of the most recent reporting, but the **MHRA is actively reviewing** the licence in light of the EU non-renewal, and could revoke it. Treat the UK/MHRA authorisation as time-sensitive and re-verify close to any submission date. ([Duchenne UK](https://www.duchenneuk.org/european-commission-decides-not-to-renew-the-market-authorisation-of-translarna-ataluren/))
+- **Arimoclomol/EU naming and history:** the EU product is branded **Meplyffa**, distinct from the US brand **Miplyffa** (same molecule, arimoclomol citrate) — worth using the correct brand name per jurisdiction in the write-up. This July 2026 CHMP negative opinion was also **Zevra's second EU attempt**; an earlier arimoclomol MAA (as Miplyffa) was withdrawn in 2022. Zevra requested re-examination by 5 Aug 2026; the outcome was not public as of 10 Sep 2026. ([GlobeNewswire, 24 Jul 2026](https://www.globenewswire.com/news-release/2026/07/24/3332789/16626/en/Zevra-Therapeutics-Provides-Update-on-Regulatory-Submission-for-Arimoclomol-for-the-Treatment-of-Niemann-Pick-Disease-Type-C-NPC-in-the-European-Union.html))
+- **Ravicti and ELX-02** were re-checked against live EMA/FDA pages and clinicaltrials.gov: both remain consistent with the framing above (Ravicti FDA/EMA-approved and current for urea-cycle disorders; ELX-02 still purely investigational, active in Alport-syndrome trials, no MVA/BUB1B application). No new stop-codon-readthrough drug (beyond ataluren/ELX-02) has been approved anywhere since early 2025.
 
 ---
 
@@ -58,13 +69,15 @@ For each contrast, differential expression was performed using `limma` / `edgeR`
   4. *Statistical reproducibility & directionality:* L2S2 rescue significance requires FDR-corrected reverse-pair enrichment (`adj_pvalue_down < 0.05`). The non-directional `adj_pvalue` is reported for transparency but does not, by itself, establish reversal. **Drugs with both reverse and mimic FDR-significant signatures (MIXED direction) are downgraded from ACCEPT to WEAK**, because inconsistent directionality means the transcriptomic signal is not robustly rescue-oriented.
   5. *Signature provenance:* Signatures are flagged when they contain nominal (P < 0.01) genes rather than FDR-significant genes. The GSE22206 pooled down-list at 100 genes contains 86 FDR + 14 nominal genes; at 150/250 genes the down-list is increasingly nominal-dominated.
 
-**Known retrieval limitation:** The current saved L2S2 data was retrieved with the server's default sort order (`pvalue_up`, mimic ascending), which biases retrieval toward drugs that mimic the disease signature. Strong rescue candidates that are weak mimics may not appear in the top 100. The query script has been corrected to use `sortby=adj_pvalue_down` for future re-queries, but the L2S2 server was unavailable (504) during this analysis, so the current results are based on the existing mimic-sorted data.
+**Retrieval-sort sensitivity check:** The original saved L2S2 data was retrieved with the server's default sort order (`pvalue_up`, mimic ascending), which biases retrieval toward drugs that mimic the disease signature. The L2S2 queries were therefore re-run with `sortby=adj_pvalue_down` (rescue-first retrieval) and the firewall was re-executed on the rescue-sorted consensus files. The firewall conclusion is unchanged: `ACCEPT=0 / WEAK=2 / REJECT=rest` in both runs. The rescue-sorted re-query retrieved *more* mimic signatures for both weak hits, strengthening the MIXED penalty. See `track2/lincs/results/rescue_firewall/comparison_summary.md` for the full comparison.
 
 | firewall_status | n (unique drugs) | interpretation |
 |---|---|---|
 | ACCEPT | 0 | no drug has a clean, consistent reverse-only L2S2 signal |
 | WEAK | 2 | FDR-significant L2S2 reverse signal in one context, but MIXED directionality (also mimic in other contexts) |
 | REJECT | 674 | failed regulatory, pediatric safety, anti-target, cytotoxic, directionality, or significance filters |
+
+**Denominator note:** The 676-drug denominator is the union of unique drugs retrieved across both engines (L2S2 + L1000CDS2). The `n_total_signatures` column in the per-drug table counts FDR-significant reverse signatures across both engines (L2S2 `adj_pvalue_down < 0.05` + L1000CDS2 `score > 0`), not the total number of retrieved rows. A drug with `n_engines=2` has a significant reverse signal in both engines; `n_engines=1` has it in only one. The per-engine denominators (L2S2 signatures vs L1000CDS2 signatures) differ because the engines query different background compendia and return different drug universes.
 
 | drug | n_engines | n_total_signatures | L2S2 reverse (FDR / total) | L2S2 mimic (FDR / total) | min L2S2 reverse p (raw / adj) | L1000CDS2 (unique / total, mean score) | firewall_status | l2s2_direction | notes |
 |---|---|---|---|---|---|---|---|---|---|
@@ -79,12 +92,13 @@ For each contrast, differential expression was performed using `limma` / `edgeR`
 5. **Everolimus does not show a reverse L2S2 signal.** It has a general FDR-significant enrichment (`adj_pvalue = 7.46e-04`) and a mimic signature in GSE22206, but no FDR-significant reverse (`adj_pvalue_down > 0.05`) and no L1000CDS2 support. It is therefore not promoted by the firewall.
 6. **Rejection of in-silico artifacts:** Perhexiline maleate appeared in L1000CDS2 signatures but had zero L2S2 rescue signal. Although flagged in ChEMBL under mTOR, perhexiline is an anti-anginal CPT1 inhibitor with severe concentration-dependent hepatotoxicity, narrow therapeutic index, and an explicit Medsafe warning: *"Not recommended for use in children."* The pediatric safety firewall appropriately rejected perhexiline.
 7. **Mechanism-based caveat on the sirolimus signal.** Rapamycin is itself aneugenic — it induces chromosome malsegregation and CREST-positive micronuclei in human and rodent cells (Bonatti et al. 1998, *Chromosoma* 107:498–506, doi:10.1007/s004120050335), and an unpublished rapamycin-diet note in *BubR1^H/H* mice was not positive (Baker 2013, *Cell Rep*). The WEAK/MIXED sirolimus signal is therefore best read as a context-specific transcriptomic observation with a potential anti-target profile in MVA1 — not a rescue lead. Any further consideration requires micronucleus/missegregation assays in patient cells.
-7. **Biological scope of transcriptomic screens:** L2S2/L1000CDS2 evaluate steady-state mRNA perturbation in transformed cell lines. They cannot detect translational readthrough of nonsense codons (Ataluren) or post-translational protein stabilization (SIRT2 deacetylation of BUBR1 K668). The absence of a LINCS signature for Ataluren, NMN/NR, arimoclomol, or Ravicti reflects the platform's biological boundaries, not evidence against their disease-modifying mechanism.
+8. **Biological scope of transcriptomic screens:** L2S2/L1000CDS2 evaluate steady-state mRNA perturbation in transformed cell lines. They cannot detect translational readthrough of nonsense codons (Ataluren) or post-translational protein stabilization (SIRT2 deacetylation of BUBR1 K668). The absence of a LINCS signature for Ataluren, NMN/NR, arimoclomol, or Ravicti reflects the platform's biological boundaries, not evidence against their disease-modifying mechanism.
+9. **Rescue-sorted re-query validation.** The L2S2 queries were re-run with `sortby=adj_pvalue_down` (rescue-first retrieval) and the firewall was re-executed on the rescue-sorted consensus files. The conclusion is unchanged: `ACCEPT=0 / WEAK=2 / REJECT=472` (rescue-sorted, L2S2-only; 474 drugs) versus `ACCEPT=0 / WEAK=2 / REJECT=674` (original, L2S2+L1000CDS2; 676 drugs). Both weak hits (sirolimus, dasatinib) remain MIXED-direction. The rescue-sorted re-query retrieved *more* mimic signatures for both drugs, strengthening the MIXED penalty. See `track2/lincs/results/rescue_firewall/comparison_summary.md` for the full comparison.
 ---
 
 ## 1. Why this stack, and why not a single drug
 
-Biallelic *BUB1B* loss produces a **hypomorphic SAC**. In human MVA1, homozygous null mutations are embryonic lethal; surviving patients therefore always carry at least one allele that retains **some residual BUBR1 protein** (~5–15%). Our proband’s two alleles have **different druggability**:
+Biallelic *BUB1B* loss produces a **hypomorphic SAC**. In human MVA1, homozygous null mutations are embryonic lethal; surviving patients therefore always carry at least one allele that retains **some residual BUBR1 protein** (~11% ± 3% in the *BubR1^H/H* mouse; Baker 2004). Our proband’s two alleles have **different druggability**:
 
 - **Allele 1 (p.Leu737Ter)** is a `TGA` (UGA) premature stop codon. UGA stops are the most suppressible class of nonsense codon; translational readthrough can insert a near-cognate amino acid (commonly Trp, Arg, or Cys) and allow translation of the entire wild-type C-terminal pseudokinase domain.
 - **Allele 2 (p.Asn1002Lys)** is a C-lobe pseudokinase missense. AlphaMissense 0.9229 predicts it to be pathogenic, and it sits 10 residues from the classic MVA1 missense **L1012P** (*Suijkerbuijk 2010*), which was shown to impair BUBR1 structural stability and proteasomal degradation rather than intrinsic catalytic function. AlphaMissense predicts pathogenicity, not a specific biophysical stability change; proximity to L1012P is a hypothesis-generating clue, not proof of equivalent mechanism. Direct CRISPR knock-in, stability, localisation and SAC-complementation assays are required.
@@ -142,7 +156,7 @@ The problem with **sodium 4-phenylbutyrate (Buphenyl)** is the massive sodium lo
 - Requires functional validation in aneuploid MVA1 cells.
 
 ### Arimoclomol
-Arimoclomol (Miplyffa) was **FDA-approved in September 2024** for Niemann-Pick disease type C in adults and children ≥2 years. It **crosses the blood-brain barrier** and amplifies HSF1/heat-shock/lysosomal CLEAR network function. It is **not EMA-approved**; the EMA refused marketing authorisation for Miplyffa in July 2026.
+Arimoclomol (Miplyffa) was **FDA-approved in September 2024 in combination with miglustat** for Niemann-Pick disease type C in adults and children ≥2 years. It **crosses the blood-brain barrier** and amplifies HSF1/heat-shock/lysosomal CLEAR network function. It is **not EMA-approved**; the EMA refused marketing authorisation for Meplyffa in July 2026.
 
 **Caveat — significant:** Aneuploid cancer cells are known to be **addicted to HSF1** for proteostasis (*Donnelly & Amon 2014; Whitesell & Lindquist 2005*). Amplifying HSF1 could protect pre-malignant aneuploid clones from proteotoxicity-induced apoptosis. It is therefore ranked below Ravicti and must be paired with oncology monitoring.
 
@@ -193,7 +207,7 @@ These are ranked below proteostasis/autophagy candidates and should only be cons
 Micronuclei from chromosome mis-segregation activate cGAS-STING and drive a type-I interferon/IL-6 response that promotes survival of aneuploid cells (*Hong et al., 2022, Nature; Bakhoum et al., 2018, Nature*). In preclinical CIN models, blocking this axis is protective.
 
 Paediatric precedents are strong:
-- **Baricitinib** in CANDLE/SAVI/AGS (*Montealegre-Sanchez et al., 2018, JCI; Vanderver et al., 2020, NEJM*).
+- **Baricitinib** in CANDLE/SAVI/AGS (*Montealegre-Sanchez et al., 2018, JCI; Vanderver et al., 2020, NEJM*). Baricitinib is EMA-approved for juvenile idiopathic arthritis in patients ≥2 years and FDA-approved for adult RA/alopecia/COVID; paediatric interferonopathy use is via expanded access.
 - **Ruxolitinib** in paediatric GVHD and interferonopathies.
 - **Tocilizumab** in sJIA and cytokine-release syndrome.
 
@@ -226,7 +240,7 @@ The output is in `track2/data/chembl_axis_drugs.csv`; the `--approved-only` outp
 | **ELX-02** | **Investigational** (Phase 2 CF; no approvals) | Subcutaneous/inhaled routes; limited paediatric data | Aminoglycoside-class oto/nephro risk lower but not zero |
 | **NMN / NR** | **Dietary supplements / food-GRAS**, not approved medications | Limited paediatric PK/safety data | Theoretical metabolic effects only |
 | **Glycerol phenylbutyrate (Ravicti)** | Yes (UCD, including infants/children ≥2 months; FDA and EMA) | None specific; sodium-free | Anti-proliferative/HDAC effects at high doses |
-| **Arimoclomol** | Yes (NPC, ≥2 yrs; **FDA only**; EMA refused) | Generally well tolerated | **HSF1/HSP could protect aneuploid cancer cells** |
+| **Arimoclomol** | Yes (NPC, ≥2 yrs, **in combination with miglustat**; **FDA only**; EMA refused) | Generally well tolerated | **HSF1/HSP could protect aneuploid cancer cells** |
 | **Trehalose** | Food/GRAS; not an approved medication | Osmotic diarrhoea at high doses; trehalase hydrolysis | Does not address BUBR1 directly |
 | **Spermidine** | EU novel food / supplement; not an approved medication | Limited safety/BBB data | Polyamine metabolism may alter cancer cell proliferation |
 | **Rapamycin (sirolimus)** | Yes (transplant, ≥13 yrs; lymphangioleiomyomatosis) | Immunosuppression; growth delay | Long-term malignancy risk in transplant known |
@@ -236,7 +250,7 @@ The output is in `track2/data/chembl_axis_drugs.csv`; the `--approved-only` outp
 | **Omaveloxolone** | Yes (FA, ≥16 yrs; FDA and EMA) | Hepatotoxicity; fatigue | Nrf2 oncogenic risk |
 | **Dasatinib** | Yes (Ph+ CML and Ph+ ALL ≥1 yr; FDA and EMA) | Myelosuppression; infection; QT effects | Senescent-cell clearance may alter tumour microenvironment unpredictably |
 | **Quercetin** | Dietary supplement / GRAS; not an approved medication | No approved paediatric indication | Supplement; use only as adjunct |
-| **Baricitinib** | Approved in adults (RA, AD); paediatric expanded-access / EUA in interferonopathies only | Infection; thrombosis; cytopenias | Potential impairment of tumour surveillance |
+| **Baricitinib** | Approved in adults (RA, AD); **EMA-approved for juvenile idiopathic arthritis in patients ≥2 yrs**; paediatric expanded-access / EUA in interferonopathies | Infection; thrombosis; cytopenias | Potential impairment of tumour surveillance |
 | **Ruxolitinib** | Yes (acute/chronic GVHD ≥12 yrs; FDA and EMA) | Infection; cytopenias | Potential impairment of tumour surveillance |
 | **Tocilizumab** | Yes (sJIA, CRS ≥2 yrs; FDA and EMA) | Infection; infusion reactions | Potential impairment of tumour surveillance |
 
@@ -261,7 +275,7 @@ Track 2 is restricted to existing, market-approved medications. The following ag
 
 1. **Ataluren (PTC124)** — UGA readthrough of `p.Leu737Ter`. Conditional marketing authorisation in the **UK/MHRA** for nonsense-mutation DMD; **not FDA or EMA approved**. Other listed non-US jurisdictions are not individually verified from primary regulatory sources.
 2. **Glycerol phenylbutyrate (Ravicti)** — sodium-free proteostasis chaperone. **FDA/EMA approved** for urea-cycle disorders in infants and children.
-3. **Arimoclomol (Miplyffa)** — HSF1/HSP and lysosomal function. **FDA approved** for Niemann-Pick C in patients ≥2 yrs; **EMA refused marketing authorisation** in 2026.
+3. **Arimoclomol (Miplyffa)** — HSF1/HSP and lysosomal function. **FDA approved in combination with miglustat** for Niemann-Pick C in patients ≥2 yrs; **EMA refused marketing authorisation** in 2026.
 4. **Everolimus / rapamycin** — mTORC1 (supportive only, with growth/immune/oncology caveats). **FDA/EMA approved** for paediatric TSC-SEGA (everolimus) and transplant (rapamycin).
 5. **NAC / omaveloxolone** — ROS/Nrf2 hypotheses with explicit cancer warnings. Both are **FDA/EMA approved** medications, but their oncogenic-risk profiles in an MVA1 child restrict them to short-term, closely monitored adjuncts.
 6. **Dasatinib** — approved tyrosine-kinase inhibitor for Ph+ CML/ALL (≥1 yr); **quercetin is a supplement** and the combination is retained only as an oncology-supervised senolytic adjunct.

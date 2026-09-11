@@ -132,3 +132,129 @@ def test_report_no_overclaiming_language():
     ]
     for phrase in forbidden:
         assert phrase not in text, f"Report contains forbidden phrase: '{phrase}'"
+
+
+def test_rescue_firewall_exists_and_confirms_zero_accept():
+    """The rescue-sorted firewall must exist and also show 0 ACCEPT."""
+    path = REPO / "track2" / "lincs" / "results" / "rescue_firewall" / "lincs_firewall_decisions.csv"
+    assert path.exists(), "Rescue-sorted firewall decisions CSV not found"
+    df = pd.read_csv(path)
+    accepted = df[df["firewall_status"] == "ACCEPT"]
+    assert len(accepted) == 0, (
+        f"Rescue firewall should have 0 ACCEPT, found {len(accepted)}"
+    )
+    weak = df[df["firewall_status"] == "WEAK"]
+    assert len(weak) == 2, f"Rescue firewall should have 2 WEAK, found {len(weak)}"
+
+
+def test_rescue_firewall_comparison_summary_exists():
+    """The rescue vs original firewall comparison summary must exist."""
+    path = REPO / "track2" / "lincs" / "results" / "rescue_firewall" / "comparison_summary.md"
+    assert path.exists()
+    text = path.read_text()
+    assert "ACCEPT=0" in text
+    assert "WEAK=2" in text
+
+
+def test_report_has_rescue_sorted_validation():
+    """The Track 2 report must mention the rescue-sorted re-query validation."""
+    path = REPO / "track2" / "track2_report.md"
+    text = path.read_text()
+    assert "rescue-sorted" in text.lower() or "adj_pvalue_down" in text.lower(), (
+        "Report should mention the rescue-sorted re-query"
+    )
+    assert "ACCEPT=0" in text or "ACCEPT | 0" in text, (
+        "Report should state the zero-ACCEPT result explicitly"
+    )
+
+
+def test_report_has_denominator_explanation():
+    """The report must explain the n_total_signatures vs per-engine denominators."""
+    path = REPO / "track2" / "track2_report.md"
+    text = path.read_text()
+    assert "Denominator note" in text or "denominator" in text.lower(), (
+        "Report should explain the denominator"
+    )
+
+
+def test_report_has_preclinical_disclaimer():
+    """The report must include a preclinical N-of-1 research disclaimer."""
+    path = REPO / "track2" / "track2_report.md"
+    text = path.read_text().lower()
+    assert "preclinical" in text or "n-of-1" in text or "n of 1" in text, (
+        "Report should contain a preclinical N-of-1 disclaimer"
+    )
+    assert "not clinical advice" in text or "not a treatment recommendation" in text, (
+        "Report should explicitly state it is not clinical advice"
+    )
+
+
+def test_report_arimoclomol_combination_with_miglustat():
+    """Arimoclomol must be described as FDA-approved 'in combination with miglustat'."""
+    path = REPO / "track2" / "track2_report.md"
+    text = path.read_text().lower()
+    assert "in combination with miglustat" in text, (
+        "Arimoclomol should be described as 'in combination with miglustat'"
+    )
+
+
+def test_report_baricitinib_jia_status():
+    """Baricitinib must mention EMA approval for juvenile idiopathic arthritis."""
+    path = REPO / "track2" / "track2_report.md"
+    text = path.read_text().lower()
+    assert "juvenile idiopathic arthritis" in text, (
+        "Baricitinib should mention EMA JIA approval"
+    )
+
+
+def test_candidate_csv_arimoclomol_combination():
+    """The candidate CSV must mention 'in combination with miglustat' for arimoclomol."""
+    path = REPO / "track2" / "data" / "track2_candidates.csv"
+    df = pd.read_csv(path)
+    row = df[df["drug"].str.contains("arimoclomol", case=False, na=False)]
+    assert len(row) == 1
+    # Check across the relevant text columns
+    text_cols = ["pediatric_status", "pediatric_indication", "mechanism", "evidence_source"]
+    combined = " ".join(str(row.iloc[0].get(c, "")) for c in text_cols).lower()
+    assert "in combination with miglustat" in combined, (
+        "Arimoclomol should mention 'in combination with miglustat' in CSV text columns"
+    )
+
+
+def test_candidate_csv_baricitinib_jia():
+    """The candidate CSV must mention EMA JIA for baricitinib."""
+    path = REPO / "track2" / "data" / "track2_candidates.csv"
+    df = pd.read_csv(path)
+    row = df[df["drug"].str.contains("baricitinib", case=False, na=False)]
+    assert len(row) == 1
+    pediatric_status = str(row.iloc[0].get("pediatric_status", "")).lower()
+    assert "juvenile idiopathic arthritis" in pediatric_status, (
+        "Baricitinib pediatric_status should mention EMA JIA approval"
+    )
+
+
+def test_pitch_storyboard_has_firewall_count():
+    """The pitch storyboard must include the firewall ACCEPT=0/WEAK=2/REJECT=674 result."""
+    path = REPO / "track2" / "pitch_storyboard.md"
+    text = path.read_text()
+    assert "ACCEPT=0" in text, "Storyboard should state ACCEPT=0"
+    assert "WEAK=2" in text, "Storyboard should state WEAK=2"
+    assert "REJECT=674" in text, "Storyboard should state REJECT=674"
+
+
+def test_pitch_storyboard_no_esm1v_mild_unqualified():
+    """The storyboard must not say 'ESM-1v says mild' without qualification."""
+    path = REPO / "track2" / "pitch_storyboard.md"
+    text = path.read_text()
+    assert "ESM-1v says mild" not in text, (
+        "Storyboard should not have unqualified 'ESM-1v says mild'"
+    )
+
+
+def test_pitch_storyboard_target_screen_not_leads():
+    """The storyboard must distinguish target-screen rows from final therapeutic leads."""
+    path = REPO / "track2" / "pitch_storyboard.md"
+    text = path.read_text().lower()
+    assert "target-screen rows" in text or "target screen rows" in text, (
+        "Storyboard should clarify 32 rows are target-screen rows, not final leads"
+    )

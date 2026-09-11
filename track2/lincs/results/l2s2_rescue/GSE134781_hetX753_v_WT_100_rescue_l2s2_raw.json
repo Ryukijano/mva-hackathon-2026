@@ -1,0 +1,27 @@
+{
+  "data": {
+    "background": {
+      "pairedEnrich": {
+        "consensusCount": 1,
+        "consensus": [
+          {
+            "drug": "armodafinil",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 239,
+            "countUpSignificant": 1,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          }
+        ]
+      }
+    }
+  }
+}

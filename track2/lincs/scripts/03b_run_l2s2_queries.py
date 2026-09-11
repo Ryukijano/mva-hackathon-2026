@@ -10,7 +10,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-BASE = Path("/mnt/scratch/kcwp264/mva-hackathon-2026/track2/lincs")
+BASE = Path(__file__).resolve().parents[2]
 DATA = BASE / "data"
 RESULTS = BASE / "results" / "l2s2"
 QUERY_SCRIPT = BASE / "scripts" / "03_query_lincs.py"

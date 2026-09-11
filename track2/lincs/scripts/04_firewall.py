@@ -24,8 +24,8 @@ import pandas as pd
 # Only positive-scoring signatures indicate reversal direction.
 L1000CDS2_SCORE_THRESHOLD = 0.0
 
-# The current saved L2S2 data was retrieved with the server's default sort
-# (pvalue_up / mimic ascending). Re-queries should use adj_pvalue_down.
+# Default is updated by main() from the --retrieval-sort CLI argument or the
+# results-dir name (heuristic: "rescue" -> rescue-first, otherwise mimic-first).
 L2S2_RETRIEVAL_SORT = "pvalue_up (mimic-sorted, default)"
 
 
@@ -516,7 +516,21 @@ def main():
     parser.add_argument("--chembl-all", default=None, type=Path)
     parser.add_argument("--pvalue-thr", default=0.05, type=float)
     parser.add_argument("--out-dir", default="track2/lincs/results", type=Path)
+    parser.add_argument(
+        "--retrieval-sort",
+        default=None,
+        type=str,
+        help="L2S2 retrieval sort label (default derived from --results-dir)",
+    )
     args = parser.parse_args()
+
+    global L2S2_RETRIEVAL_SORT
+    if args.retrieval_sort:
+        L2S2_RETRIEVAL_SORT = args.retrieval_sort
+    elif "rescue" in args.results_dir.as_posix():
+        L2S2_RETRIEVAL_SORT = "adj_pvalue_down (rescue-sorted)"
+    else:
+        L2S2_RETRIEVAL_SORT = "pvalue_up (mimic-sorted, default)"
 
     results_dir = args.results_dir
     out_dir = args.out_dir

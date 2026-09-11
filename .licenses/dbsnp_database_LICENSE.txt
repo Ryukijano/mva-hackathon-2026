@@ -1,0 +1,1 @@
+Notified 2026-09-09: user must review NCBI dbSNP terms at https://www.ncbi.nlm.nih.gov/snp/ before use.

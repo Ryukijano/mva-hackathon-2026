@@ -1,0 +1,139 @@
+{
+  "data": {
+    "background": {
+      "pairedEnrich": {
+        "consensusCount": 8,
+        "consensus": [
+          {
+            "drug": "regorafenib",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 737,
+            "countUpSignificant": 1,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          },
+          {
+            "drug": "fludarabine",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 681,
+            "countUpSignificant": 0,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          },
+          {
+            "drug": "aripiprazole",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 519,
+            "countUpSignificant": 1,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          },
+          {
+            "drug": "ifosfamide",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 349,
+            "countUpSignificant": 1,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          },
+          {
+            "drug": "bisoprolol",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 367,
+            "countUpSignificant": 1,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          },
+          {
+            "drug": "temozolomide",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 1159,
+            "countUpSignificant": 0,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          },
+          {
+            "drug": "RITA",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 909,
+            "countUpSignificant": 1,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          },
+          {
+            "drug": "minoxidil",
+            "oddsRatio": 0,
+            "pvalue": 1,
+            "adjPvalue": 1,
+            "approved": true,
+            "countSignificant": 1,
+            "countInsignificant": 519,
+            "countUpSignificant": 0,
+            "pvalueUp": 1,
+            "adjPvalueUp": 1,
+            "oddsRatioUp": 0,
+            "pvalueDown": 1,
+            "adjPvalueDown": 1,
+            "oddsRatioDown": 0
+          }
+        ]
+      }
+    }
+  }
+}

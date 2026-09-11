@@ -25,7 +25,7 @@ After Ensembl VEP **116** (GRCh38), a 15-gene mitotic panel, gnomAD AF ≤ 0.001
 | 1 | `chr15:40209701 T>G` | `c.2210T>G` `p.Leu737Ter` | ClinVar Pathogenic/LP for MVA1 ([VCV000533901](https://www.ncbi.nlm.nih.gov/clinvar/variation/533901/)) |
 | 2 | `chr15:40220612 T>G` | `c.3006T>G` `p.Asn1002Lys` | Novel C-lobe **pseudokinase** missense; AlphaMissense **0.9229**; ESM-1v mild; absent from gnomAD |
 
-Submitted EPCR **0.95**, `finding_type=primary`. Architecture is the textbook viable MVA1 pattern: truncating + hypomorphic missense (Hanks et al., 2004). Human BUBR1’s C-terminus is a **pseudokinase**. Phasing is inferred (both het in the VCF), not parental. Residual ~5–10% BUBR1 is the *BubR1^H/H* mouse literature, **not** measured in this child.
+Submitted EPCR **0.95**, `finding_type=primary`. Architecture is the textbook viable MVA1 pattern: truncating + hypomorphic missense (Hanks et al., 2004). Human BUBR1’s C-terminus is a **pseudokinase**. Phasing is inferred (both het in the VCF), not parental. Residual ~11% ± 3% BUBR1 is the *BubR1^H/H* mouse literature (Baker 2004), **not** measured in this child.
 
 **This campaign did not change the Track 1 CSV.** ESM-1v later showed that N1002K is a *mild* protein-LM allele (see §4). The call still rests on gene uniqueness, the ClinVar PTV, AlphaMissense, gnomAD absence, and architecture — not on “N1002K looks like L1012P in ESM-1v,” because it does not.
 
@@ -83,7 +83,7 @@ ClinVar B/LB control (A5; 34 unique NM_001211.6 missenses, WT-checked against O6
 
 Second falsifier also **met**: N1002K is less damaging (less negative LLR) than the B/LB median, placing it in the benign/likely-benign cloud. AlphaMissense **0.9229** remains the stronger pathogenic *in silico* for this allele; the two methods disagree.
 
-ClinVar notes, not to mix up: a **VUS** exists for p.Asn1002Lys on **`c.3006T>A`** (VCV4600147), not this child’s **`c.3006T>G`**. L1012P is ClinVar VUS; R814H is conflicting. Almost no BUB1B missense is P/LP in ClinVar (exception Q467H).
+ClinVar notes, not to mix up: a **VUS** exists for p.Asn1002Lys on **`c.3006T>A`** (VCV004600147.1), not this child's **`c.3006T>G`**. L1012P is ClinVar VUS; R814H is conflicting. Almost no BUB1B missense is P/LP in ClinVar (exception Q467H).
 
 ### H2 — does PrimeKG put sirolimus next to MVA? **No.**
 
@@ -117,7 +117,7 @@ All under `outputs/figures/` (PDF + 300 dpi PNG, Okabe–Ito colours).
 - Did not train TxGNN from scratch (pretrained weights gated; fetch timed out).
 - Did not put genome, VCF, or phenotype `.docx` on GPUs, GitHub, or Hugging Face.
 - Did not burn a Track 1 leaderboard submission.
-- Did not claim NMN is the +58% lifespan result, NAC as the fly brain-size rescue, or residual 5–10% BUBR1 as a measurement in this child.
+- Did not claim NMN is the +58% lifespan result, NAC as the fly brain-size rescue, or residual 11% ± 3% BUBR1 as a measurement in this child.
 
 ---
 

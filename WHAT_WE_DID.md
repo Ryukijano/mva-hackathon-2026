@@ -25,9 +25,9 @@ After Ensembl VEP **116** (GRCh38), a 15-gene mitotic panel, gnomAD AF ≤ 0.001
 | Allele | GRCh38 | NM_001211.6 | Role |
 |---|---|---|---|
 | 1 | `chr15:40209701 T>G` | `c.2210T>G` `p.Leu737Ter` | ClinVar Pathogenic/LP for MVA1 ([VCV000533901](https://www.ncbi.nlm.nih.gov/clinvar/variation/533901/)) |
-| 2 | `chr15:40220612 T>G` | `c.3006T>G` `p.Asn1002Lys` | C-lobe **pseudokinase** missense; AlphaMissense **0.9229**; ESM-1v mild (3rd-mildest of 19); protein change in ClinVar as VUS (VCV4600147, via `c.3006T>A`); our `T>G` allele absent from ClinVar and gnomAD genomes (1 allele in gnomAD v4 exomes, AF 6.8e-07) |
+| 2 | `chr15:40220612 T>G` | `c.3006T>G` `p.Asn1002Lys` | C-lobe **pseudokinase** missense; AlphaMissense **0.9229**; ESM-1v mild (3rd-mildest of 19); protein change in ClinVar as VUS (VCV004600147.1, via `c.3006T>A`, last evaluated 19 Sep 2025); our `T>G` allele absent from ClinVar and gnomAD genomes (1 allele in gnomAD v4 exomes, AF 6.8e-07) |
 
-Submitted EPCR **0.95**, `finding_type=primary`. Architecture is truncating + hypomorphic missense ([Hanks et al., 2004](https://doi.org/10.1038/ng1449)). Human BUBR1’s C-terminus is a **pseudokinase**, not a working kinase. Phasing is inferred (both heterozygous in the VCF), not parental. Residual ~5–10% BUBR1 is the *BubR1^H/H* mouse literature, **not** measured in this child.
+Submitted EPCR **0.95**, `finding_type=primary`. Architecture is truncating + hypomorphic missense ([Hanks et al., 2004](https://doi.org/10.1038/ng1449)). Human BUBR1’s C-terminus is a **pseudokinase**, not a working kinase. Phasing is inferred (both heterozygous in the VCF), not parental. Residual ~11% ± 3% BUBR1 is the *BubR1^H/H* mouse literature (Baker 2004), **not** measured in this child.
 
 **Pipeline bugs that had to be fixed before the CSV was recoverable**
 
@@ -57,6 +57,8 @@ Because the disease is **hypomorphism, not gain of function**, we cannot silence
 Ataluren is not FDA/EMA-approved (EMA non-renewal March 2025). ELX-02 is investigational. NMN/NR, trehalose, spermidine, MitoQ, quercetin are supplements/food, not leading nominations. Arimoclomol is FDA-approved for NPC (EMA refused July 2026). ChEMBL must query **FKBP1A (P62942)** to retrieve rapalogs; a direct MTOR kinase query does not return sirolimus.
 
 **Excluded (wrong direction):** TTK/MPS1 inhibitors, Aurora B inhibitors, STING agonists.
+
+**Regulatory audit refresh (10 Sep 2026):** ataluren has no live FDA application — PTC withdrew its 2024 NDA resubmission in early 2026; its UK/MHRA authorisation is under active review post-EU-non-renewal, not settled long-term; arimoclomol's EU product is branded Meplyffa (not Miplyffa) and this July 2026 refusal was Zevra's *second* EU attempt (first withdrawn 2022), re-examination pending. Ravicti, ELX-02, and the "no newer readthrough drug approved since 2025" claim were re-checked and hold. Detail: `track2/track2_report.md` §Regulatory audit refresh.
 
 Files: `track2/track2_report.md`, `track2/data/track2_candidates.csv`, `track2/pitch_storyboard.md`. Track 2 is still **blocked on the 3-minute YouTube/Vimeo pitch**.
 

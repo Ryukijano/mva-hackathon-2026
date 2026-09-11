@@ -63,7 +63,7 @@ Public ClinVar `variant_summary` (FTP, GRCh38, NM_001211.6, UniProt O60566 WT-ch
 | N1002K | **−0.110** (rank 18/34, 1 = most damaging) |
 | L1012P | −1.801 (below the entire B/LB cloud) |
 
-N1002K is weaker than the B/LB median, so the pre-registered second falsifier fires. It sits in the centre of the ClinVar B/LB distribution; L1012P does not. ClinVar also has a **VUS** for p.Asn1002Lys on a different codon (`c.3006T>A`, VCV4600147), not this child's `c.3006T>G`. L1012P is ClinVar VUS; R814H is conflicting — almost no BUB1B missense is P/LP in ClinVar (the exception is Q467H).
+N1002K is weaker than the B/LB median, so the pre-registered second falsifier fires. It sits in the centre of the ClinVar B/LB distribution; L1012P does not. ClinVar also has a **VUS** for p.Asn1002Lys on a different codon (`c.3006T>A`, VCV004600147.1), not this child's `c.3006T>G`. L1012P is ClinVar VUS; R814H is conflicting — almost no BUB1B missense is P/LP in ClinVar (the exception is Q467H).
 
 ## Environment
 

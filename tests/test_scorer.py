@@ -276,3 +276,106 @@ def test_pair_score_and_epcr():
     assert 0.0001 < pair_score(0.99, 0.92) <= 1.0
     assert epcr_from_pair(0.41, primary=True, primary_floor=0.95) == 0.95
     assert epcr_from_pair(0.41, primary=False, secondary_max=0.15) == 0.15
+
+
+def test_track1_report_phasing_language_calibrated():
+    """Track 1 report must use calibrated phasing language, not overclaim."""
+    from pathlib import Path
+    repo = Path(__file__).resolve().parent.parent
+    report = repo / "submissions" / "Ryukijano_track1_report.md"
+    assert report.exists(), f"Report not found at {report}"
+    text = report.read_text()
+
+    # Must state phase is unresolved / presumed, not confirmed
+    assert "UNRESOLVED" in text or "unresolved" in text.lower(), \
+        "Report must state phasing is unresolved"
+    assert "presumed compound heterozygous" in text.lower(), \
+        "Report must say 'presumed compound heterozygous'"
+
+    # Must reference the validation plan
+    assert "phasing_validation_plan.md" in text, \
+        "Report must reference the molecular phasing validation plan"
+
+    # Must not overclaim
+    forbidden = [
+        "phase was statistically confirmed",
+        "definitively confirmed",
+        "gold standard",
+        "biologically mandated",
+        "phase confirmed via SHAPEIT5",
+    ]
+    text_lower = text.lower()
+    for phrase in forbidden:
+        assert phrase not in text_lower, \
+            f"Report contains overclaiming phrase: '{phrase}'"
+
+
+def test_track1_report_has_alphagenome_section():
+    """Track 1 report must include AlphaGenome AVI scores for both variants."""
+    from pathlib import Path
+    repo = Path(__file__).resolve().parent.parent
+    report = repo / "submissions" / "Ryukijano_track1_report.md"
+    text = report.read_text()
+    assert "AlphaGenome" in text, "Report should mention AlphaGenome AVI"
+    assert "AVI" in text, "Report should mention AVI scores"
+    assert "33.76" in text, "Report should include p.Leu737Ter AVI Phred (33.76)"
+    assert "25.61" in text, "Report should include p.Asn1002Lys AVI Phred (25.61)"
+
+
+def test_track1_report_has_spliceai_deep_sweep():
+    """Track 1 report must include the SpliceAI deep-intronic sweep results."""
+    from pathlib import Path
+    repo = Path(__file__).resolve().parent.parent
+    report = repo / "submissions" / "Ryukijano_track1_report.md"
+    text = report.read_text()
+    assert "SpliceAI" in text, "Report should mention SpliceAI"
+    assert "4999" in text, "Report should mention the -D 4999 deep sweep"
+    assert "0.03" in text, "Report should include p.Leu737Ter max DS (0.03)"
+    assert "0.02" in text, "Report should include p.Asn1002Lys max DS (0.02)"
+
+
+def test_alphagenome_results_file_exists():
+    """AlphaGenome AVI scores JSON must exist with both variants."""
+    from pathlib import Path
+    repo = Path(__file__).resolve().parent.parent
+    path = repo / "supplement" / "track1" / "bub1b_avi_scores.json"
+    assert path.exists(), f"AlphaGenome results not found at {path}"
+    data = json.loads(path.read_text())
+    assert len(data) == 2, f"Expected 2 variants, found {len(data)}"
+    positions = {v["position"] for v in data}
+    assert 40209701 in positions, "Missing p.Leu737Ter position"
+    assert 40220612 in positions, "Missing p.Asn1002Lys position"
+
+
+def test_spliceai_results_exist():
+    """SpliceAI deep sweep VCF and summary must exist."""
+    from pathlib import Path
+    repo = Path(__file__).resolve().parent.parent
+    vcf_path = repo / "supplement" / "track1" / "bub1b_full_gene_spliceai.vcf"
+    summary_path = repo / "supplement" / "track1" / "spliceai_summary.md"
+    assert vcf_path.exists(), f"SpliceAI VCF not found at {vcf_path}"
+    assert summary_path.exists(), f"SpliceAI summary not found at {summary_path}"
+
+
+def test_track1_report_clinvar_accession_correct():
+    """Track 1 report must use the correct ClinVar accession VCV004600147.1, not VCV4600147."""
+    from pathlib import Path
+    repo = Path(__file__).resolve().parent.parent
+    report = repo / "submissions" / "Ryukijano_track1_report.md"
+    text = report.read_text()
+    assert "VCV004600147" in text, "Report should use the correct accession VCV004600147"
+    assert "VCV4600147" not in text, "Report should not use the old short form VCV4600147"
+    assert "19 Sep 2025" in text, "Report should use the correct date 19 Sep 2025"
+    assert "Jan 2026" not in text, "Report should not use the incorrect date Jan 2026"
+
+
+def test_clinvar_verification_summary_exists():
+    """The ClinVar verification summary must exist."""
+    from pathlib import Path
+    repo = Path(__file__).resolve().parent.parent
+    path = repo / "supplement" / "track1" / "clinvar_verification.md"
+    assert path.exists(), f"ClinVar verification not found at {path}"
+    text = path.read_text()
+    assert "VCV000533901" in text
+    assert "VCV004600147" in text
+    assert "19 Sep 2025" in text or "2025/09/19" in text

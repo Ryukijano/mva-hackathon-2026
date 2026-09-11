@@ -13,9 +13,15 @@ Why it is structurally unfixable with this data:
 - Exactly **one** heterozygous SNV (15:40216470 A>G) lies between them; a
   150 bp paired-end read cannot bridge 4.2–6.8 kb gaps, so chaining is
   impossible regardless of coverage (939 M pairs, 99.5% mapped, 98.2% proper).
-- Statistical phasing (reference-panel) is useless: the N1002K allele has
-  AC=1/1.6 M (gnomAD), so panel-based phase assignment is ~50/50.
-- Only linked-read or long-read data could resolve this; not available.
+- Statistical phasing (reference-panel) is unlikely to be informative: the
+  N1002K allele has AC=1/1.6 M (gnomAD), so panel-based phase assignment is
+  ~50/50. SHAPEIT5 `phase_rare` is documented for cohorts >2,000 samples
+  (official docs); singletons receive PP=0.5 in the UK Biobank workflow.
+  See `docs/phasing_validation_plan.md` for full rationale.
+- **Molecular phasing is the recommended path forward.** In silico long-range
+  PCR primers have been designed for an ~11.1 kb amplicon spanning both
+  variants (`scripts/design_lrpcr_primers.py`). Parental genotyping is the
+  simplest definitive option if parents are available.
 
 UNRESOLVED is a technical limit, not a contradiction of the trans hypothesis.
 
@@ -87,11 +93,13 @@ UNRESOLVED is a technical limit, not a contradiction of the trans hypothesis.
 ## Recommendation
 
 Proceed with the compound-heterozygous interpretation as the best-supported
-hypothesis, **with the phasing limitation disclosed in the methods write-up**.
-The original TRANS→submit / UNRESOLVED→stop rule was designed to avoid burning
-a shot on a wrong call; the re-evaluation shows UNRESOLVED here is a short-read
-limit, the architecture is the canonical MVA genotype, and the cis scenario
-would leave no second allele at all. Residual risk: cis + undetected regulatory
-hit outside the scanned region (unlikely; no candidate seen in 250 kb).
+hypothesis, **with the phasing limitation disclosed in the methods write-up**
+and the molecular phasing validation plan documented in
+`docs/phasing_validation_plan.md`. The original TRANS→submit / UNRESOLVED→stop
+rule was designed to avoid burning a shot on a wrong call; the re-evaluation
+shows UNRESOLVED here is a short-read limit, the architecture is the canonical
+MVA genotype, and the cis scenario would leave no second allele at all.
+Residual risk: cis + undetected regulatory hit outside the scanned region
+(unlikely; no candidate seen in 250 kb).
 
 Final decision to spend a Track 1 shot rests with the user.
