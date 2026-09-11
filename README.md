@@ -54,7 +54,7 @@ tests/
 
 1. Download only the WGS VCF + TBI + phenotype docx from `SageBio/mva-hackathon-2026-data` (gated).
 2. Annotate with Ensembl VEP **116** (GRCh38, offline) + AlphaMissense + popEVE plugins.
-3. Filter to the 15-gene MVA SAC/centrosome panel, relevant SO terms, gnomAD AF ≤ 0.001 or absent.
+3. Filter to the 17-gene MVA panel (incl. SLF2/SMC5 added post-audit), relevant SO terms, gnomAD AF ≤ 0.001 or absent.
 4. SpliceAI on the tiny candidate VCF (`-D 500`).
 5. Score: PTV ≈ 0.99; missense = 0.7·popEVE-sigmoid + 0.3·AlphaMissense (AM fallback if popEVE missing, e.g. novel N1002K); splice = max SpliceAI Δ. The VEP popEVE field is now `popEVE_SCORE` with `popEVE`/`popEVE_pop_adjusted_EVE` fallbacks; the sigmoid has been corrected so more-negative scores map to higher pathogenicity.
 6. Pair all combinations of alleles in the same gene; pair score = product; write ≤10 CSV rows with EPCR in (0, 1].

@@ -16,6 +16,11 @@ mva_panel:
     description: Minor spliceosome / chromosome congression
     genes:
       - CENATAC
+  atelis:
+    description: Atelis/MVA5-6 (SLF2-SMC5 axis, mosaic variegated hyperploidy)
+    genes:
+      - SLF2
+      - SMC5
   extended:
     description: SAC-associated kinases, MCC subunits, kinetochore and APC/C nodes
     genes:
@@ -34,6 +39,10 @@ tumour_predisposed_genes:
   - MAD1L1
   - TRIP13
   - MAD2L1BP
+# MVA5/MVA6 (Atelis 1/2) - added Sept 2026 after panel-completeness audit
+atelis_genes:
+  - SLF2
+  - SMC5
 
 # Mitotic neighbours that are plausible cancer/aneuploidy modifiers
 # but are not yet established MVA disease genes

@@ -18,7 +18,7 @@ We built a reproducible Track 1/2 pipeline, made a compound-het call in *BUB1B*,
 
 ## 2. Track 1 — the call we still stand on
 
-After Ensembl VEP **116** (GRCh38), a 15-gene mitotic panel, gnomAD AF ≤ 0.001, and SpliceAI on the tiny candidate VCF, **only *BUB1B* had two rare functional alleles**. That uniqueness is why the CSV is one row, not a learned ranker.
+After Ensembl VEP **116** (GRCh38), a 17-gene mitotic panel (SLF2/SMC5 added Sept 2026), gnomAD AF ≤ 0.001, and SpliceAI on the tiny candidate VCF, **only *BUB1B* had two rare functional alleles**. That uniqueness is why the CSV is one row, not a learned ranker.
 
 | Allele | GRCh38 | NM_001211.6 | Role |
 |---|---|---|---|

@@ -41,19 +41,20 @@ deep-intronic splice allele:
 ## 3. Known upstream regulatory variant — absent
 
 The ~44 kb upstream intergenic G>A regulatory variant shown by Ochiai et al. 2014
-(PMID 24344301) to cause MVA when homozygous (and linked to the Matsuura 2006 "6G3"
-haplotype): **no rare heterozygous or homozygous call exists in the proband** in the
-corresponding window. All calls in the upstream region are common rsID SNPs
-(e.g. rs1471584, rs12909145, rs11630670) or reference-bias homozygotes.
+(PMID 24344301) to cause MVA when homozygous (ss802470619 / rs576524605;
+c.-44133G>A; **GRCh38 chr15:40,117,088 G>A**): the proband VCF has **no call** at
+that position and direct `samtools depth` at chr15:40,117,080–095 shows uniform
+**~45–46x coverage** — i.e., the position is homozygous-reference, not a coverage
+gap. The variant is definitively absent.
 
 ## 4. The intervening SNV 15:40,216,470 A>G — reclassified
 
-- VEP: **BUB1B intron 20/22 intron_variant (MODIFIER)** — it is *intronic*, not
-  "intergenic" as an earlier draft of the phasing memo stated.
-- Absent from gnomAD v4 (exomes and genomes), dbSNP, and ClinVar — a **rare**
-  variant, not a common SNP.
-- SpliceAI max delta score 0.00; nearest splice junctions ≥884 bp away — no
-  predicted splice effect.
+- VEP (live re-query): **BUB1B intron_variant (MODIFIER)** on every protein-coding
+  transcript — it is *intronic*, not "intergenic" as an earlier memo draft stated.
+- **Absent from gnomAD v4 (exomes and genomes), dbSNP (no rsID exists for
+  15-40216470-A-G), and ClinVar** — a private/ultra-rare variant, not a common SNP.
+- SpliceAI max delta score 0.00; nearest splice junctions ≥884 bp away; phyloP100way
+  **−0.41** (unconserved, slightly accelerated) — no functional signal.
 - It is a legitimate candidate only as a **phasing bridge** (its two sub-gaps are
   6.77 kb and 4.14 kb, both exceeding the ~1.3 kb max insert size). As a *causal*
   second allele it is not supported by any functional evidence — but it is disclosed
@@ -73,14 +74,51 @@ corresponding window. All calls in the upstream region are common rsID SNPs
 - **Homozygous cause:** only 6 hom calls inside BUB1B, all common (genome AF
   0.32–0.999) reference-bias homozygotes → no hidden homozygous allele.
 
+## 5b. Panel-completeness check — SLF2 and SMC5 (added post-audit)
+
+A literature audit found the original 15-gene panel **missed two established
+MVA-like disease genes**: SLF2 (MVA5 / Atelis-1, OMIM #620184) and SMC5 (MVA6 /
+Atelis-2, OMIM #620185; Grange et al. 2022). Post-hoc check on the proband VCF:
+
+- SLF2 (chr10:100,912,963–100,965,134): 65 variants — the only missense call is
+  the common polymorphism 10:100,924,623 C>A (gnomAD AF 0.48). **No rare
+  coding/splice variant.**
+- SMC5 (chr9:70,258,270–70,354,874): 88 variants — the only missense call is
+  9:70,282,518 G>A (gnomAD AF 0.88, i.e. homozygous for the common allele).
+  **No rare coding/splice variant.**
+
+Panel extended to 17 genes (`configs/panel.yaml`, `atelis` group) for future runs.
+The exclusion is post-hoc, not from the ranked pipeline — disclosed honestly.
+
+## 6. External database verification of the submitted pair (live re-query)
+
+- **L737Ter** (chr15:40,209,701 T>G): ClinVar VCV000533901 = NM_001211.6:c.2210T>G,
+  Pathogenic/Likely pathogenic, multiple submitters no conflicts, last eval
+  2024-10-09. gnomAD v4: AC=115 exomes (AF 7.87e-5), 0 homozygotes, rs759242053.
+  VEP/Loftee: `stop_gained`, **high-confidence LoF, 50_BP_RULE:PASS,
+  DIST_FROM_LAST_EXON:742** → canonical NMD substrate. phyloP100way 2.91.
+- **N1002K** (chr15:40,220,612 T>G): ClinVar has the same *protein* change via
+  c.3006T>A (VCV004600147, VUS single submitter, 2025-09-19); our c.3006T>G
+  allele is ClinVar-absent. gnomAD v4: AC=1 exome (AF 6.8e-7), rs2542593804.
+  VEP: missense N/K, SIFT deleterious (0.01), PolyPhen probably_damaging (0.997),
+  AlphaMissense likely_pathogenic 0.9229. phyloP100way **4.80** — a strongly
+  constrained site. Structural: ordered C-lobe of the pseudokinase domain
+  (945–1040), 10 residues N-terminal of the known MVA1 allele L1012P; not in the
+  catalytic site but plausibly destabilizing to the C-lobe surface.
+- **NMD evidence for BUB1B PTCs (literature):** patient BUB1B nonsense alleles
+  386X, 731X, 1833delT and the deep-intronic c.2386-11A>G all show absent/reduced
+  transcript by NMD (Suijkerbuijk 2010; Matsuura 2006; Rio Frio 2010) — supports
+  the NMD-gated readthrough strategy in Track 2.
+
 ## Conclusion
 
 `p.Leu737Ter` + `p.Asn1002Lys` is the **unique best-supported compound-heterozygous
 pair among all variants detectable by this short-read SNV/indel pipeline** — there
-is no third coding, splice, or known-regulatory candidate, and no CNV, SV, UPD, or
-homozygous alternative. The residual, explicitly disclosed, limitation is a **truly
-novel cryptic mechanism invisible to SNV callers and ≤200-bp CNV resolution**
-(e.g. a small intronic Alu/SVA insertion that produces no heterozygous SNP, or a
+is no third coding, splice, or known-regulatory candidate, no CNV, SV, UPD, or
+homozygous alternative, and no causal allele in the post-hoc-checked SLF2/SMC5
+Atelis genes. The residual, explicitly disclosed, limitation is a **truly novel
+cryptic mechanism invisible to SNV callers and ≤200-bp CNV resolution** (e.g. a
+small intronic Alu/SVA insertion that produces no heterozygous SNP, or a
 deep-intronic pseudoexon). Definitive exclusion of that class requires long-read
 sequencing and/or RNA-seq, which is why the submission retains the "presumed
 compound heterozygous" qualifier and the phasing-validation plan.

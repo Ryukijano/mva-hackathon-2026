@@ -74,7 +74,7 @@ Hedging does not help: extra secondary rows cannot raise F-max above the primary
 
 ### Why compound heterozygous *BUB1B* is the answer
 
-1. **Panel uniqueness:** after VEP 116 + 15-gene MVA panel + AF ≤ 0.001 + relevant consequences, *BUB1B* was the only gene carrying two rare functional alleles.
+1. **Panel uniqueness:** after VEP 116 + 17-gene MVA panel + AF ≤ 0.001 + relevant consequences, *BUB1B* was the only gene carrying two rare functional alleles.
 2. **Architecture match:** truncating + missense is the canonical viable MVA1 pattern (Hanks 2004; Suijkerbuijk 2010); two truncations are not viable (mouse: −/− lethal, −/H perinatal lethal, X753/L1002P lethal).
 3. **Allele-level evidence:** one allele is ClinVar P/LP for MVA1 specifically; the other is a rare pseudokinase-lobe missense consistent with the destabilising-hypomorph class.
 4. **In trans is inferred, not proven:** both alleles are heterozygous in the proband VCF; no parental sample exists in the challenge data. This is stated as a limitation everywhere it matters.
@@ -99,7 +99,7 @@ Hedging does not help: extra secondary rows cannot raise F-max above the primary
 
 ## 5. What we have actually done (the honest ledger)
 
-**Built:** a reproducible Track 1 CLI (VEP 116 offline + AlphaMissense + popEVE → 15-gene panel → rarity filter → SpliceAI `-D 500` → score → pair → CSV), a local clone of the official scorer, and AIRE Slurm wrappers. The submitted CSV is one row, EPCR 0.95, `finding_type=primary`.
+**Built:** a reproducible Track 1 CLI (VEP 116 offline + AlphaMissense + popEVE → 17-gene panel → rarity filter → SpliceAI `-D 500` → score → pair → CSV), a local clone of the official scorer, and AIRE Slurm wrappers. The submitted CSV is one row, EPCR 0.95, `finding_type=primary`.
 
 **Ran and reported honestly:** two pre-registered computational hypotheses, both **falsified as written** — H1 (N1002K ≈ L1012P; ESM-1v gap 1.69 nats; B/LB median −0.161, rank 18/34) and H2 (PrimeKG does not rank rapalogs near MVA). Neither changed the CSV; both changed what we claim.
 

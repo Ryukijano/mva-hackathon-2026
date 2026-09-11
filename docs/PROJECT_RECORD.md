@@ -364,9 +364,9 @@ scoring: missense_pop_weight: 0.7 | missense_am_weight: 0.3 | ptv_score: 0.99
 writer:  primary_epcr: 0.95 | secondary_epcr_max: 0.15
 ```
 
-### Panel (15 genes)
+### Panel (17 genes — extended Sept 2026)
 
-SAC core: BUB1B, BUB1, MAD1L1, TRIP13, MAD2L1BP · Centrosome: CEP57, CEP192 · Minor spliceosome: CENATAC · Extended SAC/kinetochore: CDC20, TTK, MAD2L1, BUB3, KNL1, AURKA, PLK1.
+SAC core: BUB1B, BUB1, MAD1L1, TRIP13, MAD2L1BP · Centrosome: CEP57, CEP192 · Minor spliceosome: CENATAC · **Atelis/MVA5-6: SLF2, SMC5** (added post-audit) · Extended SAC/kinetochore: CDC20, TTK, MAD2L1, BUB3, KNL1, AURKA, PLK1.
 
 ### Formulas (verbatim from `score.py`)
 
@@ -441,7 +441,11 @@ Four independent audits (genotype validation, Track 2 scientific review, competi
 
 - **Complete BUB1B het inventory (8 variants)** cross-checked against all ~100 ClinVar P/LP BUB1B alleles: the proband carries **no other known pathogenic allele** — including every deep-intronic splice variant (c.2386-2, c.2535+195, c.2285-2, c.36-1, c.967-2, c.239+2, c.751+1, c.581+1, c.2851-1, c.2009+1) and the ~44 kb upstream regulatory G>A (Ochiai 2014/Matsuura 2006).
 - **No CNV** (uniform ~46x depth, no 500-bp window deviates), **no SV** (zero symbolic alleles; soft-clip clusters sequence-heterogeneous), **no chr15 isodisomy** (85k hets, normal per-Mb density), **no hidden homozygous allele** (6 hom calls, all AF 0.32–0.999).
-- The intervening SNV `15:40216470 A>G` was reclassified: it is **BUB1B intron 20/22** (not "intergenic" as an earlier memo draft said) and is **absent from gnomAD v4/dbSNP/ClinVar** — a rare deep-intronic variant, SpliceAI DS 0.00, ≥884 bp from splice sites. Disclosed as a rare non-coding variant; not a plausible second allele. Full audit: `supplement/track1/locus_falsifier_audit.md`.
+- The intervening SNV `15:40216470 A>G` was reclassified: it is **BUB1B intron 20/22** (not "intergenic" as an earlier memo draft said) and is **absent from gnomAD v4/dbSNP (no rsID)/ClinVar** — a rare deep-intronic variant, SpliceAI DS 0.00, phyloP100way −0.41, ≥884 bp from splice sites. Disclosed as a rare non-coding variant; not a plausible second allele. Full audit: `supplement/track1/locus_falsifier_audit.md`.
+- **Panel-completeness fix:** the original 15-gene panel missed **SLF2 and SMC5** (MVA5/MVA6 Atelis genes, Grange 2022). Post-hoc VEP check: only common missense polymorphisms (AF 0.48/0.88); all rare variants intronic/UTR — no causal candidate. Panel now 17 genes (`atelis` group added to `configs/panel.yaml`).
+- **External re-verification (live):** L737Ter — ClinVar VCV000533901 P/LP multi-submitter (eval 2024-10-09); gnomAD AC=115 exomes, 0 hom; Loftee HC-LoF, 50_BP_RULE:PASS, DIST_FROM_LAST_EXON 742 (canonical NMD substrate); phyloP 2.91. N1002K — ClinVar VUS VCV004600147 via c.3006T>A (our c.3006T>G ClinVar-absent); gnomAD AC=1 exome; SIFT 0.01/PP 0.997/AM 0.9229; phyloP **4.80**; C-lobe of pseudokinase, 10 residues from L1012P.
+- **Upstream regulatory SNP:** exact coordinate chr15:40,117,088 G>A (Ochiai 2014; c.-44133G>A) — no call in proband VCF at 46x depth = homozygous reference. Excluded.
+- **Structural (UniProt O60566 / AlphaFold):** L737Ter deletes the whole pseudokinase domain (750–1045) + C-terminal Cdc20 surface; KEN1/2, D-box, ABBA1/2, TPR, GLEBS, KARD all retained. N1002 is in the ordered C-lobe (945–1040), not the catalytic site.
 - **Residual disclosed limitation:** a truly novel cryptic mechanism below SNV-caller/≤200-bp resolution (small intronic Alu/SVA insertion, pseudoexon) cannot be fully excluded without long-read/RNA-seq.
 
 ### Track 2 — verdict: mechanism correct, lead drug was wrong; fixed
