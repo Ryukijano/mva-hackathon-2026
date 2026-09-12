@@ -105,6 +105,10 @@ The exclusion is post-hoc, not from the ranked pipeline — disclosed honestly.
   constrained site. Structural: ordered C-lobe of the pseudokinase domain
   (945–1040), 10 residues N-terminal of the known MVA1 allele L1012P; not in the
   catalytic site but plausibly destabilizing to the C-lobe surface.
+  *Checked-and-noted:* the neighboring p.Asn1004Ser (rs34998711, 2 residues away)
+  carries a legacy ClinVar MVA1 association but is now classified
+  **Benign/Likely benign** (multi-submitter, Mar 2026; 3 gnomAD homozygotes) —
+  so the "disease neighbourhood" argument rests on L1012P, not N1004S.
 - **NMD evidence for BUB1B PTCs (literature):** patient BUB1B nonsense alleles
   386X, 731X, 1833delT and the deep-intronic c.2386-11A>G all show absent/reduced
   transcript by NMD (Suijkerbuijk 2010; Matsuura 2006; Rio Frio 2010) — supports

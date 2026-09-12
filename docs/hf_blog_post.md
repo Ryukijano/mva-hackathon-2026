@@ -72,6 +72,16 @@ The transcriptomic screen (LINCS L2S2) found **zero** clean rescue signatures �
 3. The pair is the *unique best-supported* compound-het among all variants this assay can see — after falsifying every alternative we could test.
 4. Phase is unresolved. N1002K is a VUS. Cryptic non-coding mechanisms cannot be excluded by short reads alone.
 
+## What is actually new here
+
+We checked the literature before claiming anything:
+
+- **No published drug-repurposing dossier for MVA exists.** MVA management in the literature is supportive — growth hormone, cancer surveillance, a single HSCT case report — plus one standing warning (avoid antimitotic chemo; Sakamoto 2017). A mechanism-gated candidate list with explicit safety triage is, as far as we can find, the first.
+- **Amlexanox for a BUB1B premature stop is a novel application.** Its dual NMD-inhibition + readthrough mechanism is established in other diseases (Gonzalez-Hilarion 2012) — never proposed for MVA.
+- **Flagging sirolimus as an anti-target in MVA is novel** — and it matters, because autophagy-first repurposing logic keeps surfacing rapalogs. Rapamycin itself induces chromosome missegregation (Bonatti 1998). One honest caveat: a 2025/26 *Drosophila* MVA-model paper (González-Blanco et al.) found *genetic* TOR depletion protective — which is why our dossier treats mTOR as a context-dependent open question, not a settled danger, and why any mTOR modulation is gated behind a patient-cell micronucleus assay.
+- **N1002K is an unpublished MVA1 allele** — absent from every case report and review; ClinVar knows it only as a generic VUS. If this diagnosis is confirmed, it's a new entry in the MVA1 allelic series, sitting 10 residues from L1012P in the same pseudokinase C-lobe.
+- **Not novel, deliberately:** the proteostasis/autophagy-rescue *concept* in MVA (González-Blanco et al. — our specific drug list is new, the idea isn't), the NMD-dependency of BUBR1 PTCs (Suijkerbuijk 2010 — we leaned on it), and the PTC + pseudokinase-missense genotype architecture (the classic MVA1 pattern since Hanks 2004 — our case fits it).
+
 And the deliverables that make it checkable: a reproducible pipeline (VEP 116 offline → 17-gene panel → AF filter → SpliceAI → score → pair), a scorer clone that passes 39 tests, a locus falsifier audit, structural figures from AlphaFold and the APC/C–MCC cryo-EM structure, and a Track 2 dossier that leads with mechanism instead of hope.
 
 ---
