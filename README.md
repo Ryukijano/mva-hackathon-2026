@@ -30,6 +30,8 @@ entire C-terminal pseudokinase domain.*
 
 ## The call (Track 1)
 
+> **Submitted 12 Sep 2026 — scorer-confirmed: full match at rank 1, 100/100 rank points, F-max 1.000 at EPCR 0.95.** The causal genotype is the *BUB1B* pair below; p.Asn1002Lys (`c.3006T>G`) is thereby a confirmed MVA1 allele, not merely a VUS.
+
 A child with classic **mosaic variegated aneuploidy 1 (MVA1)** — microcephaly,
 growth delay, Dandy-Walker malformation, childhood cancers. After annotating the
 proband WGS with VEP 116 + AlphaMissense + popEVE and filtering a 17-gene

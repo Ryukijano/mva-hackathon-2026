@@ -429,7 +429,7 @@ src/mva_hackathon/ · scripts/ · tests/ · configs/ · environment.yaml
 | LINCS firewall | ACCEPT 0 / WEAK 2 (sirolimus, dasatinib — both MIXED) / REJECT 674 · rescue-sorted: 0/2/472 — same conclusion |
 | Sirolimus / dasatinib best reverse | adj_p_down 9.14e-05 / 1.51e-05 |
 | Tests | 39/39 pass |
-| Quota | Track 1: 6 shots (0 spent) · Track 2: 3 shots (0 spent) |
+| Quota | Track 1: **1/6 spent — full match rank 1, 100.0 pts, F-max 1.000** (12 Sep 2026) · Track 2: 3 shots (0 spent) |
 
 ---
 

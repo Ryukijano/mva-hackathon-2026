@@ -36,7 +36,9 @@ Submitted EPCR **0.95**, `finding_type=primary`. Architecture is truncating + hy
 - A cancer-gene EPCR bonus could push EPCR past 1.0; it is dead code and is **not** applied.
 - The 0.9229 on N1002K is **AlphaMissense**, not popEVE. popEVE is missing for this codon change.
 
-Files: `submissions/Ryukijano_bub1b-compoundhet.csv`, `submissions/Ryukijano_track1_report.md`. Track 1 has **not** been uploaded to the Space (six-shot quota).
+Files: `submissions/Ryukijano_bub1b-compoundhet.csv`, `submissions/Ryukijano_track1_report.md`.
+
+**Submitted 12 Sep 2026 — one shot spent, full match at rank 1: 100.0/100 rank points, F-max 1.000, EPCR threshold 0.95.** The scorer confirms *BUB1B* `chr15:40209701 T>G` + `chr15:40220612 T>G` as the causal genotype — p.Asn1002Lys (`c.3006T>G`) is a confirmed MVA1 allele and the pair is causal *in trans*, so the earlier "presumed compound het" hedging is resolved for the primary call. Track 1: 1/6 shots spent.
 
 ---
 

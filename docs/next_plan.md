@@ -85,8 +85,8 @@ Space source (`evaluation.py`, `config.py`, `submit_track1.py`, `submit_track2.p
 | # | Blocker | Consequence | Owner | Due |
 |---|---|---|---|---|
 | 1 | **Track 2 pitch video (3 min, YouTube/Vimeo)** | Track 2 cannot be submitted — `video_url` is a required field in `submit_track2.py`. | User | ASAP |
-| 2 | **Track 1 shot decision** | The call is stable and the write-up is ready; the only remaining question is whether to spend 1 of 6 shots now. Given the FAQ ("perfect scores already exist") and the discussion-#19 lesson (resubmitting to add a report creates a second leaderboard entry), the optimal move is **one clean upload with the report attached**. | User | Before 24 Oct |
-| 3 | **GitHub repo must be public after close** | Panel reviews code post-24 Oct; leave it private until then, flip after. | User | 24–25 Oct |
+| 2 | ~~**Track 1 shot decision**~~ | **DONE 12 Sep 2026 — submitted CSV + report + GitHub URL in one shot; scorer returned full match at rank 1 (100.0 rank pts, F-max 1.000).** Both alleles confirmed; p.Asn1002Lys c.3006T>G is now a confirmed MVA1 allele. | — | — |
+| 3 | ~~**GitHub repo must be public after close**~~ | **DONE 12 Sep 2026** — repo flipped to public early (user decision; nothing gated tracked). | — | — |
 
 ### P1 — High-value polish for the judged write-up
 
