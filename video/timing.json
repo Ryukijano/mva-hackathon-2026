@@ -1,0 +1,111 @@
+{
+  "fps": 30,
+  "size": [
+    1920,
+    1080
+  ],
+  "sr": 24000,
+  "xfade": 0.4,
+  "voice": "af_heart",
+  "speed": 1.05,
+  "total": 176.5178,
+  "budget": 180.0,
+  "scenes": [
+    {
+      "id": "S0",
+      "title": "Title (no VO)",
+      "start": 0.0,
+      "dur": 4.0,
+      "vo_start": null,
+      "vo_dur": 0.0,
+      "wav": null,
+      "words": 0,
+      "cues": []
+    },
+    {
+      "id": "S1",
+      "title": "The case",
+      "start": 4.0,
+      "dur": 32.9495,
+      "vo_start": 4.35,
+      "vo_dur": 32.0995,
+      "wav": "tts/S1.wav",
+      "words": 70,
+      "cues": [
+        0.35,
+        5.7546,
+        12.9597,
+        20.3318,
+        25.1116
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Mechanism",
+      "start": 36.9495,
+      "dur": 35.4506,
+      "vo_start": 37.2995,
+      "vo_dur": 34.6006,
+      "wav": "tts/S2.wav",
+      "words": 76,
+      "cues": [
+        0.35,
+        9.3825,
+        14.0752,
+        18.2302,
+        30.4206
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "The stack",
+      "start": 72.4001,
+      "dur": 49.1252,
+      "vo_start": 72.7501,
+      "vo_dur": 48.2752,
+      "wav": "tts/S3.wav",
+      "words": 104,
+      "cues": [
+        0.35,
+        2.1121,
+        11.5433,
+        23.4801,
+        28.413,
+        36.3073,
+        42.9479
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Evidence",
+      "start": 121.5252,
+      "dur": 37.5981,
+      "vo_start": 121.8752,
+      "vo_dur": 36.7481,
+      "wav": "tts/S4.wav",
+      "words": 87,
+      "cues": [
+        0.35,
+        2.3144,
+        11.4939,
+        18.3209,
+        22.5168,
+        29.3763
+      ]
+    },
+    {
+      "id": "S5",
+      "title": "Close",
+      "start": 159.1234,
+      "dur": 17.3944,
+      "vo_start": 159.4734,
+      "vo_dur": 14.5444,
+      "wav": "tts/S5.wav",
+      "words": 30,
+      "cues": [
+        0.35,
+        8.8534
+      ]
+    }
+  ]
+}
