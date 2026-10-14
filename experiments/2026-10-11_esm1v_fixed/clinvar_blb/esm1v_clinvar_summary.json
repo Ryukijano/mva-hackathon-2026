@@ -1,0 +1,10 @@
+{
+  "n_scored": 35,
+  "n_blb_rows": 35,
+  "n_blb_unique": 34,
+  "blb_median_llr": -0.1769045,
+  "blb_mean_llr": -0.016961294117646908,
+  "n1002k_llr": null,
+  "h1_weaker_than_blb_median": null,
+  "device": "cuda"
+}

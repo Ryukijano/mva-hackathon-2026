@@ -128,14 +128,14 @@ def s1(t, sc):
     if k > 0:
         xe = BX0 + (BX1 - BX0) * k
         cv.rect((BX0, BY, xe, BY + 44), fill=PANEL2, outline=BORDER, r=10)
-        for r0, r1, col, lab in [(62, 226, BLUE, "N-terminal TPR"), (766, 1050, PURPLE, "pseudokinase")]:
+        for r0, r1, col, lab in [(62, 226, BLUE, "BUB1 N-terminal domain"), (766, 1050, PURPLE, "kinase domain")]:
             x0, x1 = rx(r0), min(rx(r1), xe)
             if x1 > x0:
                 cv.rect((x0, BY + 3, x1, BY + 41), fill=col, r=8, a=.85)
                 cv.text(((rx(r0) + rx(r1)) / 2, BY + 66), lab, 20, "SemiBold", col, ease(prog(t, c1 + 2.0, .4)),
                         anchor="mm")
-        cv.text((rx(495), BY + 66), "KEN · GLEBS · ABBA · KARD motifs", 20, "Medium", MUTED,
-                ease(prog(t, c1 + 2.2, .4)), anchor="mm")
+        cv.text((rx(152), BY + 100), "KNL1-binding 152-185 · D-box 224-232", 20, "Medium", MUTED,
+                ease(prog(t, c1 + 2.2, .4)), anchor="lm")
         for res in (1, 1050):
             cv.text((rx(res), BY - 14), str(res), 18, "Medium", FAINT, ease(prog(t, c1 + 2.0, .4)), anchor="mb")
 
@@ -156,27 +156,27 @@ def s1(t, sc):
         cv.text((box[0] + 24, box[1] + 98 + dy), l2, 22, "Medium", MUTED, aa, under=PANEL)
 
     variant(737, MAGENTA, c2, "p.Leu737Ter", "stop-gain · ClinVar P/LP for MVA1",
-            "removes the pseudokinase · NMD substrate", (720, 420, 1240, 560))
+            "removes kinase domain · NMD predicted", (720, 420, 1240, 560))
     lost = ease(prog(t, c2 + 2.2, .8))
     if lost > 0:
         x0 = rx(737)
         for xx in np.arange(x0 + 6, BX1 - 4, 14):
             cv.line([(xx, BY + 40), (min(xx + 16, BX1 - 4), BY + 4)], BG, 3, a=.55 * lost, under=PURPLE)
     variant(1002, YELLOW, c3, "p.Asn1002Lys", "C-lobe missense · ultra-rare (gnomAD)",
-            "10 residues from the known MVA1 L1012P", (1280, 420, 1800, 560))
+            "10 residues from L1012P (comparator)", (1280, 420, 1800, 560))
     for i, (lab, col) in enumerate([("AlphaMissense 0.9229 · likely pathogenic", RED),
-                                    ("ESM-1v LLR −0.110 · mild", AMBER)]):
+                                    ("ESM-1v LLR −0.110 · mild, in-house", AMBER)]):
         aa, dy = appear(t, c3 + 1.6 + i * .7, .45, 12)
         cv.chip((1280, 580 + i * 52 + dy), lab, 22, TEXT, PANEL2, col, aa, dot=col)
 
     # allele architecture + Track 1
     aa, dy = appear(t, c4, .5, 16)
     y = 760 + dy
-    w1 = cv.chip((100, y), "Allele 1 · p.Leu737Ter · null", 26, TEXT, PANEL2, MAGENTA, aa, dot=MAGENTA)
+    w1 = cv.chip((100, y), "Allele 1 · p.Leu737Ter · predicted null", 26, TEXT, PANEL2, MAGENTA, aa, dot=MAGENTA)
     cv.text((100 + w1 + 22, y + 21), "+", 34, "Bold", MUTED, aa, anchor="mm")
-    w2 = cv.chip((100 + w1 + 44, y), "Allele 2 · p.Asn1002Lys · hypomorph", 26, TEXT, PANEL2, YELLOW, aa, dot=YELLOW)
+    w2 = cv.chip((100 + w1 + 44, y), "Allele 2 · p.Asn1002Lys · predicted hypomorph", 26, TEXT, PANEL2, YELLOW, aa, dot=YELLOW)
     aa2, _ = appear(t, c4 + 1.2, .5)
-    cv.text((100 + w1 + w2 + 70, y + 21), "→  classic viable MVA1 architecture", 26, "SemiBold", TEXT, aa2,
+    cv.text((100 + w1 + w2 + 70, y + 21), "→  MVA1 pattern", 26, "SemiBold", TEXT, aa2,
             anchor="lm")
     p = prog(t, c4 + 3.2, .5)
     if p > 0:
@@ -378,21 +378,21 @@ def s3(t, sc):
     nmd_strip(cv, t, c[1], x, 282)
     aa, dy = appear(t, c[2], .55, 18)
     yb = card(cv, (x, 420, x + CW, None), "Amlexanox",
-              ["NMD inhibition + readthrough", ("FDA: topical oral paste only", AMBER),
-               "Systemic use needs reformulation + patient-cell proof"], GREEN, aa, dy)
-    aa, dy = appear(t, c[3], .55, 18)
+              ["NMD inhibition + readthrough, in vitro (patient cells, 0.2-100 µM)",
+               "Topical use: peak serum ~0.4 µM after 5 mg",
+               "TBK1/IKK-epsilon inhibitor: watch interferon signalling",
+               ("FDA: topical oral paste only", AMBER)], GREEN, aa, dy)
+    aa, dy = appear(t, c[4], .55, 18)
     yb = card(cv, (x, yb + 16, x + CW, None), "Ataluren",
-              ["Readthrough only · no NMD activity", ("UK/MHRA conditional only", MUTED),
-               ("FDA NDA withdrawn", MUTED), ("EMA not renewed", MUTED)], MUTED, aa, dy, dim=True, title_size=26)
-    aa, dy = appear(t, c[3] + 3.2, .5, 14)
-    card(cv, (x, yb + 16, x + CW, yb + 86), "ELX-02 · investigational", [], MUTED, aa, dy, dim=True, title_size=22)
+              ["Readthrough only", "Not FDA-approved · US NDA withdrawn Feb 2026"],
+              MUTED, aa, dy, dim=True, title_size=26)
 
     # column 2
     x = COLS[1]
-    aa, dy = appear(t, c[4], .55, 18)
+    aa, dy = appear(t, c[5], .55, 18)
     yb = card(cv, (x, 282, x + CW, None), "SIRT2 / NAD+ axis",
          ["SIRT2 deacetylates BUBR1 (K668) and stabilises the residual protein"], BLUE, aa, dy)
-    aa, dy = appear(t, c[4] + 2.6, .55, 18)
+    aa, dy = appear(t, c[5] + 2.6, .55, 18)
     card(cv, (x, yb + 16, x + CW, None), "NMN · NR",
          [("supplements → comparators only", AMBER),
           "Lifespan gain in BubR1-hypomorph mice came from SIRT2 overexpression, not NMN"], MUTED, aa, dy, dim=True)
@@ -400,27 +400,25 @@ def s3(t, sc):
     # column 3
     x = COLS[2]
     items = [("1  Ravicti", "sodium-free 4-PBA prodrug", [("FDA/EMA · urea-cycle disorders", GREEN)]),
-             ("2  Arimoclomol", "HSF1 / lysosomal amplifier", [("FDA + miglustat (NPC)", GREEN),
-                                                                ("EMA refused (2026)", AMBER)]),
-             ("3  Metformin / rilmenidine", "mTORC1-independent autophagy",
-              [("metformin FDA/EMA", GREEN), ("rilmenidine UK/EU · not FDA", AMBER)])]
+             ("2  Arimoclomol", "US approved with miglustat · EMA: negative opinion Jul 2026", []),
+             ("3  Metformin / rilmenidine", "autophagy hypotheses · no MVA data", [])]
     y = 282
     for i, (title, sub, chips) in enumerate(items):
-        aa, dy = appear(t, c[5] + 1.0 + i * 1.6, .5, 16)
+        aa, dy = appear(t, c[6] + 1.0 + i * 1.6, .5, 16)
         y = card(cv, (x, y, x + CW, None), title, [sub] + chips, GREEN if i == 0 else mix(GREEN, MUTED, .35), aa,
                  dy, title_size=26) + 16
-    aa, _ = appear(t, c[5] + 5.0, .5)
+    aa, _ = appear(t, c[6] + 5.0, .5)
     cv.para((x, y + 4), "Approved for other indications: extrapolated, assay-gated", CW, 19, "Medium", FAINT, aa)
 
     # column 4
     x = COLS[3]
     aa, dy = appear(t, c[6], .5, 18)
     yb = card(cv, (x, 282, x + CW, None), "Sirolimus",
-         ["Rapamycin itself is aneugenic: chromosome mis-segregation + micronuclei (Bonatti 1998)",
+         ["in vitro chromosome mis-segregation · anti-target unproven",
           ("LINCS signal WEAK / MIXED", AMBER)], RED, aa, dy, strike=ease(prog(t, c[6] + 1.6, .6)))
     aa, dy = appear(t, c[6] + 3.0, .5, 14)
     card(cv, (x, yb + 16, x + CW, None), "Antioxidants / Nrf2",
-         ["flagged: may aid tumour progression in an MVA1 child"], RED, aa, dy, dim=True, title_size=24)
+         ["hypothesis: may aid tumour progression"], RED, aa, dy, dim=True, title_size=24)
     return cv.done()
 
 
@@ -457,7 +455,7 @@ def s4(t, sc):
     cv.rect((TX0, TY0 + 26, TX1, TY0 + 40), fill=PANEL2, r=0, a=a)
     for i, col in enumerate([RED, AMBER, GREEN]):
         cv.circle(TX0 + 26 + i * 24, TY0 + 20, 7, fill=col, a=a, under=PANEL2)
-    cv.text((TX0 + 450, TY0 + 20), "replayed from committed CSVs · no live query", 16, "Medium", MUTED, a,
+    cv.text((TX0 + 450, TY0 + 20), "replayed from committed CSVs · not a live run", 16, "Medium", MUTED, a,
             anchor="mm", under=PANEL2)
     cmd = "$ python track2/drug_screen.py --approved-only"
     n = int(len(cmd) * clamp((t - c[0] - .3) / 1.6))
@@ -499,6 +497,8 @@ def s4(t, sc):
     cv.text((LX0, LY0 + dy), "LINCS firewall", 28, "Bold", TEXT, aa)
     cv.text((LX0, LY0 + 42 + dy), "L2S2 + L1000CDS2 · human MVA + BubR1-mouse signatures · reverse FDR < 0.05", 20, "Medium",
             MUTED, aa)
+    cv.text((LX0, LY0 + 70 + dy), "single-donor reference (GSE22206)", 18, "Medium", FAINT, aa)
+    cv.text((LX0, LY0 + 94 + dy), "amlexanox: no significant reverse signal; cannot test NMD or readthrough", 18, "Medium", FAINT, aa)
     tot = 676
     counts = [("ACCEPT", 0, GREEN), ("WEAK", 2, AMBER), ("REJECT", 674, RED)]
     for i, (lab, nv, col) in enumerate(counts):
@@ -517,20 +517,20 @@ def s4(t, sc):
                 cv.rect((xs, 890, xs + w, 914), fill=col, r=4)
             xs += w + (4 if w else 0)
     aa, dy = appear(t, c[4], .5, 12)
-    cv.chip((LX0, 940 + dy), "sirolimus: 1 reverse vs 4 mimic FDR signatures → MIXED → WEAK + anti-target", 20, TEXT,
+    cv.chip((LX0, 940 + dy), "sirolimus: 1 reverse vs 4 mimic (3 from one donor) → WEAK", 20, TEXT,
             PANEL2, AMBER, aa, dot=RED)
 
     # ESM-1v LLR
     aa, dy = appear(t, c[5], .5, 14)
     EX0, EX1 = 1060, 1820
     cv.text((EX0, 610 + dy), "ESM-1v ensemble LLR", 28, "Bold", TEXT, aa)
-    cv.text((EX0, 652 + dy), "more negative = more disruptive", 20, "Medium", MUTED, aa)
+    cv.text((EX0, 652 + dy), "more negative = more disruptive · in-house, unverified", 20, "Medium", MUTED, aa)
     zx = EX1 - 20
     scale = (zx - EX0 - 120) / 1.801
     cv.line([(zx, 700), (zx, 910)], MUTED, 2, aa)
     cv.text((zx, 920), "0", 18, "Medium", MUTED, aa, anchor="mt")
     for i, (lab, v, col) in enumerate([("p.Asn1002Lys (ours)", -0.110, YELLOW),
-                                       ("p.Leu1012Pro (classic MVA1)", -1.801, RED)]):
+                                       ("p.Leu1012Pro (comparator)", -1.801, RED)]):
         k = ease(prog(t, c[5] + .6 + i * 1.0, .9))
         y = 738 + i * 104
         w = -v * scale * k
@@ -550,7 +550,7 @@ def s5(t, sc):
     cv.header("05", "Next steps", ease(prog(t, 0, .5)) * fade)
     steps = [("Restore full-length BUBR1", "NMD rescue: RT-qPCR → Western blot", MAGENTA, c0 + .3),
              ("Stabilise what remains", "SIRT2 / NAD+ stabilisation assay", BLUE, c0 + 2.4),
-             ("Clear aggregates", "proteostasis + autophagy readouts", GREEN, c0 + 4.0)]
+             ("Measure aggregates", "proteostasis + autophagy readouts", GREEN, c0 + 4.0)]
     bw, gap, y0 = 500, 70, 170
     x0 = (1920 - (3 * bw + 2 * gap)) / 2
     for i, (title, sub, col, at) in enumerate(steps):
@@ -582,13 +582,13 @@ def s5(t, sc):
     cv.text((960, 615 + dy), "not clinical advice or a treatment recommendation", 32, "SemiBold", TEXT, aa,
             anchor="mm", under=(33, 27, 14))
     aa, dy = appear(t, c1 + 1.6, .6, 14)
-    cv.text((960, 780 + dy), "github.com/Ryukijano/mva-hackathon-2026", 30, "Medium", BLUE, aa, anchor="mm",
-            mono=True)
     w = cv.textw("CC BY 4.0", 22, "Bold") + 40
-    cv.chip((960 - w / 2, 830 + dy), "CC BY 4.0", 22, TEXT, PANEL2, BORDER, aa, weight="Bold")
+    cv.chip((960 - w / 2, 780 + dy), "CC BY 4.0", 22, TEXT, PANEL2, BORDER, aa, weight="Bold")
     aa, dy = appear(t, c1 + 2.4, .6, 10)
     cv.text((960, 935 + dy), "Structures: AlphaFold DB AF-O60566 (CC BY 4.0) · PDB 6TLJ  ·  Voice: Kokoro-82M "
             "(Apache-2.0)", 18, "Medium", FAINT, aa, anchor="mm")
+    cv.text((960, 972 + dy), "Drug-status facts checked 9 Oct 2026  ·  "
+            "Narration: synthetic voice (Kokoro-82M, local)", 17, "Medium", FAINT, aa, anchor="mm")
     cv.footer(ease(prog(t, 0, .5)))
     return cv.done()
 

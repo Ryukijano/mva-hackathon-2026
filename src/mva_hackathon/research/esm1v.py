@@ -35,11 +35,20 @@ def _aa_id(tokenizer, aa: str) -> int:
 
 
 def residue_window(pos: int, length: int, max_aa: int = ESM1V_MAX_AA) -> tuple[int, int]:
-    """1-based inclusive (start, end) window of at most max_aa residues containing pos."""
+    """1-based inclusive (start, end) window of at most max_aa residues containing pos.
+
+    Deterministic rule giving every position the maximum available context:
+    - if the protein fits in max_aa, the window is the whole protein (1, length);
+    - otherwise, if pos <= max_aa, the window is (1, max_aa) (N-terminal anchored);
+    - otherwise the window is (length - max_aa + 1, length) (C-terminal anchored).
+    For BUB1B (length 1050, max_aa 1022) this gives 1-1022 for pos <= 1022 and
+    29-1050 for pos >= 1023, so every window is 1022 residues and contains pos.
+    """
     if length <= max_aa:
         return 1, length
-    start = max(1, min(pos - max_aa // 2, length - max_aa + 1))
-    return start, start + max_aa - 1
+    if pos <= max_aa:
+        return 1, max_aa
+    return length - max_aa + 1, length
 
 
 def _load_mlm(repo: str, device: torch.device):
@@ -114,7 +123,7 @@ def position_llr_batch(
 ) -> dict[int, dict[str, float]]:
     """Mask each 1-indexed UniProt position; return LLR(mut) − LLR(WT) for all 20 AA.
 
-    Proteins longer than ESM-1v's 1022-aa limit are scored in a centered window.
+    Proteins longer than ESM-1v's 1022-aa limit are scored in the window given by residue_window.
     Token layout is [CLS] + residues, so residue i (1-based in the window) is at index i.
     """
     max_positions = int(getattr(model.config, "max_position_embeddings", 1026))
@@ -147,30 +156,46 @@ def position_llr_batch(
     return results
 
 
+EXPECTED_ENSEMBLE_SIZE = len(ESM1V_REPOS)  # 5
+
+
 def ensemble_llr(
     seq: str,
     positions: Iterable[int],
     device: torch.device | None = None,
     batch_size: int = 16,
     repos: Sequence[str] = ESM1V_REPOS,
+    allow_partial: bool = False,
 ) -> dict[int, dict[str, float]]:
-    """Mean LLR across ESM-1v ensemble members."""
+    """Mean LLR across ESM-1v ensemble members.
+
+    Raises RuntimeError unless exactly EXPECTED_ENSEMBLE_SIZE (5) models loaded
+    and scored, unless allow_partial=True is passed explicitly.
+    """
     device = device or torch.device("cuda" if torch.cuda.is_available() else "cpu")
     pos_list = sorted(set(int(p) for p in positions))
     acc: dict[int, dict[str, list[float]]] = {p: {aa: [] for aa in AA20} for p in pos_list}
 
     tokenizer = None
+    n_loaded = 0
     for repo in repos:
         print(f"loading {repo}", flush=True)
         tokenizer = tokenizer or AutoTokenizer.from_pretrained(repo)
         model = _load_mlm(repo, device)
         one = position_llr_batch(model, tokenizer, seq, pos_list, device, batch_size)
+        n_loaded += 1
         for pos, scores in one.items():
             for aa, val in scores.items():
                 acc[pos][aa].append(val)
         del model
         if device.type == "cuda":
             torch.cuda.empty_cache()
+
+    if n_loaded != EXPECTED_ENSEMBLE_SIZE and not allow_partial:
+        raise RuntimeError(
+            f"ESM-1v ensemble: {n_loaded} models loaded, expected {EXPECTED_ENSEMBLE_SIZE}. "
+            "Pass allow_partial=True to average a partial ensemble explicitly."
+        )
 
     mean: dict[int, dict[str, float]] = {}
     for pos, by_aa in acc.items():

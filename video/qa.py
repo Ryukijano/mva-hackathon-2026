@@ -28,14 +28,29 @@ FORBIDDEN = {
     "rsID": r"\brs\d{4,}",
     "comma coordinate": r"\d{1,3},\d{3},\d{3}",
     "long integer": r"\b\d{7,}\b",
+    "proband identifier": r"\bEX\d{6,}",
+    "WGS prefix": r"WGS_",
+    "DNAnexus": r"DNAnexus",
+    "GATK": r"GATK",
 }
 DISCLAIMER = ["Preclinical N-of-1 research proposal", "not clinical advice or a treatment recommendation"]
 MUST_SHOW = ["p.Leu737Ter", "p.Asn1002Lys", "Amlexanox", "NMD", "Ataluren", "Ravicti", "2  Arimoclomol",
-             "3  Metformin / rilmenidine", "Sirolimus", "674", "CC BY 4.0", "AlphaFold DB AF-O60566"]
+             "3  Metformin / rilmenidine", "Sirolimus", "674", "CC BY 4.0", "AlphaFold DB AF-O60566",
+             "replayed from committed CSVs", "comparator", "single-donor", "Kokoro", "9 Oct 2026"]
 BAD_CLAIMS = {
     "ataluren as FDA/EMA approved": r"(?i)ataluren[^.\n]{0,40}(fda|ema)[- /]*(approved)",
     "AI/graph discovered therapy": r"(?i)(ai|graph|model)[^.\n]{0,20}discover",
     "NMN lifespan claim": r"(?i)nmn[^.\n]{0,40}(lifespan|58%|123%)(?![^.\n]{0,40}not NMN)",
+    "every lead": r"(?i)every lead",
+    "classic viable": r"(?i)classic viable",
+    "almost certainly": r"(?i)almost certainly",
+    "outperformed": r"(?i)outperformed",
+    "proven in trans": r"(?i)proven in trans",
+    "resolved in trans": r"(?i)resolved in trans",
+    "no decay activity": r"(?i)no decay activity",
+    "EMA refused": r"(?i)EMA refus",
+    "classic/known MVA1": r"(?i)(classic|known)[^.\n]{0,12}MVA1",
+    "repo link on screen": r"github\.com/Ryukijano",
 }
 
 
@@ -83,6 +98,9 @@ def main() -> int:
             m = re.search(pat, src)
             if m:
                 fails.append(f"claim regression '{label}' in {src_name}: {m.group(0)!r}")
+    bad_glyphs = sorted({c for c in shown if ord(c) > 127 and c not in "µ·–—…−→≤"})
+    if bad_glyphs:
+        fails.append(f"glyphs missing from render font: {bad_glyphs}")
     for s in DISCLAIMER:
         if s not in shown:
             fails.append(f"disclaimer missing on screen: {s!r}")

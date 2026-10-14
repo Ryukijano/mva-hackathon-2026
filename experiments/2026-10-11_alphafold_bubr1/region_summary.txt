@@ -1,0 +1,37 @@
+AlphaFold DB model: AF-O60566-F1  version: AlphaFold Monomer v2.0 pipeline, model_v6
+model created: 2025-08-01T00:00:00Z  global mean pLDDT (API): 63.59
+sequence identical to AF API sequence: True  (length 1050)
+
+Residue identity checks:
+  737 = L (pLDDT 73.56, CA neighbours<=10A 17)
+  1002 = N (pLDDT 91.06, CA neighbours<=10A 20)
+  1012 = L (pLDDT 95.31, CA neighbours<=10A 25)
+
+Mean pLDDT by region (n residues):
+  residues 1-736 (retained by L737Ter)         55.74  (n=736)
+  residues 737-1050 (lost by L737Ter)          82.05  (n=314)
+  D-box 224-232                                54.63  (n=9)
+  KNL1-binding region 152-185                  94.10  (n=34)
+  disordered 368-393 (as given)                40.65  (n=26)
+  disordered 456-480 (as given)                46.51  (n=25)
+  window +/-10 around 737 (727-747)            80.00  (n=21)
+  window +/-10 around 1002 (992-1012)          91.45  (n=21)
+  window +/-10 around 1012 (1002-1022)         90.83  (n=21)
+
+Fraction of residues with pLDDT>70 in 1-736: 0.330
+Fraction of residues with pLDDT>70 in 737-1050: 0.857
+
+Solvent exposure proxy (CA neighbours within 10 A; higher = more buried):
+  residue 1002 N: pLDDT 91.06, CA neighbours<=10A = 20, mean neighbours of all residues = 11.6
+  residue 1012 L: pLDDT 95.31, CA neighbours<=10A = 25, mean neighbours of all residues = 11.6
+
+CA-CA distance 1002-1012: 12.32 A -> within 10 A: False
+
+UniProt O60566 region/motif/domain/disorder annotations (live REST check):
+  Domain 62-226 BUB1 N-terminal
+  Domain 766-1050 Protein kinase
+  Region 152-185 Necessary for interaction with KNL1
+  Region 368-393 Disordered
+  Region 456-480 Disordered
+  Motif 111-118 Nuclear localization signal
+  Motif 224-232 D-box
