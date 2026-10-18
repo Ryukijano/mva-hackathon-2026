@@ -5,7 +5,8 @@ Model loading is mocked: no ESM weights are downloaded or loaded.
 from __future__ import annotations
 
 import pytest
-import torch
+
+torch = pytest.importorskip("torch")
 
 from mva_hackathon.drug.targets import AA20
 from mva_hackathon.research import esm1v

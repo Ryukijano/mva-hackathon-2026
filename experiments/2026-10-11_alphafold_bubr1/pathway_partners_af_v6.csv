@@ -1,0 +1,8 @@
+uniprot,gene_protein,pathway_role,af_model_id,af_version,length_aa,global_plddt,frac_very_high_gt90,frac_confident_70_90,frac_low_50_70,frac_very_low_lt50,mean_pae_A,frac_pae_lt5A,pae_rigid_domains
+O60566,BUB1B (BUBR1),MCC core / Track 1 causal locus,AF-O60566-F1,6,1050,63.59,0.147,0.341,0.139,0.373,24.78,0.045,"47-211, 406-463, 755-1043 (3 rigid domains; flexible inter-domain linkers)"
+O43684,BUB3,MCC obligate GLEBS partner,AF-O43684-F1,6,328,95.94,0.927,0.055,0.009,0.009,3.75,0.814,8-301 (1 rigid WD40 beta-propeller domain)
+Q12834,CDC20,APC/C co-activator inhibited by BUBR1 KEN/ABBA/D-box,AF-Q12834-F1,6,499,84.12,0.615,0.132,0.15,0.102,15.39,0.382,164-477 (1 rigid WD40 domain; disordered N-term 1-163)
+Q13257,MAD2L1,MCC closed-conformational partner,AF-Q13257-F1,6,205,93.81,0.902,0.054,0.02,0.024,4.62,0.745,8-202 (1 rigid HORMA domain)
+Q8IXJ6,SIRT2,Track 2 Prong 1b deacetylase (BUBR1 K668),AF-Q8IXJ6-F1,6,389,81.69,0.604,0.139,0.093,0.165,13.39,0.401,57-356 (1 rigid catalytic deacetylase core)
+Q92900,UPF1,Track 2 Prong 1a NMD helicase (inhibited by amlexanox),AF-Q92900-F1,6,1129,72.75,0.414,0.248,0.046,0.292,20.1,0.123,"117-282 (CH domain), 290-927 (helicase core); 2 domains"
+P62942,FKBP1A (FKBP12),Track 2 ChEMBL rapalog receptor (FKBP12-rapamycin-mTOR),AF-P62942-F1,6,108,96.25,0.981,0.019,0.0,0.0,3.42,0.785,1-108 (1 compact rigid PPIase fold)

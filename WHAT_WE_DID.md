@@ -1,12 +1,12 @@
 # What we did — Rare Disease, Real Kid: MVA Hackathon 2026
 
 **Team / HF user:** [Ryukijano](https://huggingface.co/Ryukijano)  
-**Dates:** 27 Aug – 3 Sep 2026  
+**Dates:** 27 Aug – 17 Oct 2026  
 **Cluster:** University of Leeds AIRE  
-**GitHub (submit-form URL, private until close):** https://github.com/Ryukijano/mva-hackathon-2026  
+**GitHub (public, CC BY 4.0):** https://github.com/Ryukijano/mva-hackathon-2026  
 **Hub mirror:** https://huggingface.co/Ryukijano/mva-hackathon-2026  
 
-This is the campaign wrap-up for the whole repo. Numbers and job IDs for the protein-LM / graph work live in `experiments/2026-08-31_bub1b_computational/outputs/RESULTS.md`. LINCS tables live in `track2/lincs/results/`.
+This is the campaign wrap-up for the whole repo. Numbers and job IDs for the protein-LM / graph work live in `experiments/2026-08-31_bub1b_computational/outputs/RESULTS.md` and `experiments/2026-10-11_esm1v_fixed/`. Structural and AlphaFold DB v6 / PAE / AlphaMissense analyses live in `experiments/2026-10-11_alphafold_bubr1/SUMMARY.md` and `docs/structure_and_plm_addendum_2026-10-11.md`. LINCS tables live in `track2/lincs/results/`.
 
 ---
 
@@ -38,7 +38,7 @@ Submitted EPCR **0.95**, `finding_type=primary`. Architecture is truncating + hy
 
 Files: `submissions/Ryukijano_bub1b-compoundhet.csv`, `submissions/Ryukijano_track1_report.md`.
 
-**Submitted 12 Sep 2026 — one shot spent, full match at rank 1: 100.0/100 rank points, F-max 1.000, EPCR threshold 0.95.** The scorer confirms *BUB1B* `chr15:40209701 T>G` + `chr15:40220612 T>G` as the causal genotype — p.Asn1002Lys (`c.3006T>G`) is a confirmed MVA1 allele and the pair is causal *in trans*, so the earlier "presumed compound het" hedging is resolved for the primary call. Track 1: 1/6 shots spent.
+**Submitted 12 Sep 2026 — one shot spent, full match at rank 1: 100.0/100 rank points, F-max 1.000, EPCR threshold 0.95.** The scorer confirms *BUB1B* `chr15:40209701 T>G` + `chr15:40220612 T>G` as the causal compound-heterozygous genotype against the hackathon ground truth (1/6 shots spent). Molecular read-backed phasing on the short-read BAM remains WhatsHap-UNRESOLVED (10.9 kb gap vs ~1.3 kb max insert), and clinically p.Asn1002Lys (`c.3006T>G`) remains a VUS-grade novel nucleotide allele.
 
 ---
 
@@ -56,13 +56,13 @@ Because the disease is **hypomorphism, not gain of function**, we cannot silence
 
 **Regulatory eligibility (hackathon: currently approved medications)**
 
-Ataluren is not FDA/EMA-approved (EMA non-renewal March 2025). ELX-02 is investigational. NMN/NR, trehalose, spermidine, MitoQ, quercetin are supplements/food, not leading nominations. Arimoclomol is FDA-approved for NPC (EMA refused July 2026). ChEMBL must query **FKBP1A (P62942)** to retrieve rapalogs; a direct MTOR kinase query does not return sirolimus.
+Ataluren is not FDA/EMA-approved (EMA non-renewal March 2025; FDA NDA resubmission withdrawn 12 Feb 2026; UK/MHRA conditional only). ELX-02 is investigational. NMN/NR, trehalose, spermidine, MitoQ, quercetin are supplements/food, not leading nominations. Arimoclomol is FDA-approved with miglustat for NPC (US brand Miplyffa; EMA CHMP issued a negative opinion for EU brand Meplyffa on 23 Jul 2026, re-examination requested 5 Aug 2026). ChEMBL must query **FKBP1A (P62942)** to retrieve rapalogs; a direct MTOR kinase query does not return sirolimus.
 
 **Excluded (wrong direction):** TTK/MPS1 inhibitors, Aurora B inhibitors, STING agonists.
 
-**Regulatory audit refresh (10 Sep 2026):** ataluren has no live FDA application — PTC withdrew its 2024 NDA resubmission in early 2026; its UK/MHRA authorisation is under active review post-EU-non-renewal, not settled long-term; arimoclomol's EU product is branded Meplyffa (not Miplyffa) and this July 2026 refusal was Zevra's *second* EU attempt (first withdrawn 2022), re-examination pending. Ravicti, ELX-02, and the "no newer readthrough drug approved since 2025" claim were re-checked and hold. Detail: `track2/track2_report.md` §Regulatory audit refresh.
+**Regulatory audit refresh (10 Sep – 18 Oct 2026):** ataluren has no live FDA application — PTC withdrew its 2024 NDA resubmission on 12 Feb 2026; its UK/MHRA authorisation (`PLGB 44221/0003`, renewed 24 Feb 2026) remains under active review post-EU-non-renewal (SMC 2827 declined routine NHSScotland use on 8 Jun 2026); arimoclomol's EU product is branded Meplyffa (`EMEA/H/C/006736`, distinct from US Miplyffa) and the 23 Jul 2026 CHMP negative opinion was Zevra's *second* EU attempt (first withdrawn 2022) — re-examination started at the 14–17 Sep 2026 CHMP plenary and remained pending on the 12–15 Oct 2026 CHMP agenda (`EMA/CHMP/211366/2026` §3.5.1, no outcome in 16 Oct 2026 highlights). Ravicti, amlexanox, metformin, rilmenidine, ELX-02, and the "no newer readthrough drug approved since 2025" claim were re-checked and hold. Detail: `track2/track2_report.md` §Regulatory audit refresh.
 
-Files: `track2/track2_report.md`, `track2/data/track2_candidates.csv`, `track2/pitch_storyboard.md`. Track 2 is still **blocked on the 3-minute YouTube/Vimeo pitch**.
+Files: `track2/track2_report.md` (`submissions/Ryukijano_track2_report.md`), `track2/data/track2_candidates.csv`, `track2/pitch_storyboard.md`, and the programmatic 3-minute pitch pipeline in `video/` (rendered pitch: https://github.com/user-attachments/assets/9fbcac33-27c9-40d2-ac94-f2df7fb43884).
 
 ---
 
@@ -120,9 +120,9 @@ Everolimus was rejected (general FDR only, no reverse signal). Perhexiline malea
 
 **Post-hoc mechanism check (sirolimus):** independent of the transcriptomic signal, rapamycin is itself aneugenic — it induces chromosome malsegregation and CREST-positive micronuclei in human lymphocytes/lymphoblasts and rodent cells via p70S6K (Bonatti et al. 1998, *Chromosoma* 107:498–506, doi:10.1007/s004120050335), and an unpublished rapamycin-diet note in *BubR1^H/H* mice was not positive (Baker 2013, *Cell Rep*). The WEAK sirolimus signal is a context-specific transcriptomic observation with a mechanism-based anti-target concern in MVA1 — not a rescue lead; any further consideration requires micronucleus/missegregation assays in patient cells.
 
-**Known retrieval limitation:** The current L2S2 data was retrieved with the server's default mimic-sorted sort order. The query script has been corrected to use `sortby=adj_pvalue_down` for future re-queries, but the server was unavailable (504) during this analysis.
+**Retrieval-sort sensitivity verification:** Because the initial L2S2 data was retrieved with the server's default mimic-sorted order (`pvalue_up`), all L2S2 queries were re-executed with `sortby=adj_pvalue_down` (rescue-first retrieval; `track2/lincs/results/rescue_firewall/comparison_summary.md`). The firewall verdict is unchanged (`ACCEPT = 0 / WEAK = 2 / REJECT = 472`), and the rescue-sorted re-query surfaced additional mimic signatures for both sirolimus and dasatinib, reinforcing the `MIXED` penalty.
 
-**Absence of a LINCS hit is not evidence against** Ataluren, Ravicti, arimoclomol, NMN, JAK inhibitors, or Nrf2 drugs. No LINCS result establishes BUBR1 rescue, SAC correction, or patient benefit.
+**Absence of a LINCS hit is not evidence against** amlexanox, Ataluren, Ravicti, arimoclomol, metformin, rilmenidine, NMN, JAK inhibitors, or Nrf2 drugs. No LINCS result establishes BUBR1 rescue, SAC correction, or patient benefit.
 
 Method: `track2/lincs/README.md`. Tables: `track2/lincs/results/lincs_firewall_decisions.csv`, `track2/lincs/results/lincs_candidate_ranking.csv`, `track2/lincs/results/signature_composition.csv`.
 
@@ -135,8 +135,10 @@ Method: `track2/lincs/README.md`. Tables: `track2/lincs/results/lincs_firewall_d
 | Track 1 CLI (VEP → filter → SpliceAI → score → pair → CSV) | `scripts/run_track1.py`, `src/mva_hackathon/variants/` |
 | Local clone of the official scorer | `src/mva_hackathon/eval/scorer.py`, `tests/test_scorer.py` |
 | ChEMBL axis screen (must include FKBP1A) | `track2/drug_screen.py` |
-| ESM-1v / PrimeKG / Open Targets / ClinVar B/LB | `src/mva_hackathon/research/`, `scripts/slurm/run_research.sh` |
+| ESM-1v / PrimeKG / Open Targets / ClinVar B/LB | `src/mva_hackathon/research/`, `scripts/slurm/run_research.sh`, `experiments/2026-10-11_esm1v_fixed/` |
+| AlphaFold DB v6 / PAE / Saturation AlphaMissense / PDB complexes | `experiments/2026-10-11_alphafold_bubr1/`, `figures/` |
 | LINCS GEO → DE → L2S2/L1000CDS2 → firewall | `track2/lincs/` |
+| Programmatic 3-minute Track 2 pitch video + QA | `video/` (`tts.py`, `render/`, `assemble.sh`, `qa.py`) |
 | AIRE env | `/mnt/scratch/kcwp264/.conda_envs/mva-hackathon` (VEP 116); `cjepa` for ESM; `mva-hackathon-lincs` for GEO/LINCS |
 
 **Never on GitHub / Hub:** `data/` genome, `refs/` VEP cache and PrimeKG `kg.csv`, `.cache/`, phenotype `.docx`, `MVA Track 1 Debugging (1).md`.
@@ -147,20 +149,20 @@ Method: `track2/lincs/README.md`. Tables: `track2/lincs/results/lincs_firewall_d
 
 | Claim | After this campaign |
 |---|---|
-| Compound-het *BUB1B* is the Track 1 genotype | **Unchanged.** Panel uniqueness + ClinVar PTV + architecture. |
-| N1002K is AlphaMissense likely-pathogenic | **Unchanged**, and now **opposed** by ESM-1v / ClinVar B/LB LLRs. Report both. |
-| N1002K is “like L1012P” | **Do not say this.** |
-| Rapalogs / NAD+ / proteostasis / JAK as the stack | Mechanism-first ranking **stands**. PrimeKG does **not** recover rapalogs; LINCS yields only a **context-specific WEAK/MIXED** sirolimus signal after the false-rescue firewall — and rapamycin is itself aneugenic (see §5), so this is not a rescue lead. |
+| Compound-het *BUB1B* is the Track 1 genotype | **Confirmed (full match at rank 1, 100/100 pts, F-max 1.000).** Panel uniqueness + ClinVar PTV + architecture. |
+| N1002K is AlphaMissense likely-pathogenic | **Unchanged (`0.9229`, 18/19 `LPath` at residue 1002 due to buried 3-H-bond α-helix C-cap)**, and **opposed** by 1D sequence-only ESM-1v (`−0.110` in `29–1050`; `−0.0625` in `1–1022`). Report both. |
+| N1002K is “like L1012P” | **Do not say this.** `12.32 Å` `Cα–Cα` separation; ESM-1v gap `1.69–2.10 nats`. |
+| Amlexanox / proteostasis / autophagy / gated JAK as the stack | Mechanism-first ranking **stands** (with AlphaMissense showing all three `UGA` readthrough insertions `L737W/R/C` are `Likely Benign`, `0.150–0.322`). PrimeKG does **not** recover rapalogs; LINCS yields only a **context-specific WEAK/MIXED** sirolimus signal after the false-rescue firewall — and rapamycin is itself aneugenic (see §5), so this is not a rescue lead. |
 | Graph/AI discovered the therapy | **Do not say this.** |
 | NMN is the +58% lifespan result; NAC rescued fly brain size | **Do not say this.** |
 | TxGNN/PrimeKG GNN was trained | **Never built.** README no longer claims it. |
 
 ---
 
-## 8. Still open
+## 8. Final pre-close checklist (close: 24 Oct 2026 23:59 UTC)
 
-1. **Track 2 3-minute pitch** (YouTube/Vimeo) — required for the Track 2 form. Storyboard: `track2/pitch_storyboard.md`.
-2. **Track 1 Space upload** — CSV + methods + GitHub URL; only if we spend 1 of 6 shots.
-3. Optional science we did not run: parental phasing, FASTQ mosaic/VAF sweep, deep-intronic SpliceAI, patient-cell BUBR1 immunoblot, ClinVar *benign-only* (exclude single-submitter LB).
+1. **Track 1:** **DONE (12 Sep 2026)** — CSV + report + GitHub URL submitted; full match at rank 1 (`100.0/100` rank points, `F-max 1.000`, 1/6 shots spent).
+2. **Track 2 dossier & 3-minute pitch video:** Report (`submissions/Ryukijano_track2_report.md`) and programmatic 3-minute pitch video (`video/`, https://github.com/user-attachments/assets/9fbcac33-27c9-40d2-ac94-f2df7fb43884) are complete and QA-verified; ready for final Track 2 Space upload (user decision).
+3. **Post-close data hygiene:** Delete all gated genome/FASTQ/VCF/BAM files from AIRE scratch within 30 days of challenge close per the DTA.
 
-That is the campaign: a defensible one-row MVA1 call, an honest hypomorph drug stack with a regulatory audit, two pre-registered computational tests that **failed as written**, and an exploratory LINCS screen that generates a context-specific mTORC1/FKBP rapalog signal for sirolimus without pretending the graph or an unbiased screen independently validated a therapy.
+That is the campaign: a scorer-confirmed one-row MVA1 call, an honest hypomorph drug stack with a primary-source regulatory audit and structural proofs. Two pre-registered computational tests **failed as written**, and an exploratory LINCS screen generated only a context-specific `WEAK/MIXED` sirolimus signal without pretending that a graph or an unbiased screen independently validated a therapy.

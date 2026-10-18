@@ -72,9 +72,9 @@ Space source (`evaluation.py`, `config.py`, `submit_track1.py`, `submit_track2.p
 | LINCS firewall | `ACCEPT=0 / WEAK=2 (sirolimus, dasatinib, both MIXED) / REJECT=674` (orig), `0/2/472` (rescue-sorted) |
 | Rescue-sort metadata bug | **Fixed** — `04_firewall.py` now derives `l2s2_retrieval_sort` from `--results-dir` or `--retrieval-sort` |
 | `03b_run_l2s2_queries.py` path | **Fixed** — now repo-relative (`Path(__file__).parents[2]`) |
-| Regulatory | Ataluren: UK/MHRA conditional only (PLGB 44221/0003, renewed 24/02/2026; FDA NDA withdrawn 12 Feb 2026; EMA non-renewal 28 Mar 2025). Arimoclomol: FDA Miplyffa 20 Sep 2024; EMA Meplyffa refused 23 Jul 2026, re-exam requested 5 Aug 2026. Others verified. |
+| Regulatory | Ataluren: UK/MHRA conditional only (PLGB 44221/0003, renewed 24/02/2026, active MHRA review; SMC 2827 not recommended 08/06/2026; FDA NDA withdrawn 12 Feb 2026; EMA non-renewal 28 Mar 2025). Arimoclomol: FDA Miplyffa 20 Sep 2024; EMA CHMP negative opinion for Meplyffa 23 Jul 2026, re-exam started Sep 2026 and still pending after 12–15 Oct 2026 CHMP plenary. Others verified. |
 | Report/submissions sync | **Done** — `submissions/Ryukijano_track2_report.md` and `_candidates.csv` copied from canonical |
-| Pitch video | **Not recorded** — the single true blocker |
+| Pitch video | **Rendered & QA-passed (`video/` pipeline)** — embedded at https://github.com/user-attachments/assets/9fbcac33-27c9-40d2-ac94-f2df7fb43884; ready for YouTube/Vimeo URL submission on Track 2 form |
 
 ---
 
@@ -84,8 +84,8 @@ Space source (`evaluation.py`, `config.py`, `submit_track1.py`, `submit_track2.p
 
 | # | Blocker | Consequence | Owner | Due |
 |---|---|---|---|---|
-| 1 | **Track 2 pitch video (3 min, YouTube/Vimeo)** | Track 2 cannot be submitted — `video_url` is a required field in `submit_track2.py`. | User | ASAP |
-| 2 | ~~**Track 1 shot decision**~~ | **DONE 12 Sep 2026 — submitted CSV + report + GitHub URL in one shot; scorer returned full match at rank 1 (100.0 rank pts, F-max 1.000).** Both alleles confirmed; p.Asn1002Lys c.3006T>G is now a confirmed MVA1 allele. | — | — |
+| 1 | **Track 2 Space submission (report + GitHub URL + YouTube/Vimeo `video_url`)** | Track 2 requires `video_url` in `submit_track2.py` (video rendered & QA-verified in `video/`). | User | Before 24 Oct |
+| 2 | ~~**Track 1 shot decision**~~ | **DONE 12 Sep 2026 — submitted CSV + report + GitHub URL in one shot; scorer returned full match at rank 1 (100.0 rank pts, F-max 1.000).** Both alleles confirmed against the hackathon ground truth; molecular short-read phasing remains WhatsHap-UNRESOLVED and clinically c.3006T>G remains VUS-grade. | — | — |
 | 3 | ~~**GitHub repo must be public after close**~~ | **DONE 12 Sep 2026** — repo flipped to public early (user decision; nothing gated tracked). | — | — |
 
 ### P1 — High-value polish for the judged write-up
@@ -97,7 +97,7 @@ Space source (`evaluation.py`, `config.py`, `submit_track1.py`, `submit_track2.p
 | 3 | Residual-BUBR1 wording normalised to 11% ± 3% (Baker 2004) across README/WHAT_WE_DID/SUMMARY/report | **Done** |
 | 4 | Track 2 dossier refreshed: ataluren FDA-withdrawal date, Meplyffa naming, arimoclomol re-exam, FDA label URL | **Done** |
 | 5 | Commit force-added small artifacts (`results/alphagenome/`, `results/spliceai/`, `supplement/track1/clinvar_verification.md`) or move to `supplement/` | **Pending decision** — either works; supplement is cleaner |
-| 6 | Re-check ataluren UK/MHRA + arimoclomol EU re-exam outcome within ~1 week of submission | 17–21 Oct |
+| 6 | Re-check ataluren UK/MHRA + arimoclomol EU re-exam outcome within ~1 week of submission | **Done (18 Oct)** — MHRA review still open (SMC 2827 negative); Meplyffa re-exam still pending after 12–15 Oct CHMP |
 
 ### P2 — Nice-to-have
 
@@ -115,9 +115,8 @@ Space source (`evaluation.py`, `config.py`, `submit_track1.py`, `submit_track2.p
 
 ---
 
-## Recommended sequence
+## Recommended sequence (updated 17 Oct 2026)
 
-1. **Now:** commit the audit-driven edits + regenerated firewall CSVs; update GitHub issues + Notion.
-2. **User this week:** record the Track 2 pitch (storyboard ready), submit Track 1 (CSV + `.md` report + GitHub URL in one shot).
-3. **17–21 Oct:** final regulatory re-check; submit Track 2 (report + GitHub + video URL + notes).
-4. **24–25 Oct:** make repo public; begin 30-day deletion window for gated data.
+1. **Completed:** Track 1 submitted (12 Sep 2026 — 100/100 pts, F-max 1.000); repo public; AlphaFold DB v6 / PAE / AlphaMissense saturation & PDB complex synthesis integrated into both reports; 3-minute Track 2 pitch video rendered and QA-verified (`video/`).
+2. **17–24 Oct (User):** Upload Track 2 (`submissions/Ryukijano_track2_report.md` + GitHub URL + unlisted YouTube/Vimeo `video_url`).
+3. **After 24 Oct close:** Delete gated genome/FASTQ/VCF/BAM data from AIRE scratch within 30 days per the DTA.

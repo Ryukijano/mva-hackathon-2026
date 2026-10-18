@@ -15,7 +15,12 @@ import pandas as pd
 HERE = os.path.dirname(os.path.abspath(__file__))
 PDB = os.path.join(HERE, "AF-O60566-F1-model_v6.pdb")
 API = os.path.join(HERE, "api.json")
+PAE_JSON = os.path.join(HERE, "..", "..", "figures", "structures", "AF-O60566-F1-predicted_aligned_error_v6.json")
+AM_CSV = os.path.join(HERE, "AF-O60566-F1-aa-substitutions.csv")
 CSV = os.path.join(HERE, "plddt_per_residue.csv")
+AM_SUMMARY_CSV = os.path.join(HERE, "alphamissense_key_residues.csv")
+CONTACTS_CSV = os.path.join(HERE, "n1002_l1012_atomic_contacts.csv")
+PARTNERS_CSV = os.path.join(HERE, "pathway_partners_af_v6.csv")
 SUMMARY = os.path.join(HERE, "region_summary.txt")
 
 # ---- parse CA atoms from PDB (fixed columns) ------------------------------
@@ -123,6 +128,94 @@ for pos in (1002, 1012):
 dist = d[1001, 1011]
 lines.append("")
 lines.append("CA-CA distance 1002-1012: %.2f A -> within 10 A: %s" % (dist, dist <= 10.0))
+
+# ---- PAE matrix analysis ----------------------------------------------------
+if os.path.exists(PAE_JSON):
+    pae_raw = json.load(open(PAE_JSON))
+    pae_mat = np.array(pae_raw[0]["predicted_aligned_error"], dtype=float)
+    lines.append("")
+    lines.append("PAE matrix analysis (1050x1050, A):")
+    lines.append("  Global mean PAE: %.2f A" % pae_mat.mean())
+    lines.append("  Intra-domain TPR (62-226) mean PAE: %.2f A" % pae_mat[61:226, 61:226].mean())
+    lines.append("  Intra-domain C-term lost (737-1050) mean PAE: %.2f A" % pae_mat[736:1050, 736:1050].mean())
+    lines.append("  Intra-domain pseudokinase (766-1050) mean PAE: %.2f A" % pae_mat[765:1050, 765:1050].mean())
+    lines.append("  Cross-domain (1-736 -> 737-1050) mean PAE: %.2f A (reverse %.2f A)" % (
+        pae_mat[:736, 736:].mean(), pae_mat[736:, :736].mean()))
+    for r1, r2 in [(1002, 1012), (814, 1002), (814, 1012), (737, 1002), (668, 737)]:
+        lines.append("  Pair (%d, %d): PAE(%d->%d)=%.1f A, PAE(%d->%d)=%.1f A, CA-CA=%.2f A" % (
+            r1, r2, r1, r2, pae_mat[r1 - 1, r2 - 1], r2, r1, pae_mat[r2 - 1, r1 - 1], d[r1 - 1, r2 - 1]))
+
+# ---- All-atom contact check for N1002 and L1012 -----------------------------
+atom_rows = []
+with open(PDB) as fh:
+    for line in fh:
+        if line.startswith("ATOM"):
+            atom_rows.append(dict(
+                resnum=int(line[22:26]),
+                resname=line[17:20].strip(),
+                atom=line[12:16].strip(),
+                x=float(line[30:38]),
+                y=float(line[38:46]),
+                z=float(line[46:54]),
+            ))
+adf = pd.DataFrame(atom_rows)
+adf = adf[~adf.atom.str.startswith("H")].reset_index(drop=True)
+
+contact_records = []
+for target_res in (737, 814, 1002, 1004, 1012):
+    sub_t = adf[adf.resnum == target_res]
+    sub_o = adf[(adf.resnum != target_res) & (adf.resnum.sub(target_res).abs() > 1)]
+    tx = sub_t[["x", "y", "z"]].to_numpy()
+    ox = sub_o[["x", "y", "z"]].to_numpy()
+    dist_mat = np.sqrt(((tx[:, None, :] - ox[None, :, :]) ** 2).sum(-1))
+    ti, oi = np.where(dist_mat <= 4.0)
+    for i_idx, j_idx in zip(ti, oi):
+        t_row = sub_t.iloc[i_idx]
+        o_row = sub_o.iloc[j_idx]
+        contact_records.append(dict(
+            focus_residue=target_res,
+            focus_resname=t_row.resname,
+            focus_atom=t_row.atom,
+            partner_residue=int(o_row.resnum),
+            partner_resname=o_row.resname,
+            partner_atom=o_row.atom,
+            distance_A=round(float(dist_mat[i_idx, j_idx]), 2),
+        ))
+cdf = pd.DataFrame(contact_records).sort_values(["focus_residue", "distance_A"])
+cdf.to_csv(CONTACTS_CSV, index=False)
+
+# ---- AlphaMissense proteome-wide substitutions for O60566 -------------------
+if os.path.exists(AM_CSV):
+    am = pd.read_csv(AM_CSV)
+    am["residue"] = am["protein_variant"].str.extract(r"^[A-Z](\d+)[A-Z]$")[0].astype(int)
+    am["wt"] = am["protein_variant"].str[0]
+    am["mut"] = am["protein_variant"].str[-1]
+    am_per_res = am.groupby("residue").agg(
+        am_mean=("am_pathogenicity", "mean"),
+        am_max=("am_pathogenicity", "max"),
+        am_n_lpath=("am_class", lambda s: int((s == "LPath").sum())),
+    ).reset_index()
+    df = df.merge(am_per_res, left_on="resnum", right_on="residue", how="left")
+    key_am = am[am.residue.isin([668, 737, 739, 814, 1002, 1004, 1012])].copy()
+    key_am.to_csv(AM_SUMMARY_CSV, index=False)
+    lines.append("")
+    lines.append("AlphaFold DB AlphaMissense saturation summary (AF-O60566-F1-aa-substitutions.csv):")
+    lines.append("  Residues 1-736 mean AM: %.4f (LPath fraction %.3f)" % (
+        am[am.residue <= 736].am_pathogenicity.mean(), (am[am.residue <= 736].am_class == "LPath").mean()))
+    lines.append("  Residues 737-1050 mean AM: %.4f (LPath fraction %.3f)" % (
+        am[am.residue >= 737].am_pathogenicity.mean(), (am[am.residue >= 737].am_class == "LPath").mean()))
+    lines.append("  Residues 766-1050 (pseudokinase) mean AM: %.4f (LPath fraction %.3f)" % (
+        am[am.residue >= 766].am_pathogenicity.mean(), (am[am.residue >= 766].am_class == "LPath").mean()))
+    for pos in (668, 737, 739, 814, 1002, 1004, 1012):
+        sub = am[am.residue == pos]
+        lines.append("  Pos %4d (%s): mean AM=%.4f, LPath=%2d/19, LBen=%2d/19" % (
+            pos, sub.wt.iloc[0], sub.am_pathogenicity.mean(),
+            (sub.am_class == "LPath").sum(), (sub.am_class == "LBen").sum()))
+    uga_rt = am[(am.residue == 737) & (am.mut.isin(["W", "R", "C"]))]
+    lines.append("  UGA near-cognate readthrough products at L737Ter:")
+    for _, r in uga_rt.iterrows():
+        lines.append("    %s: AM=%.4f (%s)" % (r.protein_variant, r.am_pathogenicity, r.am_class))
+
 lines.append("")
 lines.append("UniProt O60566 region/motif/domain/disorder annotations (live REST check):")
 for f in uni_feats:
@@ -132,9 +225,11 @@ text = "\n".join(lines)
 print(text)
 open(SUMMARY, "w").write(text + "\n")
 
-out = df[["resnum", "aa", "plddt", "ca_neighbours_10A"]].rename(
-    columns={"resnum": "residue", "aa": "aa", "plddt": "pLDDT", "ca_neighbours_10A": "CA_neighbours_within_10A"}
-)
+cols = ["resnum", "aa", "plddt", "ca_neighbours_10A"]
+rename_map = {"resnum": "residue", "aa": "aa", "plddt": "pLDDT", "ca_neighbours_10A": "CA_neighbours_within_10A"}
+if "am_mean" in df.columns:
+    cols += ["am_mean", "am_n_lpath"]
+out = df[cols].rename(columns=rename_map)
 out["confident_gt70"] = out.pLDDT > 70
 out.to_csv(CSV, index=False)
 print("wrote", CSV, SUMMARY)

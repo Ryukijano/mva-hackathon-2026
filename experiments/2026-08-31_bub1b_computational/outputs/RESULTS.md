@@ -50,7 +50,7 @@ GPU job **7619146** (L40S, bf16, window 29–1050). CPU named-only **7619147** a
 | R814H | −1.444 | −1.468 |
 | K668Q (acetylation mimic) | −0.309 | −0.311 |
 
-N1002K is 1.69 nats weaker than L1012P (pre-registered window was 0.5). It is the 17th-mildest of 19 substitutions at residue 1002. The **site** is constrained (worst AA W = −3.70, similar to L1012). AlphaMissense 0.9229 remains the stronger allele-level in-silico call; ESM-1v does **not** make N1002K look like L1012P/R814H.
+N1002K is 1.69 nats weaker than L1012P (pre-registered window was 0.5). It is the third-mildest (17th-most-severe) of 19 substitutions at residue 1002. The **site** is constrained (worst AA W = −3.70, similar to L1012). AlphaMissense 0.9229 remains the stronger allele-level in-silico call; ESM-1v does **not** make N1002K look like L1012P/R814H. (Note: a subsequent `1–1022` window verification in `experiments/2026-10-11_esm1v_fixed/` scored `N1002K = −0.0625`, `L1012P = −2.1582`, `R814H = −1.4387`, `K668Q = −0.3234`, and ClinVar B/LB median `−0.1769`, confirming both H1 falsifiers across both windowing rules.)
 
 ## E1c (ClinVar B/LB missenses) — second H1 falsifier **met**
 

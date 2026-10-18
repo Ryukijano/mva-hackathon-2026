@@ -3,7 +3,7 @@
 **Format:** screen recording + voiceover, 180 s total. No raw genome sequence or coordinates visible.
 
 ## 0:00–0:40 — The Case & Molecular Cause
-- **Visual:** proband phenotype card (HPO terms: rhabdomyosarcoma, IUGR, short stature, microcephaly, recurrent miscarriage) → simplified schematic of BUBR1 domains. A star marks the C-terminal stop-gain p.Leu737Ter and a second star marks the C-lobe missense p.Asn1002Lys.
+- **Visual:** proband phenotype card (HPO terms: embryonal rhabdomyosarcoma, IUGR, short stature, microcephaly) → simplified schematic of BUBR1 domains. A star marks the C-terminal stop-gain p.Leu737Ter and a second star marks the C-lobe missense p.Asn1002Lys.
 - **VO:** "A child with embryonal rhabdomyosarcoma, growth restriction and microcephaly. Whole-genome sequencing found the cause: two ultra-rare BUB1B variants — a truncating p.Leu737Ter, ClinVar pathogenic for MVA1, and a novel C-lobe missense p.Asn1002Lys. That is the classic viable MVA1 architecture: one severe null and one hypomorphic missense."
 - **On-screen:** EPCR 0.950 compound-het call; only BUB1B in the MVA panel carries two rare functional alleles; N1002K AlphaMissense 0.9229 (likely pathogenic); ESM-1v ensemble LLR −0.110 (mild-by-LLR, not L1012P-class; LLR is a relative-stability score, not a functional-neutrality proof).
 

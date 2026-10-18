@@ -1,9 +1,9 @@
 # MVA Hackathon 2026 — Comprehensive Project Record
 
 **Team:** Ryukijano | **Challenge:** Rare Disease, Real Kid — MVA Hackathon 2026 (SageBio / Hugging Face)
-**Repository:** `/mnt/scratch/kcwp264/mva-hackathon-2026` → GitHub `Ryukijano/mva-hackathon-2026` (private during hackathon; CC BY 4.0 at close) → HF Hub mirror `Ryukijano/mva-hackathon-2026`
+**Repository:** `/mnt/scratch/kcwp264/mva-hackathon-2026` → GitHub `Ryukijano/mva-hackathon-2026` (public; CC BY 4.0) → HF Hub mirror `Ryukijano/mva-hackathon-2026`
 **Deadline:** 24 Oct 2026, 23:59 UTC. Judging ~2–3 months after close.
-**Record compiled:** 11 Sep 2026, from the full conversation history and repository state.
+**Record compiled:** 11 Sep 2026 (revised 17 Oct 2026), from the full conversation history and repository state.
 
 > **Scope note:** This is a consolidated record of everything done, found, corrected, and decided across the entire project — Track 1 (causal genotype), Track 2 (drug repurposing), the WGS phasing campaign, and the audit trail. It is written to be the single document someone can read to understand the full submission without opening every file.
 
@@ -70,7 +70,7 @@
 1. **Gene:** biallelic *BUB1B* is the founding MVA1 locus (Hanks et al. 2004). Phenotype points at SAC-core genes, not centrosomal MVA genes.
 2. **Architecture:** nonsense/null + hypomorphic pseudokinase missense is the textbook viable MVA1 genotype. Two PTVs would more often be embryonic lethal; homozygous null is lethal. Surviving patients retain residual BUBR1 (**11% ± 3%** in *BubR1^H/H* mice, Baker 2004 — a mouse value, not measured in the proband).
 3. **Allele 1** is a known pathogenic MVA1 stop-gain, functionally in the same class as the canonical `c.2211insGTTA` (one codon away). KEN/ABBA motifs retained but NMD/instability expected.
-4. **Allele 2** sits in the BUBR1 pseudokinase C-lobe, 10 residues from the documented destabilising MVA1 missense **L1012P** (Suijkerbuijk 2010; AF2 PAE distance N1002–L1012 = 3 Å). Predicted to act as a destabilising hypomorph, not a null. AlphaMissense 0.9229 (likely pathogenic); ESM-1v LLR −0.110 (mild) — predictors conflict, and both are reported honestly.
+4. **Allele 2** sits in the BUBR1 pseudokinase C-lobe, 10 residues (`12.32 Å` Euclidean `Cα–Cα` distance; `PAE = 2–3 Å` positional confidence within rigid domain 3, `755–1043`) from the documented destabilising MVA1 missense **L1012P** (Suijkerbuijk 2010). In `AF-O60566-F1-model_v6`, `Asn1002` is the buried C-cap of α-helix `990–1001` forming 3 intramolecular H-bonds (`Trp978:N 2.83 Å`, `Val998:O 2.83 Å`, `Asn1004:O 3.14 Å`). AlphaMissense scores `N1002K` at `0.9229` (`likely_pathogenic`; `18/19 LPath` at residue 1002), whereas ESM-1v LLR is `−0.110` (`−0.0625` in the `1–1022` window; mild in 1D sequence) — predictors conflict, and both are reported honestly.
 5. **Uniqueness:** after AF-key-corrected filtering of the 15-gene panel, only *BUB1B* carried two rare functional alleles. That uniqueness — not an ML ranker — is why the CSV has one row.
 6. **Cancer context:** BUB1B-MVA carries ~37% cancer frequency (early-childhood rhabdomyosarcoma, Wilms, leukaemia) — consistent with the proband's presentation.
 
@@ -143,11 +143,11 @@ The 8 gated FASTQs (~84 GB) were downloaded and realigned (bwa-mem2, name-sort +
 
 Parsimony additionally favors trans: if both coding alleles were cis, the other chromosome would carry no *BUB1B* lesion — inconsistent with MVA1 requiring biallelic impairment.
 
-### Structural evidence supporting the missense allele
+### Structural evidence supporting the alleles (`experiments/2026-10-11_alphafold_bubr1/SUMMARY.md`)
 
-- AF2 pLDDT: L737 = 73.6; N1002 = 91.1; L1012 = 95.3.
-- PAE distances: N1002–L1012 = 3 Å (same structural neighborhood); L737–N1002 = 17 Å.
-- N1002K is in domain 3 (aa 755–1043) — the kinase C-lobe co-localized with L1012P.
+- **AF-O60566-F1 v6 pLDDT:** `L737 = 73.56` (retained `1–736` mean `55.74`; lost `737–1050` mean `82.05`, `85.7% > 70`); `N1002 = 91.06`; `L1012 = 95.31`; `K668 = 30.17` (folds upon binding `PP2A-B56γ` in **PDB `5JJA`**).
+- **PAE vs physical distance:** `PAE(1002, 1012) = 2–3 Å` (high relative confidence inside PAE rigid domain 3, `755–1043`, intra-domain mean PAE `7.69 Å`), whereas physical **Euclidean `Cα–Cα` distance is `12.32 Å`** (same C-lobe subdomain, not in direct atomic contact). Cross-domain PAE (`1–736` ↔ `737–1050`) is `27.7–29.1 Å`, explaining why **PDB `6TLJ`** (APC/C–MCC cryo-EM) resolves only BUBR1 residues `19–345`.
+- **AlphaMissense saturation (`AF-O60566-F1-aa-substitutions.csv`):** `Asn1002` has `18/19` substitutions classified `Likely Pathogenic` (`mean AM = 0.8195`, `N1002K = 0.9229`) due to its 3-H-bond C-cap network (`Trp978:N 2.83 Å`, `Val998:O 2.83 Å`, `Asn1004:O 3.14 Å`), vs `0/19 LPath` at solvent-exposed `Asn1004` (`N1004S = 0.0477`). At `Leu737`, `0/19` substitutions are pathogenic (`mean AM = 0.1865`), and all three near-cognate `UGA` readthrough insertions (`L737W = 0.1503`, `L737R = 0.1888`, `L737C = 0.3217`) are classified `Likely Benign`.
 
 ---
 
@@ -219,10 +219,10 @@ Track 2 is restricted to **existing, market-approved medications**. Statuses: AP
 | EXCL | Anti-target | **Aurora B inhibitors** (barasertib, GSK-1070916) | Error correction | ANTI_TARGET | Would worsen mis-segregation |
 | EXCL | Anti-target | **STING agonists** (ADU-S100) | TMEM173 | ANTI_TARGET | Would amplify neuroinflammation |
 
-### Regulatory audit refresh (10 Sep 2026)
+### Regulatory audit refresh (10 Sep – 18 Oct 2026)
 
-- Ataluren: PTC withdrew the resubmitted NDA **12 Feb 2026** — no live US application. UK licence under active MHRA review post-EU-non-renewal → treat as time-sensitive.
-- Arimoclomol: EU brand is **Meplyffa** (not Miplyffa); CHMP negative opinion Jul 2026 was Zevra's second EU attempt (first MAA withdrawn 2022); re-examination requested within the 15-day window.
+- Ataluren: PTC withdrew the resubmitted NDA **12 Feb 2026** — no live US application. UK licence (`PLGB 44221/0003`, renewed 24 Feb 2026) remains under active MHRA review post-EU-non-renewal (SMC 2827 declined routine NHSScotland use on 8 Jun 2026).
+- Arimoclomol: EU brand is **Meplyffa** (`EMEA/H/C/006736`, not Miplyffa); CHMP negative opinion 23 Jul 2026 was Zevra's second EU attempt (first MAA withdrawn 2022); re-examination requested 5 Aug 2026, formally started at the 14–17 Sep 2026 CHMP plenary, and remained pending on the 12–15 Oct 2026 CHMP agenda (`EMA/CHMP/211366/2026` §3.5.1, no outcome in 16 Oct 2026 highlights).
 - No new stop-codon-readthrough drug approved anywhere since early 2025.
 
 ### Biomarker-gated validation plan (assay → go/no-go)
@@ -433,33 +433,31 @@ src/mva_hackathon/ · scripts/ · tests/ · configs/ · environment.yaml
 
 ---
 
-## 18. Adversarial quality audit (Sept 2026)
+## 17. Adversarial quality audit (Sept – Oct 2026)
 
-Four independent audits (genotype validation, Track 2 scientific review, competition landscape, pipeline false-negative analysis) plus direct locus-level falsifier checks were run against the submission.
+Four independent audits (genotype validation, Track 2 scientific review, competition landscape, pipeline false-negative analysis) plus direct locus-level falsifier and structural checks were run against the submission.
 
-### Track 1 — verdict: unique best-supported pair; one doc error fixed
+### Track 1 — verdict: unique best-supported pair; scorer-confirmed full match at rank 1
 
-- **Complete BUB1B het inventory (8 variants)** cross-checked against all ~100 ClinVar P/LP BUB1B alleles: the proband carries **no other known pathogenic allele** — including every deep-intronic splice variant (c.2386-2, c.2535+195, c.2285-2, c.36-1, c.967-2, c.239+2, c.751+1, c.581+1, c.2851-1, c.2009+1) and the ~44 kb upstream regulatory G>A (Ochiai 2014/Matsuura 2006).
+- **Complete BUB1B het inventory (8 variants)** cross-checked against all ~100 ClinVar P/LP BUB1B alleles: the proband carries **no other known pathogenic allele** — including every deep-intronic splice variant (c.2386-2, c.2535+195, c.2285-2, c.36-1, c.967-2, c.239+2, c.751+1, c.581+1, c.2851-1, c.2009+1) and the ~44 kb upstream regulatory G>A (Matsuura 2006 / Ochiai 2014).
 - **No CNV** (uniform ~46x depth, no 500-bp window deviates), **no SV** (zero symbolic alleles; soft-clip clusters sequence-heterogeneous), **no chr15 isodisomy** (85k hets, normal per-Mb density), **no hidden homozygous allele** (6 hom calls, all AF 0.32–0.999).
 - The intervening SNV `15:40216470 A>G` was reclassified: it is **BUB1B intron 20/22** (not "intergenic" as an earlier memo draft said) and is **absent from gnomAD v4/dbSNP (no rsID)/ClinVar** — a rare deep-intronic variant, SpliceAI DS 0.00, phyloP100way −0.41, ≥884 bp from splice sites. Disclosed as a rare non-coding variant; not a plausible second allele. Full audit: `supplement/track1/locus_falsifier_audit.md`.
 - **Panel-completeness fix:** the original 15-gene panel missed **SLF2 and SMC5** (MVA5/MVA6 Atelis genes, Grange 2022). Post-hoc VEP check: only common missense polymorphisms (AF 0.48/0.88); all rare variants intronic/UTR — no causal candidate. Panel now 17 genes (`atelis` group added to `configs/panel.yaml`).
-- **External re-verification (live):** L737Ter — ClinVar VCV000533901 P/LP multi-submitter (eval 2024-10-09); gnomAD AC=115 exomes, 0 hom; Loftee HC-LoF, 50_BP_RULE:PASS, DIST_FROM_LAST_EXON 742 (canonical NMD substrate); phyloP 2.91. N1002K — ClinVar VUS VCV004600147 via c.3006T>A (our c.3006T>G ClinVar-absent); gnomAD AC=1 exome; SIFT 0.01/PP 0.997/AM 0.9229; phyloP **4.80**; C-lobe of pseudokinase, 10 residues from L1012P.
-- **Upstream regulatory SNP:** exact coordinate chr15:40,117,088 G>A (Ochiai 2014; c.-44133G>A) — no call in proband VCF at 46x depth = homozygous reference. Excluded.
-- **Structural (UniProt O60566 / AlphaFold):** L737Ter deletes the whole pseudokinase domain (750–1045) + C-terminal Cdc20 surface; KEN1/2, D-box, ABBA1/2, TPR, GLEBS, KARD all retained. N1002 is in the ordered C-lobe (945–1040), not the catalytic site.
+- **External re-verification (live):** L737Ter — ClinVar VCV000533901 P/LP multi-submitter (eval 2024-10-09); gnomAD AC=115 exomes, 0 hom; Loftee HC-LoF, 50_BP_RULE:PASS, DIST_FROM_LAST_EXON 742 (747 nt spliced mRNA / ~10.9 kb genomic; canonical NMD substrate); phyloP 2.91. N1002K — ClinVar VUS VCV004600147.1 via c.3006T>A (our c.3006T>G ClinVar-absent); gnomAD AC=1 exome; SIFT 0.01/PP 0.997/AM 0.9229; phyloP **4.80**; C-lobe of pseudokinase, 10 residues (`12.32 Å` `Cα–Cα`) from L1012P.
+- **Upstream regulatory SNP:** exact coordinate chr15:40,117,088 G>A (Matsuura 2006 / Ochiai 2014; c.-44133G>A) — no call in proband VCF at 46x depth = homozygous reference. Excluded.
+- **Structural (UniProt O60566 / AlphaFold v6):** L737Ter deletes the whole pseudokinase domain (`766–1050`; PAE rigid domain `755–1043`); KEN1/2, D-box, ABBA1/2, TPR (`62–226`, **PDB `3SI5`**), GLEBS, and KARD (`668–675`, **PDB `5JJA`**) are retained. N1002 is the buried C-cap of α-helix `990–1001` (`18/19 LPath` in AlphaMissense), not the pseudo-active site.
 - **Residual disclosed limitation:** a truly novel cryptic mechanism below SNV-caller/≤200-bp resolution (small intronic Alu/SVA insertion, pseudoexon) cannot be fully excluded without long-read/RNA-seq.
 
 ### Track 2 — verdict: mechanism correct, lead drug was wrong; fixed
 
-- **The dominant failure mode was under-weighted:** `p.Leu737Ter` is a canonical NMD substrate (PTC ~10 kb upstream of the terminal exon junction), so **ataluren alone has essentially no transcript substrate** — it does not inhibit NMD.
-- **Added amlexanox** (Aphthasol; FDA-approved 5% topical oral paste) as the mechanistically matched Tier 1a option — it is the only approved small molecule with **dual PTC-readthrough + NMD-inhibition (UPF1)** activity, addressing the exact failure mode. Honest caveats: approved only as a topical paste; systemic nonsense-suppression use is off-label/investigational.
+- **The dominant failure mode was under-weighted:** `p.Leu737Ter` is a canonical NMD substrate (PTC 747 nt spliced mRNA / ~10.9 kb genomic upstream of the terminal exon junction), so **ataluren alone has essentially no transcript substrate** — it does not inhibit NMD.
+- **Added amlexanox** (Aphthasol; FDA-approved 5% topical oral paste) as the mechanistically matched Tier 1a option — it is the only approved small molecule with **dual PTC-readthrough + NMD-inhibition (UPF1)** activity, and all three near-cognate `UGA` readthrough insertions at codon 737 (`L737W/R/C`) are classified `Likely Benign` by AlphaMissense (`0.150–0.322`). Honest caveats: approved only as a topical paste; systemic nonsense-suppression use is off-label/investigational.
 - **Filled the supplement-only autophagy tier** with two approved mTORC1-independent inducers: **metformin** (deep paediatric experience) and **rilmenidine** (UK/EU-approved; Bitto 2023).
 - Added the **aneuploidy-as-vulnerability** counterpoint (Cohen-Sharir 2021; KIF18A dependence) so the anti-target exclusions are framed as mechanism-consistent, not one-sided.
 - Candidate CSV gained 3 rows (amlexanox rank 2, metformin, rilmenidine); submission copies synced.
 
-## 17. Outstanding items
+## 18. Outstanding items (pre-close: 24 Oct 2026 23:59 UTC)
 
-1. **Track 2 3-minute pitch video** — the only true blocker. Storyboard ready (`track2/pitch_storyboard.md`); record 1080p, trim to 180 s, upload unlisted (YouTube/Vimeo), include preclinical-disclaimer line, no genomic coordinates on screen.
-2. **Track 1 upload** — one clean shot: CSV + report + GitHub URL + LLM-usage statement (methods xlsx prepared).
-3. **Submission-day re-verification** — ClinVar VCV000533901/VCV004600147 and gnomAD v4 counts; ataluren UK/MHRA status; arimoclomol EU re-examination outcome (all live, time-sensitive).
-4. **Repo public flip** 24–25 Oct; gated data deletion within 30 days of close.
-5. **Optional/nice-to-have:** ClinVar benign-only control for ESM-1v B/LB comparison (partially covered by the 34-missense control); L1000CDS2 re-query under rescue-sort symmetry (currently L2S2-only in rescue run); parental/long-read phasing remains the definitive open scientific follow-up.
+1. **Track 1 upload:** **DONE (12 Sep 2026)** — CSV + report + GitHub URL submitted in one shot; scorer returned full match at rank 1 (`100.0/100` rank points, `F-max 1.000`, `1/6` shots spent).
+2. **Track 2 3-minute pitch video & Space upload:** Programmatic 3-minute pitch video (`video/`, https://github.com/user-attachments/assets/9fbcac33-27c9-40d2-ac94-f2df7fb43884) and updated dossier (`submissions/Ryukijano_track2_report.md`) are complete and QA-checked; ready for final Track 2 form submission (user decision).
+3. **Post-close data hygiene:** Delete all gated genome/FASTQ/VCF/BAM files from AIRE scratch within 30 days of close per the DTA.

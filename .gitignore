@@ -41,6 +41,9 @@ track2/lincs/logs/
 track2/lincs/data/*_expr.csv
 track2/lincs/data/*_degs.csv
 track2/lincs/data/chembl_all_approved_drugs.csv
+figures/out/apcc_mcc_*.pse
+figures/out/pp2a_b56_bubr1.pse
+figures/out/bubr1_kinetochore_complex.pse
 
 # Local agent / chat dumps (may contain secrets or clinical text)
 .cursor/

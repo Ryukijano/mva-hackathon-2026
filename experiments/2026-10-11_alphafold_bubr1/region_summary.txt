@@ -27,6 +27,34 @@ Solvent exposure proxy (CA neighbours within 10 A; higher = more buried):
 
 CA-CA distance 1002-1012: 12.32 A -> within 10 A: False
 
+PAE matrix analysis (1050x1050, A):
+  Global mean PAE: 24.78 A
+  Intra-domain TPR (62-226) mean PAE: 7.20 A
+  Intra-domain C-term lost (737-1050) mean PAE: 8.04 A
+  Intra-domain pseudokinase (766-1050) mean PAE: 7.69 A
+  Cross-domain (1-736 -> 737-1050) mean PAE: 29.05 A (reverse 27.65 A)
+  Pair (1002, 1012): PAE(1002->1012)=3.0 A, PAE(1012->1002)=2.0 A, CA-CA=12.32 A
+  Pair (814, 1002): PAE(814->1002)=6.0 A, PAE(1002->814)=5.0 A, CA-CA=27.96 A
+  Pair (814, 1012): PAE(814->1012)=4.0 A, PAE(1012->814)=3.0 A, CA-CA=18.31 A
+  Pair (737, 1002): PAE(737->1002)=17.0 A, PAE(1002->737)=7.0 A, CA-CA=37.88 A
+  Pair (668, 737): PAE(668->737)=29.0 A, PAE(737->668)=27.0 A, CA-CA=104.05 A
+
+AlphaFold DB AlphaMissense saturation summary (AF-O60566-F1-aa-substitutions.csv):
+  Residues 1-736 mean AM: 0.3989 (LPath fraction 0.291)
+  Residues 737-1050 mean AM: 0.4341 (LPath fraction 0.320)
+  Residues 766-1050 (pseudokinase) mean AM: 0.4472 (LPath fraction 0.336)
+  Pos  668 (K): mean AM=0.6648, LPath=13/19, LBen= 2/19
+  Pos  737 (L): mean AM=0.1865, LPath= 0/19, LBen=18/19
+  Pos  739 (A): mean AM=0.1618, LPath= 0/19, LBen=18/19
+  Pos  814 (R): mean AM=0.5622, LPath=10/19, LBen= 5/19
+  Pos 1002 (N): mean AM=0.8195, LPath=18/19, LBen= 0/19
+  Pos 1004 (N): mean AM=0.1587, LPath= 0/19, LBen=17/19
+  Pos 1012 (L): mean AM=0.7915, LPath=16/19, LBen= 2/19
+  UGA near-cognate readthrough products at L737Ter:
+    L737C: AM=0.3217 (LBen)
+    L737R: AM=0.1888 (LBen)
+    L737W: AM=0.1503 (LBen)
+
 UniProt O60566 region/motif/domain/disorder annotations (live REST check):
   Domain 62-226 BUB1 N-terminal
   Domain 766-1050 Protein kinase

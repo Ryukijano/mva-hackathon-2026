@@ -25,8 +25,8 @@ Code, reports, and figures for
 [SageBio/rare-disease-real-kid-mva-hackathon-2026](https://huggingface.co/spaces/SageBio/rare-disease-real-kid-mva-hackathon-2026).
 
 - **HF user:** [Ryukijano](https://huggingface.co/Ryukijano)
-- **GitHub:** https://github.com/Ryukijano/mva-hackathon-2026 (public at hackathon close)
-- **Campaign wrap-up:** [`WHAT_WE_DID.md`](WHAT_WE_DID.md)
+- **GitHub:** https://github.com/Ryukijano/mva-hackathon-2026 (public; CC BY 4.0)
+- **Campaign wrap-up:** [`WHAT_WE_DID.md`](WHAT_WE_DID.md) · **Structural & pLM addendum:** [`docs/structure_and_plm_addendum_2026-10-11.md`](docs/structure_and_plm_addendum_2026-10-11.md)
 
 ![Track 2 pitch title card](figures/readme/poster.png)
 
@@ -51,26 +51,27 @@ MVA/Atelis panel to rare functional alleles, **only *BUB1B* carried two hits**:
 
 | Allele | GRCh38 | HGVS (NM_001211.6) | Evidence |
 |---|---|---|---|
-| 1 | `chr15:40,209,701 T>G` | `c.2210T>G` `p.Leu737Ter` | ClinVar **Pathogenic/Likely pathogenic** for MVA1 ([VCV000533901](https://www.ncbi.nlm.nih.gov/clinvar/variation/533901/), multi-submitter); gnomAD AC≈120 exomes, 0 homozygotes; LOFTEE HC-LoF, `50_BP_RULE:PASS` — canonical NMD substrate |
-| 2 | `chr15:40,220,612 T>G` | `c.3006T>G` `p.Asn1002Lys` | gnomAD singleton (AC=1, AF 6.8e-07); SIFT 0.01 / PolyPhen 0.997 / AlphaMissense **0.9229**; phyloP100way **4.80**; same protein change is a ClinVar VUS via `c.3006T>A`; this `T>G` allele is ClinVar-absent |
+| 1 | `chr15:40,209,701 T>G` | `c.2210T>G` `p.Leu737Ter` | ClinVar **Pathogenic/Likely pathogenic** for MVA1 ([VCV000533901](https://www.ncbi.nlm.nih.gov/clinvar/variation/533901/), multi-submitter); gnomAD v4 AC=115 exomes (`AF 7.87e-05`), AC=5 genomes, 0 homozygotes; LOFTEE HC-LoF, `50_BP_RULE:PASS` (747 nt spliced mRNA / ~10.9 kb genomic upstream of last EJC) — canonical NMD substrate; [AlphaGenome Atlas (AVI Phred 33.76)](https://alphagenome.models.deepmind.com/?variant=chr15%3A40209701%3AT%3EG) |
+| 2 | `chr15:40,220,612 T>G` | `c.3006T>G` `p.Asn1002Lys` | gnomAD v4 singleton (AC=1 exome, `AF 6.84e-07`, `rs2542593804`); SIFT 0.01 / PolyPhen 0.997 / AlphaMissense **0.9229** (`18/19 LPath` at residue 1002); phyloP100way **4.80**; same protein change is a ClinVar VUS via `c.3006T>A` ([VCV004600147.1](https://www.ncbi.nlm.nih.gov/clinvar/variation/4600147/)); this `T>G` allele is ClinVar-absent; [AlphaGenome Atlas (AVI Phred 25.61)](https://alphagenome.models.deepmind.com/?variant=chr15%3A40220612%3AT%3EG) |
 
 EPCR `0.95`, `finding_type=primary`, one row. The truncating + hypomorphic
 missense architecture is the canonical *viable* MVA1 pattern (Hanks 2004;
 biallelic null is embryonic lethal). Read-backed phasing was **unresolved**
 (10.9 kb gap ≫ 1.3 kb max insert — a structural short-read limit, not evidence
 against *trans*); the scorer's full match resolves the primary call as
-compound-het *in trans*.
+compound-het *in trans* against the hackathon ground truth.
+
+![4-panel AlphaFold v6, PAE, Saturation AlphaMissense & Pathway Interactome Proof](figures/out/bubr1_alphafold_structural_proof.png)
 
 <p align="center">
   <img src="figures/out/bubr1_L737Ter_truncation.png" width="49%" alt="BUBR1 p.Leu737Ter truncation map"/>
   <img src="figures/readme/clobe_rotate_readme.gif" width="45%" alt="Rotating view of the C-lobe variants"/>
 </p>
 
-*Left — AlphaFold O60566, BUBR1. Cyan: residues 1–736 retained by the stop-gain
-allele (all SAC degron motifs, TPR, GLEBS, KARD). Salmon: residues 737–1050 lost —
-the entire C-terminal kinase domain. Right — the C-lobe in 3D. Red: p.Asn1002Lys
-(this proband). Orange: the p.Leu1012Pro literature comparator, 10 residues away
-on the same αG helix.*
+*Left — AlphaFold DB v6 (`AF-O60566-F1`), BUBR1. Teal/navy: residues 1–736 retained by the stop-gain
+allele (all SAC degron motifs, TPR `62–226` [`PDB 3SI5`], GLEBS, and KARD `668–675` [`PDB 5JJA`]). Salmon: residues 737–1050 lost —
+the entire folded C-terminal pseudokinase domain (`mean pLDDT = 82.05`, `85.7% > 70`). Right — the C-lobe in 3D. Red: `p.Asn1002Lys`
+(this proband; buried C-cap of α-helix `990–1001` forming 3 H-bonds to `Trp978:N 2.83 Å`, `Val998:O 2.83 Å`, `Asn1004:O 3.14 Å`). Orange: the `p.Leu1012Pro` MVA1 literature comparator in neighboring α-helix `1008–1020`, `12.32 Å` (`Cα–Cα`) away (`PAE = 2–3 Å`).*
 
 ## How we checked ourselves
 

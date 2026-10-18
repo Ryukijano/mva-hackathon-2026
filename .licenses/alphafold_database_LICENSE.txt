@@ -1,0 +1,1 @@
+Notified 2026-10-17: user must review AlphaFold Protein Structure Database terms at https://alphafold.ebi.ac.uk/ (CC BY 4.0) before use.

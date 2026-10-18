@@ -93,7 +93,7 @@ Hedging does not help: extra secondary rows cannot raise F-max above the primary
 | Residual BUBR1 in the child? | Never measured; mouse *H/H* = 11% ± 3% | Quoted as mouse value only |
 | Could anything else be causal? | MVA2 = CEP57 (Snape 2011), MVA3 = TRIP13; centromere/centrosome genes in the panel | Filtered out by rarity/consequence; no competing pair |
 
-**Corrections applied today (before submission):** "novel missense" → ClinVar VUS via `c.3006T>A` (VCV004600147.1); "absent from gnomAD" → gnomAD v4 counts for both alleles (1 exome allele for N1002K; ~120 alleles for L737Ter, recessive-compatible); residual "~5–10%" → "11% ± 3% (Baker 2004, mouse)". All three changes make the write-up *more* defensible — a judge checking ClinVar or gnomAD will find exactly what we now state.
+**Corrections applied (before submission):** "novel missense" → ClinVar VUS via `c.3006T>A` (VCV004600147.1); "absent from gnomAD" → gnomAD v4 counts for both alleles (1 exome allele for N1002K; AC=115 exome / AC=5 genome alleles for L737Ter, recessive-compatible); residual "~5–10%" → "11% ± 3% (Baker 2004, mouse)". All three changes make the write-up *more* defensible — a judge checking ClinVar or gnomAD will find exactly what we now state.
 
 ---
 
