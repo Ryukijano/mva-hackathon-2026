@@ -161,7 +161,6 @@ bash scripts/setup_references.sh
 
 python scripts/run_track1.py \
   --vcf data/<proband_wgs>.vcf.gz \
-  --pheno data/Challenge_Clinical_Phenotype_1.docx \
   -o submissions/Ryukijano_bub1b-compoundhet.csv
 python -m pytest tests/ -q          # 39 tests incl. the scorer clone
 

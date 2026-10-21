@@ -4,12 +4,7 @@ max_submission_rows: 10
 
 filter:
   gnomad_max_af: 0.001
-  spliceai_min_delta: 0.2
-  spliceai_high_delta: 0.5
   popeve_severe: -5.056
-  alphamissense_benign: 0.34       # AlphaMissense likely benign cutoff
-  alphamissense_likely_pathogenic: 0.564  # AlphaMissense likely pathogenic cutoff
-  cadd_min: 20
 
 scoring:
   missense_pop_weight: 0.7

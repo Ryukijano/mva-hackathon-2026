@@ -21,5 +21,4 @@ mkdir -p "${PROJECT}/results"
 
 python "${PROJECT}/scripts/run_track1.py" \
   --vcf "${PROJECT}/data/WGS_EX2312012_HGWCNDSX7.vcf.gz" \
-  --pheno "${PROJECT}/data/Challenge_Clinical_Phenotype_1.docx" \
   -o "${PROJECT}/results/track1_primary.csv"

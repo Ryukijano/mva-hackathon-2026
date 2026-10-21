@@ -8,7 +8,6 @@ from pathlib import Path
 
 import yaml
 
-from mva_hackathon.data.pheno import parse_docx
 from mva_hackathon.panel import all_panel_genes, load_panel
 from mva_hackathon.utils.paths import load_paths
 from mva_hackathon.variants.filter import keep_candidate
@@ -48,8 +47,6 @@ def score_variant(record: dict, config: dict) -> float:
 
 def build_rows(
     variants: list[dict],
-    pheno: dict,
-    panel: dict,
     config: dict,
 ) -> list[dict]:
     """Generate ranked CSV rows from scored, filtered variants.
@@ -110,7 +107,6 @@ def build_rows(
 
 def run_track1(
     vcf: Path,
-    pheno: Path | None,
     output: Path,
     config: dict,
     paths: dict,
@@ -173,11 +169,8 @@ def run_track1(
                 v.update(splice_scores[key])
                 v["pathogenicity"] = score_variant(v, config)
 
-    # 5. Parse phenotype
-    pheno_data = parse_docx(pheno) if pheno and pheno.exists() else {"hpo_terms": [], "cancer_mentioned": False}
-
-    # 6. Pair and write
-    rows = build_rows(candidates, pheno_data, panel, config)
+    # 5. Pair and write
+    rows = build_rows(candidates, config)
     write_submission(rows, output, proband_id="PROBAND01")
     print(f"Wrote {len(rows)} rows to {output}")
 
@@ -185,7 +178,9 @@ def run_track1(
 def _write_candidate_vcf(candidates: list[dict], path: Path) -> None:
     """Write a minimal VCF from the candidate list for SpliceAI."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    contigs = sorted({str(v["CHROM"]).lstrip("chr") for v in candidates})
+    # Contig headers must match the CHROM strings used in the body exactly,
+    # otherwise SpliceAI emits scores keyed to contigs we cannot join back.
+    contigs = sorted({str(v["CHROM"]) for v in candidates})
     with open(path, "w") as fh:
         fh.write("##fileformat=VCFv4.2\n")
         for c in contigs:
@@ -200,7 +195,6 @@ def _write_candidate_vcf(candidates: list[dict], path: Path) -> None:
 def main(argv=None):
     parser = argparse.ArgumentParser(description="MVA Track 1 compound-het pipeline")
     parser.add_argument("--vcf", required=True, type=Path, help="Input proband VCF")
-    parser.add_argument("--pheno", type=Path, help="Challenge_Clinical_Phenotype_1.docx")
     parser.add_argument("--config", type=Path, default=None)
     parser.add_argument("--paths", type=Path, default=None)
     parser.add_argument("-o", "--output", type=Path, required=True)
@@ -214,7 +208,7 @@ def main(argv=None):
     paths = load_paths(paths_path)
     panel = load_panel(project_root / "configs" / "panel.yaml")
 
-    run_track1(args.vcf, args.pheno, args.output, config, paths, panel)
+    run_track1(args.vcf, args.output, config, paths, panel)
 
 
 if __name__ == "__main__":

@@ -70,11 +70,13 @@ def parse_vep_vcf(vcf_path: str | Path) -> Iterator[dict[str, Any]]:
             # Type-cast numeric scores. The VEP EVE plugin can emit
             # popEVE, popEVE_SCORE, or popEVE_pop_adjusted_EVE depending on the
             # plugin version and input file; we try them in order of preference.
-            record["popEVE"] = (
-                _as_float(record.get("popEVE"))
-                or _as_float(record.get("popEVE_SCORE"))
-                or _as_float(record.get("popEVE_pop_adjusted_EVE"))
-            )
+            # A legitimate 0.0 must not be skipped, so test explicitly for None.
+            record["popEVE"] = None
+            for key in ("popEVE", "popEVE_SCORE", "popEVE_pop_adjusted_EVE"):
+                value = _as_float(record.get(key))
+                if value is not None:
+                    record["popEVE"] = value
+                    break
             record["am_pathogenicity"] = _as_float(record.get("am_pathogenicity"))
             record["gnomADg_AF"] = _as_float(record.get("gnomADg_AF"))
             record["gnomADe_AF"] = _as_float(record.get("gnomADe_AF"))
